@@ -36,7 +36,6 @@ public class Player : MonoBehaviour
     }
     private void DragStart()
     {
-        Debug.Log("Drag Start");
         dragStartPos = Camera.main.ScreenToWorldPoint(touch.position);
         dragStartPos.z = 0f;
         lr.positionCount = 1;
@@ -44,7 +43,6 @@ public class Player : MonoBehaviour
     }
     private void Dragging()
     {
-        Debug.Log("Dragging");
         Vector3 draggingPos = Camera.main.ScreenToWorldPoint(touch.position);
         dragStartPos.z = 0f;
         lr.positionCount = 2;
@@ -52,7 +50,6 @@ public class Player : MonoBehaviour
     }
     private void DragRealease()
     {
-        Debug.Log("Drag Realease");
         lr.positionCount = 0;
 
         Vector3 dragReleasePos = Camera.main.ScreenToWorldPoint(touch.position);
