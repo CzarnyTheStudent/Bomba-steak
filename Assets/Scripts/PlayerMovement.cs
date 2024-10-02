@@ -1,9 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Drawing;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Player : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     public float power = 10f;
     public float maxDrag = 5f;
@@ -31,8 +28,6 @@ public class Player : MonoBehaviour
                 DragRealease();
             }
         }
-
-
     }
     private void DragStart()
     {
