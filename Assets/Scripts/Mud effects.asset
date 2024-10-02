@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29d8484976014784eaf760bc11455900, type: 3}
+  m_Name: Mud effects
+  m_EditorClassIdentifier: 
+  terrainParticle: {fileID: 3313812373775484691, guid: ca95ca137644c474baceff00e43400e0,
+    type: 3}
+  sound: {fileID: 0}
