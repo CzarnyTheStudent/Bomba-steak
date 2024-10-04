@@ -2,6 +2,7 @@ using UnityEngine.Events;
 
 public static class EventManager
 {
+    //Timer events
     public static event UnityAction TimerStart;
     public static event UnityAction TimerStop;
     public static event UnityAction<float> TimerUpdate;

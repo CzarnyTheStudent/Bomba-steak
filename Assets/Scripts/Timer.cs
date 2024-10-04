@@ -9,14 +9,10 @@ public class Timer : MonoBehaviour
     public TMP_Text _timerText;
     enum TimerType {Countdown, Stopwatch}
     [SerializeField] private TimerType timerType;
-
-    [SerializeField] private float timeToDisplay = 0.0f;
-
+    private float timeToDisplay = 0.0f;
     [SerializeField] private bool _isRunning;
 
     #endregion
-    
-    //private void Awake() => _timerText = GetComponent<TMP_Text>();
 
     private void OnEnable()
     {
