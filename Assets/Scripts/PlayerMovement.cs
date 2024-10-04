@@ -7,50 +7,59 @@ public class PlayerMovement : MonoBehaviour
     public Rigidbody2D rb;
     public LineRenderer lr;
 
-    Vector3 dragStartPos;
-    Touch touch;
+    private Vector3 dragStartPos;
+    private bool isDragging = false;
 
     private void Update()
     {
         if (Input.touchCount > 0)
         {
-            touch = Input.GetTouch(0);
-            if (touch.phase == TouchPhase.Began)
+            Touch touch = Input.GetTouch(0);
+            Vector3 touchPos = Camera.main.ScreenToWorldPoint(touch.position);
+            touchPos.z = 0f;
+
+            if (touch.phase == TouchPhase.Began && IsTouchOnObject(touchPos))
             {
-                DragStart();
+                DragStart(touchPos);
             }
-            if (touch.phase == TouchPhase.Moved)
+            if (isDragging && touch.phase == TouchPhase.Moved)
             {
-                Dragging();
+                Dragging(touchPos);
             }
-            if (touch.phase == TouchPhase.Ended)
+            if (isDragging && touch.phase == TouchPhase.Ended)
             {
-                DragRealease();
+                DragRelease(touchPos);
             }
         }
     }
-    private void DragStart()
+
+    private bool IsTouchOnObject(Vector3 touchPos)
     {
-        dragStartPos = Camera.main.ScreenToWorldPoint(touch.position);
-        dragStartPos.z = 0f;
+        // Sprawdza, czy dotknięcie rozpoczęło się w obrębie obiektu
+        Collider2D collider = GetComponent<Collider2D>();
+        return collider == Physics2D.OverlapPoint(touchPos);
+    }
+
+    private void DragStart(Vector3 touchPos)
+    {
+        isDragging = true;
+        dragStartPos = touchPos;
         lr.positionCount = 1;
         lr.SetPosition(0, dragStartPos);
     }
-    private void Dragging()
+
+    private void Dragging(Vector3 touchPos)
     {
-        Vector3 draggingPos = Camera.main.ScreenToWorldPoint(touch.position);
-        dragStartPos.z = 0f;
         lr.positionCount = 2;
-        lr.SetPosition(1, draggingPos);
+        lr.SetPosition(1, touchPos);
     }
-    private void DragRealease()
+
+    private void DragRelease(Vector3 touchPos)
     {
+        isDragging = false;
         lr.positionCount = 0;
 
-        Vector3 dragReleasePos = Camera.main.ScreenToWorldPoint(touch.position);
-        dragStartPos.z = 0f;
-
-        Vector3 force = dragStartPos - dragReleasePos;
+        Vector3 force = dragStartPos - touchPos;
         Vector3 clampedForce = Vector3.ClampMagnitude(force, maxDrag) * power;
         rb.AddForce(clampedForce, ForceMode2D.Impulse);
     }

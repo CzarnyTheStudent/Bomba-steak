@@ -1,48 +1,57 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class TerrainParticles : MonoBehaviour
 {
     public terrainEffectData tInter;
-    private TerrainEffect _tEffect;
+    private ParticleSystem _particleInst;
 
     // Słownik przechowujący cząsteczki dla różnych terenów
     private Dictionary<TerrainEffect.TerrainType, ParticleSystem> terrainParticlesDict;
 
     private void Start()
     {
-        _tEffect = GetComponent<TerrainEffect>();
+        
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            ContactPoint2D contact = collision.contacts[0]; 
-            Vector2 collisionPosition = contact.point; 
-                
+            ContactPoint2D contact = collision.contacts[0];
+            Vector2 collisionPosition = contact.point;
+
             if (tInter.terrainParticle != null)
             {
+                if (!_particleInst)
+                {
+                    Destroy(_particleInst);
+                }
                 ParticleSystem particleGameobject = Instantiate(tInter.terrainParticle.gameObject, collisionPosition, Quaternion.identity).GetComponent<ParticleSystem>();
-                particleGameobject.Play(); 
+                _particleInst = particleGameobject;
+                particleGameobject.Play();
             }
         }
+    }
+
+    void OnCollisionStay2D(Collision2D collisionInfo)
+    {
+
+            ContactPoint2D contact = collisionInfo.contacts[0];
+            Vector2 collisionPosition = contact.point;
+            _particleInst.transform.position = collisionPosition;
+
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            DeactivateParticles(); // Wyłączenie cząsteczek przy opuszczeniu terenu
-        }
-    }
-
-    private void DeactivateParticles()
-    {
-        if (tInter.terrainParticle != null)
-        {
-            tInter.terrainParticle.Stop(); // Zatrzymanie aktywnych cząsteczek
+            if (tInter.terrainParticle != null)
+            {
+                tInter.terrainParticle.Stop(); 
+                Destroy(_particleInst);
+            }
         }
     }
 }
