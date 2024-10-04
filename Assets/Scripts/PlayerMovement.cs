@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector3 dragStartPos;
     private bool isDragging = false;
+    private int dragEndCount = 0;
 
     private void Update()
     {
@@ -35,7 +36,6 @@ public class PlayerMovement : MonoBehaviour
 
     private bool IsTouchOnObject(Vector3 touchPos)
     {
-        // Sprawdza, czy dotknięcie rozpoczęło się w obrębie obiektu
         Collider2D collider = GetComponent<Collider2D>();
         return collider == Physics2D.OverlapPoint(touchPos);
     }
@@ -57,10 +57,16 @@ public class PlayerMovement : MonoBehaviour
     private void DragRelease(Vector3 touchPos)
     {
         isDragging = false;
+        dragEndCount++; 
         lr.positionCount = 0;
 
         Vector3 force = dragStartPos - touchPos;
         Vector3 clampedForce = Vector3.ClampMagnitude(force, maxDrag) * power;
         rb.AddForce(clampedForce, ForceMode2D.Impulse);
+    }
+    
+    public int GetRegisterDragEnd()
+    {
+        return dragEndCount;
     }
 }

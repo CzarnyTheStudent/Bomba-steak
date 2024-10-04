@@ -29,7 +29,12 @@ public class Timer : MonoBehaviour
     }
 
     private void EventManagerOnTimerStart() => _isRunning = true;
-    private void EventManagerOnTimerStop() => _isRunning = false;
+
+    private void EventManagerOnTimerStop()
+    {
+        _isRunning = false;
+    }
+
     private void EventManagerOnTimerUpdate(float value) => timeToDisplay += value;
     
     private void Update()
@@ -45,5 +50,6 @@ public class Timer : MonoBehaviour
 
         TimeSpan timeSpan = TimeSpan.FromSeconds(timeToDisplay);
         _timerText.text = timeSpan.ToString(@"mm\:ss\:ff");
+        EventManager.OnTimeCheck(timeToDisplay);
     }
 }
