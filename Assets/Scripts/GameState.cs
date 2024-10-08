@@ -5,81 +5,58 @@ public class GameState : MonoBehaviour
 {
     public static GameState Instance { get; private set; }
 
-    public enum Mode
-    {
-        None,
-        Singleplayer,
-        Multiplayer
-    }
+    public enum Mode {Singleplayer, Multiplayer}
 
-    private Mode currentMode = Mode.None;
+    public bool gameOver;
 
-    // Events to notify when the game state changes
+    private Mode currentMode = Mode.Singleplayer;
+
     public event UnityAction<Mode> OnModeChanged;
 
     public Mode CurrentMode => currentMode;
 
     private void Awake()
     {
-        // Singleton pattern enforcement
+       
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // Ensure the instance persists across scenes
+            DontDestroyOnLoad(gameObject); 
         }
         else
         {
-            Destroy(gameObject); // Prevent multiple instances
+            Destroy(gameObject); 
         }
     }
 
-    // Method to set the game mode
+   
     public void SetGameMode(Mode mode)
     {
         if (currentMode != mode)
         {
             currentMode = mode;
-            OnModeChanged?.Invoke(currentMode);  // Trigger mode change event
+            OnModeChanged?.Invoke(currentMode);  
         }
-    }
-
-    // Method to start Singleplayer mode
-    public void StartSingleplayer()
-    {
-        SetGameMode(Mode.Singleplayer);
-        EventManager.OnTimerStart(); // Start the timer in singleplayer
-    }
-
-    // Method to start Multiplayer mode
-    public void StartMultiplayer()
-    {
-        SetGameMode(Mode.Multiplayer);
-        EventManager.OnTimerStart(); // Start the timer in multiplayer
     }
     
     public void StopGame()
     {
-        if (currentMode != Mode.None)
-        {
-            EventManager.OnTimerStop(); // Stop the timer
-            OnModeChanged?.Invoke(Mode.None);  // Reset game state
-            currentMode = Mode.None;
-        }
+        EventManager.OnTimerStop(); 
     }
 
-    // Check the game mode and update the timer
+   
     public void UpdateTimer(float time)
     {
         EventManager.OnTimerUpdate(time);
-        EventManager.OnTimeCheck(time); // Trigger the time check event
+        EventManager.OnTimeCheck(time); 
 
         if (currentMode == Mode.Singleplayer)
         {
-            // Add singleplayer-specific logic if needed
+            // Add singleplayer-specific logic 
         }
         else if (currentMode == Mode.Multiplayer)
         {
-            // Add multiplayer-specific logic if needed
+            // Add multiplayer-specific logic
         }
     }
 }

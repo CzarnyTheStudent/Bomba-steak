@@ -6,7 +6,7 @@ public class Finish : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            EventManager.OnTimerStop();
+            GameState.Instance.StopGame();
         }
     }
 }

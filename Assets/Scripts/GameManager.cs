@@ -7,10 +7,14 @@ public class GameManager : MonoBehaviour
 {
     [Header("Time Setup")]
     [SerializeField]private float setTimeOnLevel;
+    [SerializeField]private GameState.Mode mode;
+    private GameState gameState;
 
     private void Awake()
     {
         SceneManager.LoadSceneAsync("UI", LoadSceneMode.Additive);
+        gameState = GameState.Instance;
+        gameState.SetGameMode(mode);
     }
 
     void Start()
