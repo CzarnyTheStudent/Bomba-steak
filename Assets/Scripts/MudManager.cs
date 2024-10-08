@@ -9,11 +9,6 @@ public class TerrainParticles : MonoBehaviour
     // Słownik przechowujący cząsteczki dla różnych terenów
     private Dictionary<TerrainEffect.TerrainType, ParticleSystem> terrainParticlesDict;
 
-    private void Start()
-    {
-        
-    }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))

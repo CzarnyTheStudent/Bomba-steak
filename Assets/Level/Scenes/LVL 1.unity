@@ -151,7 +151,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 168e03aaf3f59444383adb4ee88dee45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameOver: 0
 --- !u!4 &196103196
 Transform:
   m_ObjectHideFlags: 0
@@ -1270,6 +1269,12 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1717440961}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!1 &1211698440 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1075129244251810972, guid: 4cd6e8e1fd84820418954c12f3e77a7d,
+    type: 3}
+  m_PrefabInstance: {fileID: 5546476578497116855}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1621876471
 GameObject:
   m_ObjectHideFlags: 0
@@ -1300,7 +1305,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   setTimeOnLevel: 30
-  mode: 0
+  saveOnLevel: {fileID: 11400000, guid: fcf06a8cb1d3e2341ac015b7e1c2fba4, type: 2}
+  player: {fileID: 1211698440}
 --- !u!4 &1621876473
 Transform:
   m_ObjectHideFlags: 0
@@ -1557,6 +1563,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 520055657290062531, guid: 4cd6e8e1fd84820418954c12f3e77a7d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1075129244251810972, guid: 4cd6e8e1fd84820418954c12f3e77a7d,
         type: 3}
       propertyPath: m_Name
@@ -1671,13 +1682,13 @@ PrefabInstance:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 860807920}
-  - {fileID: 489255241}
   - {fileID: 832575519}
-  - {fileID: 410087041}
+  - {fileID: 489255241}
+  - {fileID: 860807920}
   - {fileID: 1621876473}
+  - {fileID: 196103196}
   - {fileID: 330585546}
+  - {fileID: 410087041}
   - {fileID: 1717440961}
   - {fileID: 5546476578497116855}
   - {fileID: 652066409991187708}
-  - {fileID: 196103196}

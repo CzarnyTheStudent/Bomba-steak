@@ -30,7 +30,10 @@ public class Timer : MonoBehaviour
 
     private void EventManagerOnTimerStart() => _isRunning = true;
 
-    private void EventManagerOnTimerStop() => _isRunning = false;
+    private void EventManagerOnTimerStop()
+    {
+        _isRunning = false;
+    }
 
     private void EventManagerOnTimerUpdate(float value) => timeToDisplay += value;
     
@@ -39,8 +42,7 @@ public class Timer : MonoBehaviour
         if (!_isRunning) return;
         if (timerType == TimerType.Countdown && timeToDisplay < 0.0f)
         {
-            EventManager.OnTimerStop();
-            EventManager.OnGameOver();
+            GameMediator.Instance.NotifyGameEnd(false);
             return;
         }
         

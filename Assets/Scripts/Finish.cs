@@ -7,8 +7,7 @@ public class Finish : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            GameState.Instance.StopGame();
-            EventManager.OnGameOverPlayerWin(true);
+            GameMediator.Instance.NotifyGameEnd(true);
         }
     }
 }
