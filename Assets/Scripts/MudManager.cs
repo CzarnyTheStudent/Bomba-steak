@@ -27,20 +27,18 @@ public class TerrainParticles : MonoBehaviour
                 {
                     Destroy(_particleInst);
                 }
-                ParticleSystem particleGameobject = Instantiate(tInter.terrainParticle.gameObject, collisionPosition, Quaternion.identity).GetComponent<ParticleSystem>();
-                _particleInst = particleGameobject;
-                particleGameobject.Play();
+                ParticleSystem particleGameobj = Instantiate(tInter.terrainParticle.gameObject, collisionPosition, Quaternion.identity).GetComponent<ParticleSystem>();
+                _particleInst = particleGameobj;
+                particleGameobj.Play();
             }
         }
     }
 
     void OnCollisionStay2D(Collision2D collisionInfo)
     {
-
             ContactPoint2D contact = collisionInfo.contacts[0];
             Vector2 collisionPosition = contact.point;
             _particleInst.transform.position = collisionPosition;
-
     }
 
     private void OnCollisionExit2D(Collision2D collision)
