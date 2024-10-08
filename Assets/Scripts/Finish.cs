@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Finish : MonoBehaviour
 {
@@ -7,6 +8,7 @@ public class Finish : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             GameState.Instance.StopGame();
+            EventManager.OnGameOverPlayerWin(true);
         }
     }
 }

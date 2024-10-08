@@ -42,13 +42,13 @@ public class GameState : MonoBehaviour
     public void StopGame()
     {
         EventManager.OnTimerStop(); 
+        EventManager.OnGameOver();
     }
 
    
     public void UpdateTimer(float time)
     {
         EventManager.OnTimerUpdate(time);
-        EventManager.OnTimeCheck(time); 
 
         if (currentMode == Mode.Singleplayer)
         {

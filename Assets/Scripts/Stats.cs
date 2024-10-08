@@ -1,32 +1,28 @@
-using System;
 using UnityEngine;
 
-public class Stats : MonoBehaviour
+[CreateAssetMenu(fileName = "NewStats", menuName = "Stats/PlayerStats")]
+public class Stats : ScriptableObject
 {
-    private float totalTime = 0f; // Czas całkowity
+    public string totalTime = "";
+    public int dragCount = 0;
 
-    private void OnEnable()
+    public void UpdateTotalTime(string additionalTime)
     {
-        EventManager.TimerStop += EventManagerOnTimerStop;
-        EventManager.TimeCheck += OnTimeCheck;
+        totalTime += additionalTime;
     }
 
-    private void OnDisable()
+    public string GetTotalTime()
     {
-        EventManager.TimerStop -= EventManagerOnTimerStop;
-        EventManager.TimeCheck -= OnTimeCheck;
+        return totalTime;
     }
-    
-    private void OnTimeCheck(float time)
+   
+    public void UpdateDragCount(int newDragCount)
     {
-        totalTime = time; // Ustawiamy całkowity czas na podstawie eventu
-    }
-
-    private void EventManagerOnTimerStop()
-    {
-        int dragCount = FindObjectOfType<PlayerMovement>().GetRegisterDragEnd();
-        Debug.Log("Pozostały czas gry: " + totalTime);
-        Debug.Log("Łączna liczba przeciągnięć: " + dragCount);
+        dragCount = newDragCount;
     }
 
+    public int GetDragCount()
+    {
+        return dragCount;
+    }
 }

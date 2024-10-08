@@ -6,7 +6,7 @@ public class Timer : MonoBehaviour
 {
     #region Variables
 
-    public TMP_Text _timerText;
+    public TMP_Text timerText;
     enum TimerType {Countdown, Stopwatch}
     [SerializeField] private TimerType timerType;
     private float timeToDisplay = 0.0f;
@@ -30,10 +30,7 @@ public class Timer : MonoBehaviour
 
     private void EventManagerOnTimerStart() => _isRunning = true;
 
-    private void EventManagerOnTimerStop()
-    {
-        _isRunning = false;
-    }
+    private void EventManagerOnTimerStop() => _isRunning = false;
 
     private void EventManagerOnTimerUpdate(float value) => timeToDisplay += value;
     
@@ -43,13 +40,13 @@ public class Timer : MonoBehaviour
         if (timerType == TimerType.Countdown && timeToDisplay < 0.0f)
         {
             EventManager.OnTimerStop();
+            EventManager.OnGameOver();
             return;
         }
         
         timeToDisplay += timerType == TimerType.Countdown ? -Time.deltaTime : Time.deltaTime;
 
         TimeSpan timeSpan = TimeSpan.FromSeconds(timeToDisplay);
-        _timerText.text = timeSpan.ToString(@"mm\:ss\:ff");
-        EventManager.OnTimeCheck(timeToDisplay);
+        timerText.text = timeSpan.ToString(@"mm\:ss\:ff");
     }
 }
