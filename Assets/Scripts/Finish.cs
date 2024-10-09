@@ -1,3 +1,4 @@
+using GameTools;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -7,7 +8,7 @@ public class Finish : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            GameMediator.Instance.NotifyGameEnd(true);
+            GameEndNotifier.Instance.NotifyGameEnd(true);
         }
     }
 }

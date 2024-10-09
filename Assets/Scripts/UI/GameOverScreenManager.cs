@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using GameTools;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -13,29 +14,30 @@ public class GameOverScreenManager : MonoBehaviour
     [SerializeField] private GameObject levelSelectionButton;
     [Header("Timer")]
     [SerializeField] private TMP_Text timerGameOverTime;
+    [SerializeField] private TMP_Text dragCount;
     public Timer timer;
    
     void Start()
     {
         gameOverScreen.SetActive(false);
-        GameMediator.Instance.RegisterGameOverManager(this);
     }
 
     private void OnEnable()
     {
-        EventManager.GameOver += EventManagerOnGameOver;
+        EventManager.GameOver += EM_OnGameOver;
     }
 
     private void OnDisable()
     {
-        EventManager.GameOver -= EventManagerOnGameOver;
+        EventManager.GameOver -= EM_OnGameOver;
     }
 
-    private void EventManagerOnGameOver()
+    private void EM_OnGameOver()
     {
         gameOverScreen.SetActive(true);
-        GameMediator.Instance.SendTimeData();
+        GameDataStatsReceiver.Instance.ReceiveTimeData(timer.timerText.text);
         timerGameOverTime.text = timer.timerText.text;
+        dragCount.text = GameDataStatsReceiver.Instance.GetDragEndCount().ToString();
         if (SceneManager.GetActiveScene().buildIndex + 1 > SceneManager.sceneCount - 1) {nextLevelButton.SetActive(false);}
     } 
 

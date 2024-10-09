@@ -897,7 +897,6 @@ GameObject:
   - component: {fileID: 1031900245}
   - component: {fileID: 1031900248}
   - component: {fileID: 1031900249}
-  - component: {fileID: 1031900250}
   - component: {fileID: 1031900251}
   m_Layer: 0
   m_Name: Floor
@@ -1031,19 +1030,6 @@ MonoBehaviour:
   terrainType: 1
   puddleAngularDrag: 0.01
   mudAngularDrag: 60
---- !u!114 &1031900250
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1031900243}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd9cc653e550a6741b9eba58653077fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tInter: {fileID: 11400000, guid: 9741ccf54d07f624b87cf4ba012bd07a, type: 2}
 --- !u!82 &1031900251
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1269,12 +1255,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1717440961}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
---- !u!1 &1211698440 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1075129244251810972, guid: 4cd6e8e1fd84820418954c12f3e77a7d,
-    type: 3}
-  m_PrefabInstance: {fileID: 5546476578497116855}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1621876471
 GameObject:
   m_ObjectHideFlags: 0
@@ -1284,6 +1264,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1621876473}
+  - component: {fileID: 1621876474}
   - component: {fileID: 1621876472}
   m_Layer: 0
   m_Name: GameManager
@@ -1304,9 +1285,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4ec1877d121b0a4fa3178869ae15b65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  setTimeOnLevel: 30
-  saveOnLevel: {fileID: 11400000, guid: fcf06a8cb1d3e2341ac015b7e1c2fba4, type: 2}
-  player: {fileID: 1211698440}
+  player: {fileID: 1973001727}
 --- !u!4 &1621876473
 Transform:
   m_ObjectHideFlags: 0
@@ -1322,6 +1301,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1621876474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1621876471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fd081fda4ee95d4f88dced07678f242, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  setTimeOnLevel: 30
+  saveOnLevel: {fileID: 11400000, guid: fcf06a8cb1d3e2341ac015b7e1c2fba4, type: 2}
 --- !u!1 &1717440960
 GameObject:
   m_ObjectHideFlags: 0
@@ -1487,6 +1480,12 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1717440961}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!1 &1973001727 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1075129244251810972, guid: 4cd6e8e1fd84820418954c12f3e77a7d,
+    type: 3}
+  m_PrefabInstance: {fileID: 5546476578497116855}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &652066409991187708
 PrefabInstance:
   m_ObjectHideFlags: 0

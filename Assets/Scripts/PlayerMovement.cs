@@ -58,15 +58,11 @@ public class PlayerMovement : MonoBehaviour
     {
         isDragging = false;
         dragEndCount++; 
+        GameDataStatsReceiver.Instance.ReceiveDragEndCount(dragEndCount);
         lr.positionCount = 0;
 
         Vector3 force = dragStartPos - touchPos;
         Vector3 clampedForce = Vector3.ClampMagnitude(force, maxDrag) * power;
         rb.AddForce(clampedForce, ForceMode2D.Impulse);
-    }
-    
-    public int GetRegisterDragEnd()
-    {
-        return dragEndCount;
     }
 }

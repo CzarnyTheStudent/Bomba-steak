@@ -1,10 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Interaction", menuName = "TerrainInteraction/NewInteraction")]
-public class terrainEffectData : ScriptableObject
+namespace ScriptableObject
 {
-    public ParticleSystem terrainParticle;
-    public AudioClip sound;
+    [CreateAssetMenu(fileName = "New Interaction", menuName = "TerrainInteraction/NewInteraction")]
+    public abstract class TerrainEffectData : UnityEngine.ScriptableObject
+    {
+        public ParticleSystem terrainParticle;
+        public AudioClip sound;
+        
+    }
 }

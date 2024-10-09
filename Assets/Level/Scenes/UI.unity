@@ -1020,6 +1020,7 @@ MonoBehaviour:
   resetButton: {fileID: 1143022653}
   levelSelectionButton: {fileID: 1432213160}
   timerGameOverTime: {fileID: 703783947}
+  dragCount: {fileID: 1920395436}
   timer: {fileID: 912142567}
 --- !u!1 &703783945
 GameObject:

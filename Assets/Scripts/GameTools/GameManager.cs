@@ -1,4 +1,5 @@
 using System;
+using GameTools;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -6,12 +7,10 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     public bool GameOver { get; private set; }
-    public bool PlayerWon { get; private set; }
-
+    
     public GameObject player;
     private GameState _gameState;
     private GameSetup _gameSetup;
-    private string _timeValue;
 
     private void Awake()
     {
@@ -21,7 +20,6 @@ public class GameManager : MonoBehaviour
             return;
         }
         Instance = this;
-        GameMediator.Instance.RegisterGameManager(Instance);
         DontDestroyOnLoad(gameObject);
 
         SceneManager.LoadSceneAsync("UI", LoadSceneMode.Additive);
@@ -31,6 +29,11 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        GameInitialize();
+    }
+
+    private void GameInitialize()
+    {
         EventManager.OnTimerUpdate(_gameSetup.setTimeOnLevel);
         EventManager.OnTimerStart();
         _gameState.SetGameMode(GameState.Mode.Singleplayer);
@@ -38,29 +41,29 @@ public class GameManager : MonoBehaviour
 
     private void OnEnable()
     {
-        EventManager.GameOver += SaveData;
+        EventManager.GameOver += EM_OnGameOverSaveData;
     }
 
     private void OnDisable()
     {
-        EventManager.GameOver -= SaveData;
+        EventManager.GameOver -= EM_OnGameOverSaveData;
     }
 
-    public void GetTime(string time)
-    {
-        _timeValue = time;
-    }
-
-    public void StopGame(bool playerWin)
+    public void StopGame()
     {
         EventManager.OnTimerStop();
-        EventManager.OnGameOver();
-        PlayerWon = playerWin;
     }
 
-    private void SaveData()
+    private void EM_OnGameOverSaveData()
     {
-        _gameSetup.saveOnLevel.UpdateTotalTime(_timeValue);
-        _gameSetup.saveOnLevel.UpdateDragCount(player.GetComponent<PlayerMovement>().GetRegisterDragEnd());
+        string gameTime = GameDataStatsReceiver.Instance.GetGameTime();
+    
+        // Sprawdź i zaktualizuj czas poziomu
+        _gameSetup.saveOnLevel.UpdateTotalTime(gameTime);
+        _gameSetup.saveOnLevel.UpdateTotalTime(GameDataStatsReceiver.Instance.GetGameTime());
+        _gameSetup.saveOnLevel.UpdateDragCount(GameDataStatsReceiver.Instance.GetDragEndCount());
+        _gameSetup.saveOnLevel.UpdateLevelComplete(GameDataStatsReceiver.Instance.GetPlayerWon());
+        
+        _gameSetup.saveOnLevel.Save();
     }
 }

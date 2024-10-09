@@ -1,9 +1,10 @@
 using System.Collections.Generic;
+using ScriptableObject;
 using UnityEngine;
 
 public class TerrainParticles : MonoBehaviour
 {
-    public terrainEffectData tInter;
+    public TerrainEffectData tInter;
     private ParticleSystem _particleInst;
 
     // Słownik przechowujący cząsteczki dla różnych terenów

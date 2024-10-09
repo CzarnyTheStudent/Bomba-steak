@@ -1,4 +1,5 @@
 using System;
+using GameTools;
 using UnityEngine;
 using TMPro;
 
@@ -42,7 +43,7 @@ public class Timer : MonoBehaviour
         if (!_isRunning) return;
         if (timerType == TimerType.Countdown && timeToDisplay < 0.0f)
         {
-            GameMediator.Instance.NotifyGameEnd(false);
+            GameEndNotifier.Instance.NotifyGameEnd(false);
             return;
         }
         
