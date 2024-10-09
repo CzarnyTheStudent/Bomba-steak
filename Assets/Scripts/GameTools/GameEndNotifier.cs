@@ -9,7 +9,7 @@ namespace GameTools
         {
             GameDataStatsReceiver.Instance.ReceivePlayerWon(playerWin);
             EventManager.OnGameOver();
-            GameManager.Instance.StopGame();
+            EventManager.OnTimerStop();
         }
     }
 }

@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         GameInitialize();
+        _gameSetup.saveOnLevel.Load();
     }
 
     private void GameInitialize()
@@ -49,21 +50,11 @@ public class GameManager : MonoBehaviour
         EventManager.GameOver -= EM_OnGameOverSaveData;
     }
 
-    public void StopGame()
-    {
-        EventManager.OnTimerStop();
-    }
-
     private void EM_OnGameOverSaveData()
     {
-        string gameTime = GameDataStatsReceiver.Instance.GetGameTime();
-    
-        // Sprawdź i zaktualizuj czas poziomu
-        _gameSetup.saveOnLevel.UpdateTotalTime(gameTime);
         _gameSetup.saveOnLevel.UpdateTotalTime(GameDataStatsReceiver.Instance.GetGameTime());
         _gameSetup.saveOnLevel.UpdateDragCount(GameDataStatsReceiver.Instance.GetDragEndCount());
         _gameSetup.saveOnLevel.UpdateLevelComplete(GameDataStatsReceiver.Instance.GetPlayerWon());
-        
         _gameSetup.saveOnLevel.Save();
     }
 }

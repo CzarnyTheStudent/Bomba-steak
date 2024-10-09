@@ -51,5 +51,6 @@ public class Timer : MonoBehaviour
 
         TimeSpan timeSpan = TimeSpan.FromSeconds(timeToDisplay);
         timerText.text = timeSpan.ToString(@"mm\:ss\:ff");
+        GameDataStatsReceiver.Instance.ReceiveTimeData(timerText.text);
     }
 }

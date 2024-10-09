@@ -2,19 +2,29 @@ using System;
 using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 
 namespace ScriptableObject
 {
     [CreateAssetMenu(fileName = "NewStats", menuName = "Stats/PlayerStats")]
     public class Stats : UnityEngine.ScriptableObject
     {
-        public int timePlayed;
         public string totalTime;
         public int dragCount = 0;
         public bool playerWon = false;
 
-        private string SaveFolder => Path.Combine(Application.dataPath, "Saves");
+        // Ścieżka zapisu na podstawie platformy
+        private string SaveFolder
+        {
+            get
+            {
+                #if UNITY_ANDROID
+                return Path.Combine(Application.persistentDataPath, "Saves");  // Android
+                #else
+                return Path.Combine(Application.dataPath, "Saves");  // Windows/PC
+                #endif
+            }
+        }
+
         private string SaveFileName => $"{SceneManager.GetActiveScene().name}.json";
         private string SaveFilePath => Path.Combine(SaveFolder, SaveFileName);
 
@@ -27,43 +37,28 @@ namespace ScriptableObject
                 return;
             }
 
-            // Parsujemy obecny i nowy czas
-            if (TimeSpan.TryParseExact(additionalTime, @"mm\:ss\:ff", null, out TimeSpan additionalTimeSpan) &&
-                TimeSpan.TryParseExact(totalTime, @"mm\:ss\:ff", null, out TimeSpan totalTimeSpan))
+            if (!TimeSpan.TryParseExact(additionalTime, @"mm\:ss\:ff", null, out TimeSpan additionalTimeSpan) ||
+                !TimeSpan.TryParseExact(totalTime, @"mm\:ss\:ff", null, out TimeSpan totalTimeSpan)) return;
+            if (additionalTimeSpan > totalTimeSpan)
             {
-                // Nadpisujemy czas, jeśli nowy czas jest większy
-                if (additionalTimeSpan > totalTimeSpan)
-                {
-                    totalTime = additionalTime;
-                    Debug.Log($"Total time updated to: {totalTime}");
-                }
-                else
-                {
-                    Debug.Log("New time is not greater than the current total time.");
-                }
-            }
-            else
-            {
-                Debug.LogError("Failed to parse one or both of the times.");
+                totalTime = additionalTime;
+                Debug.Log($"Total time updated to: {totalTime}");
             }
         }
         
         public void UpdateDragCount(int newDragCount)
         {
-            if (newDragCount > dragCount) return; 
-            dragCount = newDragCount; ;
+            if (dragCount != 0) { if (newDragCount > dragCount) return; }
+            dragCount = newDragCount;
         }
-
-        // Poprawiona metoda UpdateLevelComplete
+        
         public void UpdateLevelComplete(bool won)
         {
             if (!won) return;
             playerWon = won;
             Debug.Log($"Player won status updated to: {playerWon}");
-            
         }
-
-        // Zapis danych do pliku
+        
         public void Save()
         {
             if (!Directory.Exists(SaveFolder))
@@ -73,9 +68,9 @@ namespace ScriptableObject
 
             string json = JsonUtility.ToJson(this, true);
             File.WriteAllText(SaveFilePath, json);
+            Debug.Log($"Data saved to {SaveFilePath}");
         }
 
-        // Odczyt danych z pliku
         public void Load()
         {
             if (File.Exists(SaveFilePath))

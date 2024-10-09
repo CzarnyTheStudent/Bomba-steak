@@ -12,8 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a14d6eba508a4ce4a93da47400d1d7a2, type: 3}
   m_Name: Lvl 1
   m_EditorClassIdentifier: 
-  timePlayed: 0
-  totalTime: 
-  timeLevelCompleted: 
+  totalTime: 00:26:90
   dragCount: 1
-  playerWon: 0
+  playerWon: 1

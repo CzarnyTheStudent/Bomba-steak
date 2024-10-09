@@ -35,7 +35,6 @@ public class GameOverScreenManager : MonoBehaviour
     private void EM_OnGameOver()
     {
         gameOverScreen.SetActive(true);
-        GameDataStatsReceiver.Instance.ReceiveTimeData(timer.timerText.text);
         timerGameOverTime.text = timer.timerText.text;
         dragCount.text = GameDataStatsReceiver.Instance.GetDragEndCount().ToString();
         if (SceneManager.GetActiveScene().buildIndex + 1 > SceneManager.sceneCount - 1) {nextLevelButton.SetActive(false);}
