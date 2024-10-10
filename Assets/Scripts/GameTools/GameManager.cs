@@ -7,8 +7,7 @@ namespace GameTools
     public class GameManager : MonoBehaviour
     {
         public static GameManager Instance { get; private set; }
-
-        private GameState _gameState;
+        
         public PlayerStats playerStats;
         public float initializationDelay = 2f; 
 
@@ -21,8 +20,7 @@ namespace GameTools
             }
             Instance = this;
             DontDestroyOnLoad(gameObject);
-
-            _gameState = GameState.Instance;
+            
         }
 
         private void Start()
@@ -57,8 +55,6 @@ namespace GameTools
                 EventManager.OnTimerUpdate(gameSetup.setTimeOnLevel);
                 EventManager.OnTimerStart();
             }
-            
-            _gameState.SetGameMode(GameState.Mode.Singleplayer);
 
             Debug.Log("Game Initialized");
         }
