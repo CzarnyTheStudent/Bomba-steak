@@ -1168,6 +1168,7 @@ GameObject:
   - component: {fileID: 1621876473}
   - component: {fileID: 1621876474}
   - component: {fileID: 1621876472}
+  - component: {fileID: 1621876475}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1187,7 +1188,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4ec1877d121b0a4fa3178869ae15b65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1973001727}
+  playerStats:
+    totalTime: 
+    dragCount: 0
+    playerWon: 0
+  initializationDelay: 2
 --- !u!4 &1621876473
 Transform:
   m_ObjectHideFlags: 0
@@ -1216,7 +1221,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   setTimeOnLevel: 30
-  saveOnLevel: {fileID: 11400000, guid: fcf06a8cb1d3e2341ac015b7e1c2fba4, type: 2}
+--- !u!114 &1621876475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1621876471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b08496238ff18645bc0fe3c792d5eeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1717440960
 GameObject:
   m_ObjectHideFlags: 0
@@ -1382,12 +1398,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1717440961}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
---- !u!1 &1973001727 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1075129244251810972, guid: 4cd6e8e1fd84820418954c12f3e77a7d,
-    type: 3}
-  m_PrefabInstance: {fileID: 5546476578497116855}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &652066409991187708
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1532,7 +1542,7 @@ PrefabInstance:
     - target: {fileID: 8639769445400752449, guid: 4cd6e8e1fd84820418954c12f3e77a7d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.71231234
+      value: -1.4
       objectReference: {fileID: 0}
     - target: {fileID: 8639769445400752449, guid: 4cd6e8e1fd84820418954c12f3e77a7d,
         type: 3}

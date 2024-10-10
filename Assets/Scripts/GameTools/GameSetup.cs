@@ -1,13 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
-using ScriptableObject;
 using UnityEngine;
 
-public class GameSetup : MonoBehaviour
+namespace GameTools
 {
-    [Header("Time Setup")]
-    public float setTimeOnLevel;
-    
-    [Header("Save Data")]
-    public Stats saveOnLevel;
+    public class GameSetup : MonoBehaviour
+    {
+        [Header("Time Limit Setup")]
+        public float setTimeOnLevel;
+
+        private void Start()
+        {
+            Coordinator.Instance.RegisterGameSetup(this);
+        }
+    }
 }

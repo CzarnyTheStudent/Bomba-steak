@@ -1,4 +1,5 @@
 using System;
+using Static;
 using UnityEngine;
 
 public class SetWorldBounds : MonoBehaviour
@@ -6,6 +7,6 @@ public class SetWorldBounds : MonoBehaviour
     private void Awake()
     {
         var bounds = GetComponent<SpriteRenderer>().bounds;
-        Globals.WorldBounds = bounds;
+        BoundsGlobal.WorldBounds = bounds;
     }
 }

@@ -1,3 +1,4 @@
+using Static;
 using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
@@ -22,11 +23,11 @@ public class CameraMovement : MonoBehaviour
         var width = height * _mainCamera.aspect;
 
         // Ustawiamy granice świata
-        var minX = Globals.WorldBounds.min.x + width;
-        var maxX = Globals.WorldBounds.extents.x - width;
+        var minX = BoundsGlobal.WorldBounds.min.x + width;
+        var maxX = BoundsGlobal.WorldBounds.extents.x - width;
 
-        var minY = Globals.WorldBounds.min.y + height;
-        var maxY = Globals.WorldBounds.extents.y - height;
+        var minY = BoundsGlobal.WorldBounds.min.y + height;
+        var maxY = BoundsGlobal.WorldBounds.extents.y - height;
 
         _cameraBounds = new Bounds();
         _cameraBounds.SetMinMax(

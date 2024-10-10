@@ -1,60 +1,102 @@
-using System;
-using GameTools;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+namespace GameTools
 {
-    public static GameManager Instance { get; private set; }
-    public bool GameOver { get; private set; }
-    
-    public GameObject player;
-    private GameState _gameState;
-    private GameSetup _gameSetup;
-
-    private void Awake()
+    public class GameManager : MonoBehaviour
     {
-        if (Instance != null && Instance != this)
+        public static GameManager Instance { get; private set; }
+
+        private GameState _gameState;
+        public PlayerStats playerStats;
+        public float initializationDelay = 2f; 
+
+        private void Awake()
         {
-            Destroy(gameObject); 
-            return;
+            if (Instance != null && Instance != this)
+            {
+                Destroy(gameObject); 
+                return;
+            }
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+
+            _gameState = GameState.Instance;
         }
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
 
-        SceneManager.LoadSceneAsync("UI", LoadSceneMode.Additive);
-        _gameState = GameState.Instance;
-        _gameSetup = GetComponent<GameSetup>();
-    }
+        private void Start()
+        {
+            StartCoroutine(LoadGameSetupAndInitialize());
+        }
 
-    void Start()
-    {
-        GameInitialize();
-        _gameSetup.saveOnLevel.Load();
-    }
+        private IEnumerator LoadGameSetupAndInitialize()
+        {
+            playerStats = SaveManager.Load<PlayerStats>(SceneManager.GetActiveScene().name);
+            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("UI", LoadSceneMode.Additive);
+            
+            while (!asyncLoad.isDone) { yield return null; }
 
-    private void GameInitialize()
-    {
-        EventManager.OnTimerUpdate(_gameSetup.setTimeOnLevel);
-        EventManager.OnTimerStart();
-        _gameState.SetGameMode(GameState.Mode.Singleplayer);
-    }
+            Debug.Log("UI Scene Loaded");
+            
+            while (!Coordinator.Instance.IsGameSetupReady()) { yield return null; }
 
-    private void OnEnable()
-    {
-        EventManager.GameOver += EM_OnGameOverSaveData;
-    }
+            Debug.Log("GameSetup is Ready");
+            
+            yield return new WaitForSeconds(initializationDelay);
+            
+            InitializeGame();
+        }
+        
+        private void InitializeGame()
+        {
+            GameSetup gameSetup = Coordinator.Instance.GetGameSetup();
 
-    private void OnDisable()
-    {
-        EventManager.GameOver -= EM_OnGameOverSaveData;
-    }
+            if (gameSetup != null)
+            {
+                EventManager.OnTimerUpdate(gameSetup.setTimeOnLevel);
+                EventManager.OnTimerStart();
+            }
+            
+            _gameState.SetGameMode(GameState.Mode.Singleplayer);
 
-    private void EM_OnGameOverSaveData()
-    {
-        _gameSetup.saveOnLevel.UpdateTotalTime(GameDataStatsReceiver.Instance.GetGameTime());
-        _gameSetup.saveOnLevel.UpdateDragCount(GameDataStatsReceiver.Instance.GetDragEndCount());
-        _gameSetup.saveOnLevel.UpdateLevelComplete(GameDataStatsReceiver.Instance.GetPlayerWon());
-        _gameSetup.saveOnLevel.Save();
+            Debug.Log("Game Initialized");
+        }
+
+        public void LoadNextLevel() => StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex + 1));
+
+        public void RestartLevel() => StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex));
+
+        private IEnumerator LoadLevel(int levelIndex)
+        {
+            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(levelIndex);
+            while (!asyncLoad.isDone) { yield return null; }
+
+            StartCoroutine(LoadGameSetupAndInitialize());
+        }
+
+        private void OnEnable()
+        {
+            EventManager.NextLvl += EM_OnLevelChange;
+            EventManager.Restart += EM_OnLevelChange;
+            EventManager.GameOver += EM_OnGameOverSaveData;
+        }
+
+        private void OnDisable()
+        {
+            EventManager.NextLvl -= EM_OnLevelChange;
+            EventManager.Restart -= EM_OnLevelChange;
+            EventManager.GameOver -= EM_OnGameOverSaveData;
+        }
+
+        private void EM_OnLevelChange() => StartCoroutine(LoadGameSetupAndInitialize());
+
+        private void EM_OnGameOverSaveData()
+        {
+            playerStats.UpdateTotalTime(GameDataStatsReceiver.Instance.GetGameTime());
+            playerStats.UpdateDragCount(GameDataStatsReceiver.Instance.GetDragEndCount());
+            playerStats.UpdateLevelComplete(GameDataStatsReceiver.Instance.GetPlayerWon());
+            SaveManager.Save(playerStats, SceneManager.GetActiveScene().name);
+        }
     }
 }
