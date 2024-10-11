@@ -1336,6 +1336,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5930396603895548624, guid: 34a9f73f7e6fbcd4493ffaa4a665d592,
+        type: 3}
+      propertyPath: Priority
+      value: 160
+      objectReference: {fileID: 0}
+    - target: {fileID: 5930396603895548624, guid: 34a9f73f7e6fbcd4493ffaa4a665d592,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5930396603895548624, guid: 34a9f73f7e6fbcd4493ffaa4a665d592,
+        type: 3}
+      propertyPath: BypassEffects
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5930396603895548624, guid: 34a9f73f7e6fbcd4493ffaa4a665d592,
+        type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8639769445400752449, guid: 34a9f73f7e6fbcd4493ffaa4a665d592,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1344,7 +1364,7 @@ PrefabInstance:
     - target: {fileID: 8639769445400752449, guid: 34a9f73f7e6fbcd4493ffaa4a665d592,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.4
+      value: -1.13
       objectReference: {fileID: 0}
     - target: {fileID: 8639769445400752449, guid: 34a9f73f7e6fbcd4493ffaa4a665d592,
         type: 3}

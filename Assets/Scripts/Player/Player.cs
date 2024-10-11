@@ -11,6 +11,7 @@ namespace Player
         private PlayerLineRenderer _playerLineRenderer;
         private PlayerStats _playerStats;
         private PlayerSound _playerSound;
+        private GetTerrainEffect _terrainGet;
 
         private void Start()
         {
@@ -19,6 +20,7 @@ namespace Player
             _playerLineRenderer = GetComponent<PlayerLineRenderer>();
             _playerStats = GetComponent<PlayerStats>();
             _playerSound = GetComponent<PlayerSound>();
+            _terrainGet = GetComponent<GetTerrainEffect>();
             DisableControls();
         }
 
@@ -32,15 +34,9 @@ namespace Player
             EventManager.GameStart -= EnableControls;
         }
 
+        private void DisableControls() => _playerInput.enabled = false;
 
-        private void DisableControls()
-        {
-            _playerInput.enabled = false;
-        }
-
-        private void EnableControls()
-        {
-            _playerInput.enabled = true;
-        }
+        private void EnableControls() => _playerInput.enabled = true;
+        
     }
 }

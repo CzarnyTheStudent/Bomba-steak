@@ -1,10 +1,11 @@
+using GameTools;
 using UnityEngine;
 using Player;
 
 public class GetTerrainEffect : MonoBehaviour
 {
+    [SerializeField]private AudioSource audioSource;
     private PlayerMovement _playerMovement;
-    private AudioSource audioSource;
     private PlayerState playerState;
     private TerrainEffectData currentTerrain;
     private bool hasPlayedSound = false;
@@ -14,7 +15,6 @@ public class GetTerrainEffect : MonoBehaviour
     {
         _playerMovement = GetComponent<PlayerMovement>();
         playerState = GetComponent<PlayerState>();
-        audioSource = GetComponent<AudioSource>();
         defaultAngularDrag = _playerMovement.rb.angularDrag;
     }
 
@@ -26,7 +26,7 @@ public class GetTerrainEffect : MonoBehaviour
         }
     }
 
-    public void ModifyAngularDrag(float newAngularDrag)
+    private void ModifyAngularDrag(float newAngularDrag)
     {
         _playerMovement.rb.angularDrag = newAngularDrag;
     }
@@ -34,7 +34,7 @@ public class GetTerrainEffect : MonoBehaviour
     public void ResetAngularDrag()
     {
         _playerMovement.rb.angularDrag = defaultAngularDrag;
-        currentTerrain = null; // Reset the current terrain when leaving it
+        currentTerrain = null;
     }
 
     public void ApplyTerrainEffect(TerrainEffectData terrain)
@@ -44,7 +44,7 @@ public class GetTerrainEffect : MonoBehaviour
             ModifyAngularDrag(terrain.angularDrag);
             currentTerrain = terrain;
 
-            if (!hasPlayedSound && playerState.IsPlayerMoving())
+            if (!hasPlayedSound && playerState.IsPlayerMoving() && GameManager.Instance.GameReady)
             {
                 PlaySound(terrain.terrainSound);
                 hasPlayedSound = true;
