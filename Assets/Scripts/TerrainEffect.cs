@@ -5,8 +5,8 @@ public class TerrainEffect : MonoBehaviour
     public enum TerrainType { Puddle, Mud, Wood }
     public TerrainType terrainType;
 
-    public float puddleAngularDrag = 0.5f; // Kałuża - niskie opory, bardziej śliskie
-    public float mudAngularDrag = 5f; // Błoto - wysoki opór, prawie zatrzymanie
+    public float puddleAngularDrag ; 
+    public float mudAngularDrag; 
 
     private void OnCollisionEnter2D(Collision2D collision)
     {

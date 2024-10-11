@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 [System.Serializable]
-public class PlayerStats
+public class PlayerStatsCollector
 {
     public string totalTime;
     public int dragCount = 0;

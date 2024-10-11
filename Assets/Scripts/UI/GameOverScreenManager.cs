@@ -42,12 +42,12 @@ namespace UI
 
         public void NextLevel()
         {
-            GameManager.Instance.LoadNextLevel(); 
+            EventManager.OnNextLevel();
         }
 
         public void Restart()
         {
-            GameManager.Instance.RestartLevel(); 
+            EventManager.OnRestart();
         }
     }
 }
