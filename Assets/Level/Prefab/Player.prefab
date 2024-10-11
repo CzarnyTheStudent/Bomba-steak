@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 6709596327294511553}
   - component: {fileID: 7657196658659691517}
   - component: {fileID: 2999407638795408399}
+  - component: {fileID: 3831146615230495024}
   - component: {fileID: 8058242742652441566}
   - component: {fileID: 3303442812335788311}
   - component: {fileID: 520055657290062531}
@@ -110,6 +111,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 2582401210031676648}
+  soundEntries:
+  - soundType: Throw
+    audioClip: {fileID: 0}
+  - soundType: Drag
+    audioClip: {fileID: 0}
 --- !u!114 &2999407638795408399
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120,6 +126,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6babcc5d23e0b5a4dabef3c068cef9ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3831146615230495024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1075129244251810972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3beb40dff1cf6045a54a0126167afe9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &8058242742652441566

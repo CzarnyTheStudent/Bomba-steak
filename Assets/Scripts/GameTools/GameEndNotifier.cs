@@ -1,3 +1,5 @@
+using Static;
+
 namespace GameTools
 {
     public class GameEndNotifier

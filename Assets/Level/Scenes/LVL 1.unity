@@ -884,9 +884,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fbbf4259b3b62c429adeb1c9c243679, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  terrainType: 1
-  puddleAngularDrag: 0.01
-  mudAngularDrag: 60
+  terrainData: {fileID: 11400000, guid: fbeb6a2269f8403499897bd2e078a6ac, type: 2}
 --- !u!1 &1046339291
 GameObject:
   m_ObjectHideFlags: 0

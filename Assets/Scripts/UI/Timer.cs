@@ -1,5 +1,6 @@
 using System;
 using GameTools;
+using Static;
 using UnityEngine;
 using TMPro;
 

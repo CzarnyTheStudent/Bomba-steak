@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a14d6eba508a4ce4a93da47400d1d7a2, type: 3}
-  m_Name: Lvl 1
+  m_Script: {fileID: 11500000, guid: 0721784af2c01904a98e993d0d5274c4, type: 3}
+  m_Name: Mud
   m_EditorClassIdentifier: 
-  totalTime: 00:26:90
-  dragCount: 1
-  playerWon: 1
+  angularDrag: 7
+  terrainSound: {fileID: 0}
