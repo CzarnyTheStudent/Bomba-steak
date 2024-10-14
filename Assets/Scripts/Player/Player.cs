@@ -10,7 +10,7 @@ namespace Player
         private PlayerInput _playerInput;
         private PlayerLineRenderer _playerLineRenderer;
         private PlayerStats _playerStats;
-        private PlayerSound _playerSound;
+        private PlayerAudio playerAudio;
         private GetTerrainEffect _terrainGet;
 
         private void Start()
@@ -19,7 +19,7 @@ namespace Player
             _playerInput = GetComponent<PlayerInput>();
             _playerLineRenderer = GetComponent<PlayerLineRenderer>();
             _playerStats = GetComponent<PlayerStats>();
-            _playerSound = GetComponent<PlayerSound>();
+            playerAudio = GetComponent<PlayerAudio>();
             _terrainGet = GetComponent<GetTerrainEffect>();
             DisableControls();
         }

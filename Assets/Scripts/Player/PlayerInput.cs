@@ -9,12 +9,14 @@ namespace Player
         private PlayerMovement _playerMovement;
         private PlayerLineRenderer _lineRenderer;
         private PlayerStats _playerStats;
-    
+        private PlayerAudio _audioObserver;
+
         private void Start()
         {
             _playerMovement = GetComponent<PlayerMovement>();
             _lineRenderer = GetComponent<PlayerLineRenderer>();
             _playerStats = GetComponent<PlayerStats>();
+            _audioObserver = GetComponent<PlayerAudio>();
         }
 
         private void Update()
@@ -51,11 +53,13 @@ namespace Player
             _isDragging = true;
             _dragStartPos = touchPos;
             _lineRenderer.StartLine(_dragStartPos);
+            _audioObserver.PlayDragStartSound();
         }
 
         private void Dragging(Vector3 touchPos)
         {
             _lineRenderer.UpdateLine(touchPos);
+            _audioObserver.PlayDraggingSound();
         }
 
         private void DragRelease(Vector3 touchPos)
@@ -64,6 +68,8 @@ namespace Player
             _playerStats.IncrementDragEndCount();
             _lineRenderer.ClearLine();
             _playerMovement.ApplyForce(_dragStartPos, touchPos);
+            _audioObserver.PlayDragReleaseSound();
+            _audioObserver.StopDraggingSound();
         }
     }
 }
