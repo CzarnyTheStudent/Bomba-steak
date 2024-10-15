@@ -4,9 +4,9 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerStatsCollector
 {
-    public string totalTime;
-    public int dragCount = 0;
-    public bool playerWon = false;
+    private string totalTime;
+    private int dragCount = 0;
+    private bool playerWon = false;
 
     public void UpdateTotalTime(string additionalTime)
     {

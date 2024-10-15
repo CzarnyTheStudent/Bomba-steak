@@ -81,18 +81,25 @@ namespace GameTools
         {
             EventManager.NextLvl += LoadNextLevel;
             EventManager.Restart += RestartLevel;
-            EventManager.GameOver += EM_OnGameOverSaveData;
+            EventManager.GameOver += GameOver;
         }
 
         private void OnDisable()
         {
             EventManager.NextLvl -= LoadNextLevel;
             EventManager.Restart -= RestartLevel;
-            EventManager.GameOver -= EM_OnGameOverSaveData;
+            EventManager.GameOver -= GameOver;
+        }
+
+        private void GameOver()
+        {
+            EventManager.OnTimeForStar(GameDataStatsReceiver.Instance.GetGameTime());
+            EventManager.OnDragForStar(GameDataStatsReceiver.Instance.GetDragEndCount());
+            OnGameOverSaveData();
         }
         
 
-        private void EM_OnGameOverSaveData()
+        private void OnGameOverSaveData()
         {
             playerStatsCollector.UpdateTotalTime(GameDataStatsReceiver.Instance.GetGameTime());
             playerStatsCollector.UpdateDragCount(GameDataStatsReceiver.Instance.GetDragEndCount());

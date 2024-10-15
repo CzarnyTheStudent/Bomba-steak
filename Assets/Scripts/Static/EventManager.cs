@@ -14,6 +14,11 @@ namespace Static
         public static event UnityAction NextLvl;
         public static event UnityAction Restart;
         public static event UnityAction GameOver;
+
+        //GameSetup events
+        public static event UnityAction<string> TimeForStar;
+        public static event UnityAction<int> DragForStar;
+
     
         public static void OnTimerStart() => TimerStart?.Invoke();
         public static void OnTimerStop() => TimerStop?.Invoke();
@@ -23,5 +28,7 @@ namespace Static
         public static void OnNextLevel() => NextLvl?.Invoke();
         public static void OnRestart() => Restart?.Invoke();
         public static void OnGameOver() => GameOver?.Invoke();
+        public static void OnTimeForStar(string time) => TimeForStar?.Invoke(time);
+        public static void OnDragForStar(int dragTimes) => DragForStar?.Invoke(dragTimes);
     }
 }

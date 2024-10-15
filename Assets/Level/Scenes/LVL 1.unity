@@ -558,6 +558,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87faef6a3d8953244b3301ea22a2f42f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!82 &697204468 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 2582401210031676648, guid: 34a9f73f7e6fbcd4493ffaa4a665d592,
+    type: 3}
+  m_PrefabInstance: {fileID: 5546476578497116855}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &805500747 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8639769445400752449, guid: 34a9f73f7e6fbcd4493ffaa4a665d592,
@@ -1045,10 +1051,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4ec1877d121b0a4fa3178869ae15b65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerStatsCollector:
-    totalTime: 
-    dragCount: 0
-    playerWon: 0
   initializationDelay: 3
 --- !u!4 &1621876473
 Transform:
@@ -1078,6 +1080,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   setTimeOnLevel: 30
+  setChallenges: {fileID: 11400000, guid: ea12f3ff2c3bfc64a9419b98fd13c7a6, type: 2}
 --- !u!114 &1621876475
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1331,31 +1334,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 520055657290062531, guid: 34a9f73f7e6fbcd4493ffaa4a665d592,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1075129244251810972, guid: 34a9f73f7e6fbcd4493ffaa4a665d592,
         type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 5930396603895548624, guid: 34a9f73f7e6fbcd4493ffaa4a665d592,
+    - target: {fileID: 7657196658659691517, guid: 34a9f73f7e6fbcd4493ffaa4a665d592,
         type: 3}
-      propertyPath: Priority
-      value: 160
-      objectReference: {fileID: 0}
-    - target: {fileID: 5930396603895548624, guid: 34a9f73f7e6fbcd4493ffaa4a665d592,
-        type: 3}
-      propertyPath: m_Volume
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5930396603895548624, guid: 34a9f73f7e6fbcd4493ffaa4a665d592,
-        type: 3}
-      propertyPath: BypassEffects
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5930396603895548624, guid: 34a9f73f7e6fbcd4493ffaa4a665d592,
-        type: 3}
-      propertyPath: m_PlayOnAwake
-      value: 0
-      objectReference: {fileID: 0}
+      propertyPath: _audioSource
+      value: 
+      objectReference: {fileID: 697204468}
     - target: {fileID: 8639769445400752449, guid: 34a9f73f7e6fbcd4493ffaa4a665d592,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -7,13 +7,8 @@ namespace Player
         [SerializeField] private AudioClip dragStartClip;
         [SerializeField] private AudioClip draggingClip;
         [SerializeField] private AudioClip dragReleaseClip;
+        [SerializeField] private AudioSource _audioSource;
 
-        private AudioSource _audioSource;
-
-        private void Start()
-        {
-            _audioSource = GetComponent<AudioSource>();
-        }
 
         public void PlayDragStartSound()
         {
