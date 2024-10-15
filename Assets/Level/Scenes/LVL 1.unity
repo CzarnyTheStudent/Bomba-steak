@@ -5014,7 +5014,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   setTimeOnLevel: 180
+<<<<<<< HEAD
   setChallenges: {fileID: 11400000, guid: ea12f3ff2c3bfc64a9419b98fd13c7a6, type: 2}
+=======
+>>>>>>> origin/Lvl1builder
 --- !u!114 &1621876475
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6304,6 +6307,34 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+<<<<<<< HEAD
+=======
+    - target: {fileID: 5388901347428614404, guid: 34a9f73f7e6fbcd4493ffaa4a665d592,
+        type: 3}
+      propertyPath: power
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5930396603895548624, guid: 34a9f73f7e6fbcd4493ffaa4a665d592,
+        type: 3}
+      propertyPath: Priority
+      value: 160
+      objectReference: {fileID: 0}
+    - target: {fileID: 5930396603895548624, guid: 34a9f73f7e6fbcd4493ffaa4a665d592,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5930396603895548624, guid: 34a9f73f7e6fbcd4493ffaa4a665d592,
+        type: 3}
+      propertyPath: BypassEffects
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5930396603895548624, guid: 34a9f73f7e6fbcd4493ffaa4a665d592,
+        type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+>>>>>>> origin/Lvl1builder
     - target: {fileID: 8639769445400752449, guid: 34a9f73f7e6fbcd4493ffaa4a665d592,
         type: 3}
       propertyPath: m_LocalPosition.x
