@@ -83,7 +83,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e518930d703e73c438bd7fa99106799e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  power: 10
+  power: 5
   maxDrag: 5
   rb: {fileID: 4776505603300374210}
 --- !u!114 &6709596327294511553
@@ -114,6 +114,7 @@ MonoBehaviour:
   dragStartClip: {fileID: 0}
   draggingClip: {fileID: 0}
   dragReleaseClip: {fileID: 0}
+  _audioSource: {fileID: 2582401210031676648}
 --- !u!114 &2999407638795408399
 MonoBehaviour:
   m_ObjectHideFlags: 0
