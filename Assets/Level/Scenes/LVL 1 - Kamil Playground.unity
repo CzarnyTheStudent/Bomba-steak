@@ -488,7 +488,7 @@ Transform:
   m_GameObject: {fileID: 677650503}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.509, y: 1.67, z: 16}
+  m_LocalPosition: {x: 1, y: 1, z: 16}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -540,7 +540,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
-  m_Size: {x: 20.917957, y: 20}
+  m_Size: {x: 29.5, y: 20}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -1045,10 +1045,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4ec1877d121b0a4fa3178869ae15b65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerStatsCollector:
-    totalTime: 
-    dragCount: 0
-    playerWon: 0
   initializationDelay: 3
 --- !u!4 &1621876473
 Transform:
@@ -1078,6 +1074,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   setTimeOnLevel: 30
+  setChallenges: {fileID: 0}
 --- !u!114 &1621876475
 MonoBehaviour:
   m_ObjectHideFlags: 0
