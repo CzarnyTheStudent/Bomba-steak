@@ -26,6 +26,29 @@ public class GetTerrainEffect : MonoBehaviour
         }
     }
 
+
+    public void ApplyTerrainEffect(TerrainEffectData terrain)
+    {
+        if (currentTerrain != terrain)
+        {
+            if (terrain.canKill)
+            {
+                _playerMovement.ResetPos();
+            } else
+            {
+                ModifyAngularDrag(terrain.angularDrag);
+                currentTerrain = terrain;
+            }
+
+            if (!hasPlayedSound && playerState.IsPlayerMoving() && GameManager.Instance.GameReady)
+            {
+                PlaySound(terrain.terrainSound);
+                hasPlayedSound = true;
+            }
+        }
+    }
+
+
     private void ModifyAngularDrag(float newAngularDrag)
     {
         _playerMovement.rb.angularDrag = newAngularDrag;
@@ -35,21 +58,6 @@ public class GetTerrainEffect : MonoBehaviour
     {
         _playerMovement.rb.angularDrag = defaultAngularDrag;
         currentTerrain = null;
-    }
-
-    public void ApplyTerrainEffect(TerrainEffectData terrain)
-    {
-        if (currentTerrain != terrain)
-        {
-            ModifyAngularDrag(terrain.angularDrag);
-            currentTerrain = terrain;
-
-            if (!hasPlayedSound && playerState.IsPlayerMoving() && GameManager.Instance.GameReady)
-            {
-                PlaySound(terrain.terrainSound);
-                hasPlayedSound = true;
-            }
-        }
     }
 
     private void PlaySound(AudioClip sound)
