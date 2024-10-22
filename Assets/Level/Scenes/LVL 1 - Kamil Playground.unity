@@ -908,7 +908,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxPullDistance: 3
-  moveSpeed: 50
+  moveSpeed: 20
 --- !u!114 &1030837249
 MonoBehaviour:
   m_ObjectHideFlags: 0

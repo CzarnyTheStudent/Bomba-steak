@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Mud
   m_EditorClassIdentifier: 
   angularDrag: 7
+  canKill: 1
   terrainSound: {fileID: 8300000, guid: 1ac55aa63b31b4e4b82441209143c783, type: 3}
