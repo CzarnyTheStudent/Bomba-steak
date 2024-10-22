@@ -907,7 +907,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19ab87108438b004d85c10206b63b0fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxPullDistance: 200
+  maxPullDistance: 3
+  moveSpeed: 50
 --- !u!114 &1030837249
 MonoBehaviour:
   m_ObjectHideFlags: 0
