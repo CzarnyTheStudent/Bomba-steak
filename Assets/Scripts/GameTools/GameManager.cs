@@ -10,7 +10,8 @@ namespace GameTools
         public static GameManager Instance { get; private set; }
         
         public PlayerStatsCollector playerStatsCollector;
-        public float initializationDelay = 2f;
+        [SerializeField] private GameObject StarGameCanvas;
+        private bool pinPulled;
         public bool GameReady { get; private set; }
 
         private void Awake()
@@ -29,7 +30,12 @@ namespace GameTools
         {
             StartCoroutine(LoadGameSetupAndInitialize());
         }
-        
+
+        public void PinPulled()
+        {
+            pinPulled = true; 
+        }
+
         private IEnumerator LoadLevel(int levelIndex)
         {
             AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(levelIndex);
@@ -42,7 +48,9 @@ namespace GameTools
         {
             playerStatsCollector = SaveManager.Load<PlayerStatsCollector>(SceneManager.GetActiveScene().name);
             AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("UI", LoadSceneMode.Additive);
-            
+            pinPulled = false;
+            StarGameCanvas.SetActive(true);
+
             while (!asyncLoad.isDone) { yield return null; }
 
             Debug.Log("UI Scene Loaded");
@@ -51,9 +59,13 @@ namespace GameTools
 
             Debug.Log("GameSetup is Ready");
             GameReady = false;
-            
-            yield return new WaitForSeconds(initializationDelay);
-            
+
+            while (!pinPulled)
+            {
+                yield return null;
+            }
+
+            StarGameCanvas.SetActive(false);
             InitializeGame();
         }
         

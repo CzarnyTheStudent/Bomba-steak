@@ -10,6 +10,7 @@ namespace Player
         private PlayerLineRenderer _lineRenderer;
         private PlayerStats _playerStats;
         private PlayerAudio _audioObserver;
+        private PlayerCooldownShoot _shootCooldown;
 
         private void Start()
         {
@@ -17,6 +18,7 @@ namespace Player
             _lineRenderer = GetComponent<PlayerLineRenderer>();
             _playerStats = GetComponent<PlayerStats>();
             _audioObserver = GetComponent<PlayerAudio>();
+            _shootCooldown = GetComponent<PlayerCooldownShoot>();
         }
 
         private void Update()
@@ -50,6 +52,7 @@ namespace Player
 
         private void DragStart(Vector3 touchPos)
         {
+            if (!_shootCooldown.shootReady) return;
             _isDragging = true;
             _dragStartPos = touchPos;
             _lineRenderer.StartLine(_dragStartPos);
@@ -70,6 +73,7 @@ namespace Player
             _playerMovement.ApplyForce(_dragStartPos, touchPos);
             _audioObserver.PlayDragReleaseSound();
             _audioObserver.StopDraggingSound();
+            StartCoroutine(_shootCooldown.WaitForShoot());
         }
     }
 }
