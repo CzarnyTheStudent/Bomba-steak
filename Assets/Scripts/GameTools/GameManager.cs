@@ -2,6 +2,7 @@ using System.Collections;
 using Static;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 namespace GameTools
 {
@@ -10,7 +11,7 @@ namespace GameTools
         public static GameManager Instance { get; private set; }
         
         public PlayerStatsCollector playerStatsCollector;
-        [SerializeField] private GameObject StarGameCanvas;
+        [SerializeField] private GameObject starGameCanvas;
         private bool pinPulled;
         public bool GameReady { get; private set; }
 
@@ -49,7 +50,7 @@ namespace GameTools
             playerStatsCollector = SaveManager.Load<PlayerStatsCollector>(SceneManager.GetActiveScene().name);
             AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("UI", LoadSceneMode.Additive);
             pinPulled = false;
-            StarGameCanvas.SetActive(true);
+            starGameCanvas.SetActive(true);
 
             while (!asyncLoad.isDone) { yield return null; }
 
@@ -65,7 +66,7 @@ namespace GameTools
                 yield return null;
             }
 
-            StarGameCanvas.SetActive(false);
+            starGameCanvas.SetActive(false);
             InitializeGame();
         }
         
