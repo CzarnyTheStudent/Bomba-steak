@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class PinHandler : MonoBehaviour, ICustomDrag
 {
-    [SerializeField] private float maxPullDistance = 200f; 
+    [SerializeField] private float maxPullDistance = 200f;
+    [SerializeField] private float moveSpeed = 20f;
     private RectTransform rectTransform;
     private Vector2 startPosition;
     private bool pinPulled = false;
@@ -23,20 +24,22 @@ public class PinHandler : MonoBehaviour, ICustomDrag
         {
             Touch touch = Input.GetTouch(0);
             Vector2 currentTouchPosition = touch.position;
+
+            
             float deltaX = currentTouchPosition.x - previousTouchPosition.x;
 
-            // Aktualizujemy poprzedni¹ pozycjê
+
             previousTouchPosition = currentTouchPosition;
 
-            // Obliczamy now¹ pozycjê, dodaj¹c ró¿nicê do obecnej pozycji
+ 
             float newX = Mathf.Clamp(rectTransform.anchoredPosition.x + deltaX, startPosition.x, startPosition.x + maxPullDistance);
 
-            // Przesuwamy zawleczkê tylko o wyliczon¹ ró¿nicê
-            rectTransform.anchoredPosition += new Vector2(newX, startPosition.y);
+           
+            rectTransform.anchoredPosition = Vector2.Lerp(rectTransform.anchoredPosition, new Vector2(newX, startPosition.y), Time.deltaTime * moveSpeed);
 
-            Debug.Log($"Nowa pozycja zawleczki: {rectTransform.anchoredPosition}");
-
-            if (Mathf.Approximately(rectTransform.anchoredPosition.x, startPosition.x + maxPullDistance))
+            Debug.Log(rectTransform.anchoredPosition);
+            float final = startPosition.x + maxPullDistance;
+            if (rectTransform.position.x >= final)
             {
                 PinFullyPulled();
             }
