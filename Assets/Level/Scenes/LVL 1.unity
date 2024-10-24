@@ -8334,6 +8334,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5102184694533138759, guid: 1d5621a81a83e0b4f9bd081e4df65956,
+        type: 3}
+      propertyPath: Priority
+      value: 102
+      objectReference: {fileID: 0}
     - target: {fileID: 5667845468499865584, guid: 1d5621a81a83e0b4f9bd081e4df65956,
         type: 3}
       propertyPath: setTimeOnLevel
@@ -28229,6 +28234,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9026275928885096171, guid: 534c858f618e0c4498941408b8fa95fa,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.509
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
