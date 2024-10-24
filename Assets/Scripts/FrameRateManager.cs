@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Threading;
 using UnityEngine;
-using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 public class FrameRateManager : MonoBehaviour
 {
