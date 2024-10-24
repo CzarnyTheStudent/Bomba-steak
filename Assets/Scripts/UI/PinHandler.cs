@@ -45,7 +45,8 @@ public class PinHandler : MonoBehaviour, ICustomDrag
             
             if (rectTransform.anchoredPosition.x >= maxPullDistance)
             {
-                PinFullyPulled(); 
+                Invoke(nameof(PinFullyPulled), 0.9f);
+                
             }
         }
     }
