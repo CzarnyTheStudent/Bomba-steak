@@ -61,19 +61,24 @@ namespace UI
         IEnumerator GetStats(GameSetup gameSetup)
         {
             bool win = GameDataStatsReceiver.Instance.GetPlayerWon();
+            yield return new WaitForSeconds(1f);
             if (win)
             {
-               
+                starDone[0].SetActive(true);
             }
-            PlayerStatsCollector playerStatsCollector = SaveManager.Load<PlayerStatsCollector>(SceneManager.GetActiveScene().name);
             TimeSpan.TryParseExact(timeForStar, @"mm\:ss\:ff", null, out TimeSpan additionalTimeSpan);
             TimeSpan.TryParseExact(gameSetup.setChallenges.timeForStar, @"mm\:ss\:ff", null, out TimeSpan totalTimeSpan);
 
-            Debug.Log(additionalTimeSpan);
-            Debug.Log(totalTimeSpan);
+            yield return new WaitForSeconds(1f);
             if (additionalTimeSpan >= totalTimeSpan)
             {
-                
+                starDone[1].SetActive(true);
+            }
+
+            yield return new WaitForSeconds(1f);
+            if (dragForStar <= gameSetup.setChallenges.dragsForStar)
+            {
+                starDone[2].SetActive(true);
             }
 
             yield return null;
