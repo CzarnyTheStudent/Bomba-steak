@@ -9,11 +9,19 @@ namespace Static
         public static event UnityAction TimerStop;
         public static event UnityAction<float> TimerUpdate;
     
-        //GameManager events
+        //Game events
         public static event UnityAction GameStart;
         public static event UnityAction NextLvl;
         public static event UnityAction Restart;
         public static event UnityAction GameOver;
+
+        public static event UnityAction OnLevelStart;
+        public static event UnityAction OnPinPulled;
+        public static event UnityAction OnLevelEnd;
+
+        public static void TriggerNewLevelStart() => OnLevelStart?.Invoke();
+        public static void TriggerPinPulled() => OnPinPulled?.Invoke();
+        public static void TriggerLevelEnd() => OnLevelEnd?.Invoke();
 
         //GameSetup events
         public static event UnityAction<string> TimeForStar;

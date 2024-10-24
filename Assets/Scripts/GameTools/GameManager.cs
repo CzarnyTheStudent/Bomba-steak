@@ -51,6 +51,7 @@ namespace GameTools
             AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("UI", LoadSceneMode.Additive);
             pinPulled = false;
             starGameCanvas.SetActive(true);
+            EventManager.TriggerNewLevelStart();
 
             while (!asyncLoad.isDone) { yield return null; }
 
@@ -108,6 +109,7 @@ namespace GameTools
         {
             EventManager.OnTimeForStar(GameDataStatsReceiver.Instance.GetGameTime());
             EventManager.OnDragForStar(GameDataStatsReceiver.Instance.GetDragEndCount());
+            EventManager.TriggerLevelEnd();
             OnGameOverSaveData();
         }
         

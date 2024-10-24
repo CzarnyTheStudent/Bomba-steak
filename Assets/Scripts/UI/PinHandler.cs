@@ -1,4 +1,5 @@
 using GameTools;
+using Static;
 using UnityEngine;
 
 public class PinHandler : MonoBehaviour, ICustomDrag
@@ -46,13 +47,13 @@ public class PinHandler : MonoBehaviour, ICustomDrag
             if (rectTransform.anchoredPosition.x >= maxPullDistance)
             {
                 Invoke(nameof(PinFullyPulled), 0.9f);
-                
             }
         }
     }
 
     private void PinFullyPulled()
     {
+        EventManager.TriggerPinPulled();
         rectTransform.anchoredPosition = startPosition;
         Handle.SetActive(false);
         HandleStatic.SetActive(true);
