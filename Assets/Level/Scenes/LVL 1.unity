@@ -3964,8 +3964,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 330585546}
+  - component: {fileID: 330585549}
   - component: {fileID: 330585545}
-  - component: {fileID: 330585544}
   - component: {fileID: 330585547}
   - component: {fileID: 330585548}
   m_Layer: 0
@@ -3975,14 +3975,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &330585544
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 330585543}
-  m_Enabled: 1
 --- !u!20 &330585545
 Camera:
   m_ObjectHideFlags: 0
@@ -4108,6 +4100,14 @@ MonoBehaviour:
   target: {fileID: 805500747}
   smoothSpeed: 0.125
   offset: {x: 0, y: 0, z: -6}
+--- !u!81 &330585549
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330585543}
+  m_Enabled: 1
 --- !u!4 &332161945 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9011027586780143069, guid: 2d7913374fbe9dd4ba53ed8a301358ca,
@@ -7468,7 +7468,7 @@ PrefabInstance:
     - target: {fileID: 5102184694533138759, guid: 1d5621a81a83e0b4f9bd081e4df65956,
         type: 3}
       propertyPath: Priority
-      value: 102
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 5667845468499865584, guid: 1d5621a81a83e0b4f9bd081e4df65956,
         type: 3}

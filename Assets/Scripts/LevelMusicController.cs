@@ -69,7 +69,7 @@ namespace GameTools
             {
                 if (level.levelName == currentLevelName)
                 {
-                    MusicManager.Instance.PlayMusic(level.transitionMusic, 0.5f); // Muzyka miêdzy poziomami
+                    MusicManager.Instance.PlayMusic(level.transitionMusic, 0.5f); // Muzyka miÄ™dzy poziomami
                     return;
                 }
             }
