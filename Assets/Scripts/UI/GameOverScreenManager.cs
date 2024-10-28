@@ -5,7 +5,6 @@ using GameTools;
 using Static;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace UI
 {

@@ -110,7 +110,9 @@ namespace GameTools
         private void MainMenu()
         {
             SceneManager.LoadScene("MainMenu");
-            Destroy(Instance);
+            MusicManager.Instance.gameObject.SetActive(false);
+            MusicManager.Instance.gameObject.SetActive(true);
+            Destroy(gameObject);
         }
 
         private void GameOver()

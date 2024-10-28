@@ -6,8 +6,8 @@ public class MusicManager : MonoBehaviour
 {
     public static MusicManager Instance { get; private set; }
 
-    [SerializeField] private AudioSource musicSource;  // èrÛd≥o audio dla muzyki
-    private Coroutine currentMusicCoroutine;  // Przechowywanie odniesienia do coroutiny
+    [SerializeField] private AudioSource musicSource;  
+    private Coroutine currentMusicCoroutine;  
 
     private void Awake()
     {
@@ -21,24 +21,19 @@ public class MusicManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    /// <summary>
-    /// Odtwarza wybranπ muzykÍ z moøliwoúciπ fade-in.
-    /// </summary>
     public void PlayMusic(AudioClip musicClip, float volume = 1.0f, bool immediate = false)
     {
         if (immediate)
         {
-            PlayMusicImmediately(musicClip, volume);  // OdtwÛrz natychmiast
+            PlayMusicImmediately(musicClip, volume);  
         }
         else
         {
-            StartMusicWithFade(musicClip, volume);  // OdtwÛrz z fade-in
+            StartMusicWithFade(musicClip, volume); 
         }
     }
 
-    /// <summary>
-    /// Natychmiastowa zmiana muzyki (bez fade-in).
-    /// </summary>
+  
     private void PlayMusicImmediately(AudioClip musicClip, float volume)
     {
         if (currentMusicCoroutine != null)
@@ -51,9 +46,7 @@ public class MusicManager : MonoBehaviour
         musicSource.Play();
     }
 
-    /// <summary>
-    /// Odtwarzanie muzyki z fade-in.
-    /// </summary>
+   
     private void StartMusicWithFade(AudioClip musicClip, float targetVolume, float fadeDuration = 1.0f)
     {
         if (currentMusicCoroutine != null)
@@ -64,9 +57,6 @@ public class MusicManager : MonoBehaviour
         currentMusicCoroutine = StartCoroutine(FadeInMusic(musicClip, targetVolume, fadeDuration));
     }
 
-    /// <summary>
-    /// Coroutine dla fade-in muzyki.
-    /// </summary>
     private IEnumerator FadeInMusic(AudioClip newClip, float targetVolume, float fadeDuration)
     {
         if (musicSource.isPlaying)
@@ -88,9 +78,6 @@ public class MusicManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Coroutine dla fade-out obecnie odtwarzanej muzyki.
-    /// </summary>
     private IEnumerator FadeOutMusic(float fadeDuration)
     {
         float startVolume = musicSource.volume;
@@ -105,9 +92,7 @@ public class MusicManager : MonoBehaviour
         musicSource.clip = null;
     }
 
-    /// <summary>
-    /// Wstrzymuje bieøπcπ muzykÍ z fade-out.
-    /// </summary>
+   
     public void StopMusic(float fadeDuration = 1.0f)
     {
         if (currentMusicCoroutine != null)
