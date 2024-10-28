@@ -96,6 +96,7 @@ namespace GameTools
             EventManager.NextLvl += LoadNextLevel;
             EventManager.Restart += RestartLevel;
             EventManager.GameOver += GameOver;
+            EventManager.BackToMenu += MainMenu;
         }
 
         private void OnDisable()
@@ -103,6 +104,13 @@ namespace GameTools
             EventManager.NextLvl -= LoadNextLevel;
             EventManager.Restart -= RestartLevel;
             EventManager.GameOver -= GameOver;
+            EventManager.BackToMenu -= MainMenu;
+        }
+
+        private void MainMenu()
+        {
+            SceneManager.LoadScene("MainMenu");
+            Destroy(Instance);
         }
 
         private void GameOver()

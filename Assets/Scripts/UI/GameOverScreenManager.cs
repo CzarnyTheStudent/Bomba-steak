@@ -93,5 +93,10 @@ namespace UI
         {
             EventManager.OnRestart();
         }
+
+        public void BackToMainMenu()
+        {
+            EventManager.TriggerBackToMenu();
+        }
     }
 }

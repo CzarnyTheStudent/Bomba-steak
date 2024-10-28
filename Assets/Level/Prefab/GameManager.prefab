@@ -515,7 +515,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 102
+  Priority: 15
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -678,7 +678,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2991025779327567307}
   m_Layer: 0
-  m_Name: StartGameCanvas
+  m_Name: GranadeLauncher
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

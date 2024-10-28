@@ -4620,11 +4620,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5102184694533138759, guid: 1d5621a81a83e0b4f9bd081e4df65956,
-        type: 3}
-      propertyPath: Priority
-      value: 15
-      objectReference: {fileID: 0}
     - target: {fileID: 5667845468499865584, guid: 1d5621a81a83e0b4f9bd081e4df65956,
         type: 3}
       propertyPath: setTimeOnLevel
