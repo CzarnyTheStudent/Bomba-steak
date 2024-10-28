@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelsMusic:
   - levelName: LVL 1
-    startLevelMusic: {fileID: 8300000, guid: 88ad30356a2424049b4f104ea8047fae, type: 3}
+    startLevelMusic: {fileID: 0}
     gameMusic: {fileID: 8300000, guid: c1c8590684d930943a3623b1c98364a6, type: 3}
-    transitionMusic: {fileID: 8300000, guid: 88ad30356a2424049b4f104ea8047fae, type: 3}
+    transitionMusic: {fileID: 0}
   - levelName: LVL 2
     startLevelMusic: {fileID: 0}
-    gameMusic: {fileID: 0}
+    gameMusic: {fileID: 8300000, guid: c1c8590684d930943a3623b1c98364a6, type: 3}
     transitionMusic: {fileID: 0}

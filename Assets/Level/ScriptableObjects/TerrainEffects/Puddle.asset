@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   angularDrag: 0.1
   canKill: 0
-  terrainSound: {fileID: 8300000, guid: c3f35074504c0c845b81be004663c657, type: 3}
+  terrainSound: {fileID: 8300000, guid: 4c89cffc20094e44aa3048e8fb16fa75, type: 3}
