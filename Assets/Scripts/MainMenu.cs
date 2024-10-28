@@ -1,25 +1,34 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
+
 
 public class MainMenu : MonoBehaviour
 {
-    [SerializeField] private Animator anim;
     [SerializeField] private GameObject nextButtons;
-    [SerializeField] private GameObject playButton;
-    [SerializeField] private List<GameObject> buttons;
-    private static readonly int ShowButtons = Animator.StringToHash("ShowButtons");
 
-    public void OnPlay()
+    private void Start()
     {
-        playButton.SetActive(false);
-        anim.SetBool(ShowButtons,true);
+        Invoke(nameof(OnPlay), 1f);
+    }
+
+    private void OnPlay()
+    {
+        nextButtons.SetActive(true);
     }
 
     public void LoadFirstLevel()
     {
         SceneManager.LoadScene("LVL 1");
+    }
+    
+    public void LoadSecoundLevel()
+    {
+        SceneManager.LoadScene("LVL 2");
+    }
+
+    public void OnQuit()
+    {
+        Application.Quit();
     }
 }
