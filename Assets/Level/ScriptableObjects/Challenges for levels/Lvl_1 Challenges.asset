@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Lvl_1 Challenges
   m_EditorClassIdentifier: 
   timeForStar: 00:25:00
-  dragsForStar: 2
+  dragsForStar: 12

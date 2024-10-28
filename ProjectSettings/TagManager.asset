@@ -4,12 +4,12 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Terrain Interaction
+  - Terrain
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - LineRenderer
   - Water
   - UI
   - 
@@ -39,6 +39,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: LineRenderer
+    uniqueID: 2246320761
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

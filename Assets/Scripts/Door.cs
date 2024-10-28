@@ -31,8 +31,7 @@ public class Door : MonoBehaviour
             float newY = Mathf.MoveTowards(currentPosition.y, endPosition.y, moveSpeed * Time.deltaTime);
 
             transform.position = new Vector3(newX, newY, transform.position.z);
-
-            // Zatrzymaj ruch, gdy osiągnięto pozycję końcową
+            
             if (Mathf.Approximately(newX, endPosition.x) && Mathf.Approximately(newY, endPosition.y))
             {
                 shouldMove = false;

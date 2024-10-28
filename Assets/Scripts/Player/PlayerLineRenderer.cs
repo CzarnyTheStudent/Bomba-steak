@@ -5,11 +5,20 @@ namespace Player
     public class PlayerLineRenderer : MonoBehaviour
     {
         public LineRenderer lr;
+        private bool drag;
 
-        public void StartLine(Vector3 startPos)
+        
+        private void Update()
+        {
+            if (!drag) return;
+                lr.SetPosition(0, transform.position);
+        }
+            
+        public void StartLine(Vector3 touchPos)
         {
             lr.positionCount = 1;
-            lr.SetPosition(0, startPos);
+            lr.SetPosition(0, touchPos);
+            drag = true;
         }
 
         public void UpdateLine(Vector3 currentPos)
@@ -21,6 +30,7 @@ namespace Player
         public void ClearLine()
         {
             lr.positionCount = 0;
+            drag = false;
         }
     }
 }
