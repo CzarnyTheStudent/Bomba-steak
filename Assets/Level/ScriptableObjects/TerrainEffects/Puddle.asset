@@ -13,3 +13,5 @@ MonoBehaviour:
   m_Name: Puddle
   m_EditorClassIdentifier: 
   angularDrag: 0.1
+  canKill: 0
+  terrainSound: {fileID: 8300000, guid: c3f35074504c0c845b81be004663c657, type: 3}
