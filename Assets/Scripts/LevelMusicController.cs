@@ -57,7 +57,7 @@ namespace GameTools
             {
                 if (level.levelName == currentLevelName)
                 {
-                    MusicManager.Instance.PlayMusic(level.gameMusic, 1.0f, true); // Szybka zmiana muzyki
+                    MusicManager.Instance.PlayMusic(level.gameMusic, 0.3f, true); // Szybka zmiana muzyki
                     return;
                 }
             }

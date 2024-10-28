@@ -15,9 +15,9 @@ MonoBehaviour:
   levelsMusic:
   - levelName: LVL 1
     startLevelMusic: {fileID: 0}
-    gameMusic: {fileID: 8300000, guid: c1c8590684d930943a3623b1c98364a6, type: 3}
+    gameMusic: {fileID: 8300000, guid: 3eb7a255260bb934b890afdf47525942, type: 3}
     transitionMusic: {fileID: 0}
   - levelName: LVL 2
     startLevelMusic: {fileID: 0}
-    gameMusic: {fileID: 8300000, guid: c1c8590684d930943a3623b1c98364a6, type: 3}
+    gameMusic: {fileID: 8300000, guid: 3eb7a255260bb934b890afdf47525942, type: 3}
     transitionMusic: {fileID: 0}

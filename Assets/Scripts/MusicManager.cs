@@ -21,7 +21,7 @@ public class MusicManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    public void PlayMusic(AudioClip musicClip, float volume = 1.0f, bool immediate = false)
+    public void PlayMusic(AudioClip musicClip, float volume = 0.4f, bool immediate = false)
     {
         if (immediate)
         {

@@ -12,6 +12,7 @@ namespace GameTools
         
         public PlayerStatsCollector playerStatsCollector;
         [SerializeField] private GameObject starGameCanvas;
+        [SerializeField] private PinHandler pinHandler;
         private bool pinPulled;
         public bool GameReady { get; private set; }
 
