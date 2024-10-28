@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d310b157aa155ef4a848994e9836b101, type: 3}
   m_Name: Lvl_2 Chall
   m_EditorClassIdentifier: 
-  timeForStar: 01:00:00
-  dragsForStar: 10
+  timeForStar: 00:10:00
+  dragsForStar: 17
