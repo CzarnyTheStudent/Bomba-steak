@@ -24,7 +24,7 @@ namespace GameTools
             DontDestroyOnLoad(gameObject);
         }
 
-        private void Start()
+        private void OnEnable()
         {
             EventManager.OnLevelStart += PlayCalmMusic;
             EventManager.OnPinPulled += PlayActionMusic;
