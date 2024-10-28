@@ -16,7 +16,7 @@ ScriptedImporter:
   textureImporterSettings:
     alphaSource: 1
     mipMapMode: 0
-    enableMipMap: 0
+    enableMipMap: 1
     fadeOut: 0
     borderMipMap: 0
     mipMapsPreserveCoverage: 0
@@ -109,7 +109,7 @@ ScriptedImporter:
       y: 171
       width: 69
       height: 68
-    spriteID: 538c9f51d641fd44a8917c2d43a48c01
+    spriteID: 55644b02f9a969f44b53cf7e246e3ac9
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -130,7 +130,7 @@ ScriptedImporter:
       y: 4
       width: 92
       height: 159
-    spriteID: 4054902907ebb5e43bae828c57347595
+    spriteID: f1d20ffecb65ed549a28c21f02920cd9
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -152,7 +152,7 @@ ScriptedImporter:
       y: 171
       width: 69
       height: 68
-    spriteID: cf315a991f915e14596edcb0063d42cb
+    spriteID: bf4c0ece291628e4e8a555c91b9267d9
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -173,7 +173,7 @@ ScriptedImporter:
       y: 4
       width: 92
       height: 159
-    spriteID: 35cf697ee09502a4994491f7ce8cafc5
+    spriteID: 1a1700bb13a1e5a4fa71f5a17483916a
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -243,7 +243,7 @@ ScriptedImporter:
   layerMappingOption: 2
   generatePhysicsShape: 0
   paperDollMode: 0
-  keepDupilcateSpriteName: 1
+  keepDupilcateSpriteName: 0
   skeletonAssetReferenceID: 
   pipeline: {instanceID: 0}
   pipelineVersion: 
@@ -258,7 +258,7 @@ ScriptedImporter:
     spriteName: Helmet
     isGroup: 0
     parentIndex: -1
-    spriteID: 538c9f51d641fd44a8917c2d43a48c01
+    spriteID: 55644b02f9a969f44b53cf7e246e3ac9
     layerID: 3
     mosaicPosition: {x: 4, y: 171}
     flatten: 0
@@ -268,7 +268,7 @@ ScriptedImporter:
     spriteName: Base
     isGroup: 0
     parentIndex: -1
-    spriteID: 4054902907ebb5e43bae828c57347595
+    spriteID: f1d20ffecb65ed549a28c21f02920cd9
     layerID: 2
     mosaicPosition: {x: 4, y: 4}
     flatten: 0
@@ -278,7 +278,7 @@ ScriptedImporter:
     spriteName: 
     isGroup: 0
     parentIndex: -1
-    spriteID: 418dd4428fd49024fb47ca4267091585
+    spriteID: 0b180c8777427bd42b650f7e3d43b3ad
     layerID: 1
     mosaicPosition: {x: 0, y: 0}
     flatten: 0
@@ -289,7 +289,7 @@ ScriptedImporter:
     spriteName: Helmet
     isGroup: 0
     parentIndex: -1
-    spriteID: cf315a991f915e14596edcb0063d42cb
+    spriteID: bf4c0ece291628e4e8a555c91b9267d9
     layerID: 3
     mosaicPosition: {x: 4, y: 171}
     flatten: 0
@@ -299,7 +299,7 @@ ScriptedImporter:
     spriteName: Base
     isGroup: 0
     parentIndex: -1
-    spriteID: 35cf697ee09502a4994491f7ce8cafc5
+    spriteID: 1a1700bb13a1e5a4fa71f5a17483916a
     layerID: 2
     mosaicPosition: {x: 4, y: 4}
     flatten: 0
@@ -309,7 +309,7 @@ ScriptedImporter:
     spriteName: 
     isGroup: 0
     parentIndex: -1
-    spriteID: 4c3aa5d29153c3243a1a54471c3f657f
+    spriteID: 1e9c04eea7e8efe46897e8b627f16c8c
     layerID: 1
     mosaicPosition: {x: 0, y: 0}
     flatten: 0
