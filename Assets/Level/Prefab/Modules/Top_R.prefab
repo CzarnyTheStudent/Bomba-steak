@@ -207,7 +207,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fbbf4259b3b62c429adeb1c9c243679, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  terrainData: {fileID: 11400000, guid: fbeb6a2269f8403499897bd2e078a6ac, type: 2}
+  terrainData: {fileID: 11400000, guid: c312a91404f6ed54bb9cb3b143d428f8, type: 2}
 --- !u!61 &252061846036696656
 BoxCollider2D:
   m_ObjectHideFlags: 0
