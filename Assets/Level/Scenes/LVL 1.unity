@@ -4620,10 +4620,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4294397148076540846, guid: 1d5621a81a83e0b4f9bd081e4df65956,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -47.43
+      objectReference: {fileID: 0}
     - target: {fileID: 5667845468499865584, guid: 1d5621a81a83e0b4f9bd081e4df65956,
         type: 3}
       propertyPath: setTimeOnLevel
       value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 8530765014240682897, guid: 1d5621a81a83e0b4f9bd081e4df65956,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8936414639912786384, guid: 1d5621a81a83e0b4f9bd081e4df65956,
         type: 3}
