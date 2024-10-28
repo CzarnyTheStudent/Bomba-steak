@@ -5594,8 +5594,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5667845468499865584, guid: 1d5621a81a83e0b4f9bd081e4df65956,
         type: 3}
+      propertyPath: setChallenges
+      value: 
+      objectReference: {fileID: 11400000, guid: a5f8004eece1bd840998a2ec89b5b802,
+        type: 2}
+    - target: {fileID: 5667845468499865584, guid: 1d5621a81a83e0b4f9bd081e4df65956,
+        type: 3}
       propertyPath: setTimeOnLevel
-      value: 180
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 8936414639912786384, guid: 1d5621a81a83e0b4f9bd081e4df65956,
         type: 3}
