@@ -4633,7 +4633,7 @@ PrefabInstance:
     - target: {fileID: 5667845468499865584, guid: 1d5621a81a83e0b4f9bd081e4df65956,
         type: 3}
       propertyPath: setTimeOnLevel
-      value: 60
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 8530765014240682897, guid: 1d5621a81a83e0b4f9bd081e4df65956,
         type: 3}

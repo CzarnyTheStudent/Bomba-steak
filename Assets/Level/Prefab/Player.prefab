@@ -84,7 +84,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dd529f7937da3e49bdbb84549229b59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldownTime: 4
+  cooldownTime: 2.5
   shootReady: 1
 --- !u!114 &5388901347428614404
 MonoBehaviour:
@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e518930d703e73c438bd7fa99106799e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  power: 5
+  power: 3.5
   maxDrag: 5
   rb: {fileID: 4776505603300374210}
   startPos: {x: 0, y: 0, z: 0}

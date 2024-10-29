@@ -27804,11 +27804,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 5388901347428614404, guid: 34a9f73f7e6fbcd4493ffaa4a665d592,
-        type: 3}
-      propertyPath: power
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 5930396603895548624, guid: 34a9f73f7e6fbcd4493ffaa4a665d592,
         type: 3}
       propertyPath: Priority
