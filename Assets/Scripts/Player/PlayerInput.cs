@@ -29,7 +29,7 @@ namespace Player
                 Vector3 touchPos = Camera.main.ScreenToWorldPoint(touch.position);
                 touchPos.z = 0f;
 
-                if (touch.phase == TouchPhase.Began && IsTouchOnObject(touchPos))
+                if (touch.phase == TouchPhase.Began )
                 {
                     DragStart(touchPos);
                 }
@@ -44,12 +44,7 @@ namespace Player
             }
         }
 
-        private bool IsTouchOnObject(Vector3 touchPos)
-        {
-            Collider2D collider = GetComponent<Collider2D>();
-            return collider == Physics2D.OverlapPoint(touchPos);
-        }
-
+      
         private void DragStart(Vector3 touchPos)
         {
             if (!_shootCooldown.shootReady) return;
