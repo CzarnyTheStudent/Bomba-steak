@@ -1,10 +1,11 @@
 using System;
+using Fusion;
 using Static;
 using UnityEngine;
 
 namespace Player
 {
-    public class Player : MonoBehaviour
+    public class Player : NetworkBehaviour
     {
         private PlayerMovement _playerMovement;
         private PlayerInput _playerInput;
@@ -34,9 +35,16 @@ namespace Player
             EventManager.GameStart -= EnableControls;
         }
 
-        private void DisableControls() => _playerInput.enabled = false;
+        private void DisableControls()
+        {
+            if (Object.HasInputAuthority)
+                _playerInput.enabled = false;
+        }
 
-        private void EnableControls() => _playerInput.enabled = true;
-        
+        private void EnableControls()
+        {
+            if (Object.HasInputAuthority)
+                _playerInput.enabled = true;
+        }
     }
 }

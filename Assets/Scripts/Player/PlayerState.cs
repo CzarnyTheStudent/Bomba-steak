@@ -15,7 +15,7 @@ namespace Player
 
         private void Update()
         {
-            isMoving = rb.velocity.magnitude > 0.1f;
+            //isMoving = rb.velocity.magnitude > 0.1f;
         }
 
         public bool IsPlayerMoving()

@@ -1,16 +1,23 @@
 ﻿using UnityEngine;
+using Fusion;
 
 namespace Player
 {
-    public class PlayerMovement : MonoBehaviour
+    public class PlayerMovement : NetworkBehaviour
     {
         public float power = 10f;
         public float maxDrag = 5f;
         public Rigidbody2D rb;
         public Vector3 startPos;
 
-        void Start() => startPos = transform.position;
-        public void ApplyForce(Vector3 startPos, Vector3 endPos)
+        public override void Spawned()
+        {
+            if (Object.HasStateAuthority)
+                startPos = transform.position;
+        }
+
+        [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]
+        public void RpcApplyForce(Vector3 startPos, Vector3 endPos)
         {
             Vector3 force = startPos - endPos;
             Vector3 clampedForce = Vector3.ClampMagnitude(force, maxDrag) * power;
@@ -19,10 +26,8 @@ namespace Player
 
         public void ResetPos()
         {
-            transform.position = startPos;
-           
-            
+            if (Object.HasStateAuthority)
+                transform.position = startPos;
         }
-   
     }
 }

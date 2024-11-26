@@ -1,74 +1,71 @@
+using Fusion;
+using Player;
 using UnityEngine;
 
-namespace Player
+public class PlayerInput : NetworkBehaviour
 {
-    public class PlayerInput : MonoBehaviour
+    private Vector3 _dragStartPos;
+    private bool _isDragging = false;
+    private PlayerMovement _playerMovement;
+    private PlayerLineRenderer _lineRenderer;
+    private PlayerStats _playerStats;
+    private PlayerAudio _audioObserver;
+    private PlayerCooldownShoot _shootCooldown;
+
+    private void Start()
     {
-        private Vector3 _dragStartPos;
-        private bool _isDragging = false;
-        private PlayerMovement _playerMovement;
-        private PlayerLineRenderer _lineRenderer;
-        private PlayerStats _playerStats;
-        private PlayerAudio _audioObserver;
-        private PlayerCooldownShoot _shootCooldown;
+        _playerMovement = GetComponent<PlayerMovement>();
+        _lineRenderer = GetComponent<PlayerLineRenderer>();
+        _playerStats = GetComponent<PlayerStats>();
+        _audioObserver = GetComponent<PlayerAudio>();
+        _shootCooldown = GetComponent<PlayerCooldownShoot>();
+    }
 
-        private void Start()
+    private void Update()
+    {
+        if (!Object.HasInputAuthority || Input.touchCount <= 0) return;
+
+        Touch touch = Input.GetTouch(0);
+        Vector3 touchPos = Camera.main.ScreenToWorldPoint(touch.position);
+        touchPos.z = 0f;
+
+        if (touch.phase == TouchPhase.Began)
         {
-            _playerMovement = GetComponent<PlayerMovement>();
-            _lineRenderer = GetComponent<PlayerLineRenderer>();
-            _playerStats = GetComponent<PlayerStats>();
-            _audioObserver = GetComponent<PlayerAudio>();
-            _shootCooldown = GetComponent<PlayerCooldownShoot>();
+            DragStart(touchPos);
         }
-
-        private void Update()
+        if (_isDragging && touch.phase == TouchPhase.Moved)
         {
-            if (Input.touchCount > 0)
-            {
-                Touch touch = Input.GetTouch(0);
-                Vector3 touchPos = Camera.main.ScreenToWorldPoint(touch.position);
-                touchPos.z = 0f;
-
-                if (touch.phase == TouchPhase.Began )
-                {
-                    DragStart(touchPos);
-                }
-                if (_isDragging && touch.phase == TouchPhase.Moved)
-                {
-                    Dragging(touchPos);
-                }
-                if (_isDragging && touch.phase == TouchPhase.Ended)
-                {
-                    DragRelease(touchPos);
-                }
-            }
+            Dragging(touchPos);
         }
-
-      
-        private void DragStart(Vector3 touchPos)
+        if (_isDragging && touch.phase == TouchPhase.Ended)
         {
-            if (!_shootCooldown.shootReady) return;
-            _isDragging = true;
-            _dragStartPos = touchPos;
-            _lineRenderer.StartLine(_dragStartPos);
-            _audioObserver.PlayDragStartSound();
+            DragRelease(touchPos);
         }
+    }
 
-        private void Dragging(Vector3 touchPos)
-        {
-            _lineRenderer.UpdateLine(touchPos);
-            _audioObserver.PlayDraggingSound();
-        }
+    private void DragStart(Vector3 touchPos)
+    {
+        if (!_shootCooldown.shootReady) return;
+        _isDragging = true;
+        _dragStartPos = touchPos;
+        _lineRenderer.StartLine(_dragStartPos);
+        _audioObserver.PlayDragStartSound();
+    }
 
-        private void DragRelease(Vector3 touchPos)
-        {
-            _isDragging = false;
-            _playerStats.IncrementDragEndCount();
-            _lineRenderer.ClearLine();
-            _playerMovement.ApplyForce(_dragStartPos, touchPos);
-            _audioObserver.PlayDragReleaseSound();
-            _audioObserver.StopDraggingSound();
-            StartCoroutine(_shootCooldown.WaitForShoot());
-        }
+    private void Dragging(Vector3 touchPos)
+    {
+        _lineRenderer.UpdateLine(touchPos);
+        _audioObserver.PlayDraggingSound();
+    }
+
+    private void DragRelease(Vector3 touchPos)
+    {
+        _isDragging = false;
+        _playerStats.IncrementDragEndCount();
+        _lineRenderer.ClearLine();
+       // _playerMovement.ApplyForce(_dragStartPos, touchPos);
+        _audioObserver.PlayDragReleaseSound();
+        _audioObserver.StopDraggingSound();
+        StartCoroutine(_shootCooldown.WaitForShoot());
     }
 }
