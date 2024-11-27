@@ -24,14 +24,6 @@ namespace Static
         public static void TriggerPinPulled() => OnPinPulled?.Invoke();
         public static void TriggerLevelEnd() => OnLevelEnd?.Invoke();
 
-        public static event UnityAction OnLevelStart;
-        public static event UnityAction OnPinPulled;
-        public static event UnityAction OnLevelEnd;
-
-        public static void TriggerNewLevelStart() => OnLevelStart?.Invoke();
-        public static void TriggerPinPulled() => OnPinPulled?.Invoke();
-        public static void TriggerLevelEnd() => OnLevelEnd?.Invoke();
-
         //GameSetup events
         public static event UnityAction<string> TimeForStar;
         public static event UnityAction<int> DragForStar;
