@@ -54,7 +54,7 @@ public class NetGameManager : MonoBehaviour, INetworkRunnerCallbacks
         {
             NetworkObject assignedObject;
 
-            // Assign specific objects to players based on the join order
+            // Znajdź obiekt gracza na scenie
             if (_assignedPlayers.Count == 0)
             {
                 assignedObject = _playerOneObject;
@@ -69,13 +69,15 @@ public class NetGameManager : MonoBehaviour, INetworkRunnerCallbacks
                 return;
             }
 
-            // Assign InputAuthority and Ownership to the specific object
+            // Przypisz InputAuthority
             runner.SetPlayerObject(player, assignedObject);
             assignedObject.AssignInputAuthority(player);
 
-            _assignedPlayers.Add(player, assignedObject);
+            _assignedPlayers[player] = assignedObject;
         }
     }
+
+
 
     public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
     {
