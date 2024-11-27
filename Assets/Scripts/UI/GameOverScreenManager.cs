@@ -53,7 +53,7 @@ namespace UI
             gameOverScreen.SetActive(true);
             timerGameOverTime.text = timer.timerText.text;
             dragCount.text = GameDataStatsReceiver.Instance.GetDragEndCount().ToString();
-            GameSetup gameSetup = Coordinator.Instance.GetGameSetup();
+            GameSetup gameSetup = SetUpCoordinator.GetGameSetup();
             StartCoroutine(GetStats(gameSetup));
         } 
 

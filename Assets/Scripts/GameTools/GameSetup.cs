@@ -1,18 +1,11 @@
 using UnityEngine;
 
-namespace GameTools
+[CreateAssetMenu(fileName = "NewGameSetup", menuName = "GameTools/GameSetup")]
+public class GameSetup : ScriptableObject
 {
-    public class GameSetup : MonoBehaviour
-    {
-        [Header("Time Limit Setup")]
-        public float setTimeOnLevel;
+    [Header("Time Limit Setup")]
+    public float setTimeOnLevel;
 
-        [Header("Challegnes")]
-        public Challenges setChallenges;
-
-        private void Start()
-        {
-            Coordinator.Instance.RegisterGameSetup(this);
-        }
-    }
+    [Header("Challenges")]
+    public Challenges setChallenges;
 }

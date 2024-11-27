@@ -31,7 +31,7 @@ namespace Player
         public void ApplyForce(Vector3 startPos, Vector3 endPos)
         {
             Vector3 force = startPos - endPos;
-            float forceStrength = Mathf.Clamp(force.magnitude, 0f, maxDrag); // Ogranicz długość siły
+            float forceStrength = Mathf.Clamp(force.magnitude, 0f, maxDrag);
             Vector3 clampedForce = force.normalized * forceStrength * power;
 
             rb.AddForce(clampedForce, ForceMode2D.Impulse);
