@@ -68,10 +68,16 @@ namespace Player
             _audioObserver.PlayDragReleaseSound();
             _audioObserver.StopDraggingSound();
 
-            // Wywołanie RPC do synchronizacji
-            RpcApplyForce(_dragStartPos, touchPos);
+            // Oblicz dystans i ogranicz do maxDrag
+            Vector3 dragVector = _dragStartPos - touchPos;
+            float dragDistance = Mathf.Clamp(dragVector.magnitude, 0f, _playerMovement.maxDrag);
+            Vector3 clampedDragVector = dragVector.normalized * dragDistance;
+
+            // Wywołanie RPC z ograniczonym wektorem
+            RpcApplyForce(_dragStartPos, _dragStartPos - clampedDragVector);
             StartCoroutine(_shootCooldown.WaitForShoot());
         }
+
 
         [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]
         private void RpcApplyForce(Vector3 startPos, Vector3 endPos)

@@ -31,7 +31,9 @@ namespace Player
         public void ApplyForce(Vector3 startPos, Vector3 endPos)
         {
             Vector3 force = startPos - endPos;
-            Vector3 clampedForce = Vector3.ClampMagnitude(force, maxDrag) * power;
+            float forceStrength = Mathf.Clamp(force.magnitude, 0f, maxDrag); // Ogranicz długość siły
+            Vector3 clampedForce = force.normalized * forceStrength * power;
+
             rb.AddForce(clampedForce, ForceMode2D.Impulse);
 
             if (Object.HasStateAuthority)
@@ -39,6 +41,7 @@ namespace Player
                 NetworkedPosition = rb.position;
             }
         }
+
 
         private void FixedUpdate()
         {
