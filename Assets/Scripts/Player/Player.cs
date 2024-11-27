@@ -13,6 +13,10 @@ namespace Player
         private PlayerStats _playerStats;
         private PlayerAudio playerAudio;
         private GetTerrainEffect _terrainGet;
+        public static bool isReady;
+        
+        public void SetReady(bool set) => isReady = set;
+
 
         private void Start()
         {
@@ -37,12 +41,14 @@ namespace Player
 
         private void DisableControls()
         {
+            if (!isReady) return;
             if (Object.HasInputAuthority)
                 _playerInput.enabled = false;
         }
 
         private void EnableControls()
         {
+            if (!isReady) return;
             if (Object.HasInputAuthority)
                 _playerInput.enabled = true;
         }

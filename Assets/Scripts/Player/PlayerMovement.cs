@@ -42,14 +42,13 @@ namespace Player
 
         private void FixedUpdate()
         {
+            if (!Player.isReady) return;
             if (Object.HasStateAuthority)
             {
-                // Synchronizuj pozycję
                 NetworkedPosition = rb.position;
             }
             else
             {
-                // Odtwarzaj pozycję na innych klientach
                 transform.position = Vector3.Lerp(transform.position, NetworkedPosition, 0.1f);
             }
         }

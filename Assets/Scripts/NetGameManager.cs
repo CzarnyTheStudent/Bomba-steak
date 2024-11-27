@@ -2,6 +2,7 @@ using Fusion;
 using Fusion.Sockets;
 using System;
 using System.Collections.Generic;
+using Player;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -74,6 +75,11 @@ public class NetGameManager : MonoBehaviour, INetworkRunnerCallbacks
             assignedObject.AssignInputAuthority(player);
 
             _assignedPlayers[player] = assignedObject;
+            var playerMain = assignedObject.GetComponent<Player.Player>();
+            if (playerMain != null)
+            {
+                playerMain.SetReady(true);
+            }
         }
     }
 

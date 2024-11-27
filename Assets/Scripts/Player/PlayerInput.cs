@@ -24,6 +24,7 @@ namespace Player
 
         private void Update()
         {
+            if (!Player.isReady) return;
             if (!Object.HasInputAuthority || Input.touchCount <= 0) return;
 
             Touch touch = Input.GetTouch(0);
