@@ -6,38 +6,41 @@ using TMPro;
 
 public class Timer : MonoBehaviour
 {
-    #region Variables
-
+    public static Timer instance;
     public TMP_Text timerText;
     enum TimerType {Countdown, Stopwatch}
     [SerializeField] private TimerType timerType;
     private float timeToDisplay = 0.0f;
     [SerializeField] private bool _isRunning;
-
-    #endregion
+    
+    private void Awake() => instance = this;
 
     private void OnEnable()
     {
-        EventManager.TimerStart += EventManagerOnTimerStart;
-        EventManager.TimerStop += EventManagerOnTimerStop;
-        EventManager.TimerUpdate += EventManagerOnTimerUpdate;
+        EventManager.TimerStart += StartTimer;
+        EventManager.TimerStop += StopTimer;
+        EventManager.TimerUpdate += UpdateDisplayTime;
     }
 
     private void OnDisable()
     {
-        EventManager.TimerStart -= EventManagerOnTimerStart;
-        EventManager.TimerStop -= EventManagerOnTimerStop;
-        EventManager.TimerUpdate -= EventManagerOnTimerUpdate;
+        EventManager.TimerStart -= StartTimer;
+        EventManager.TimerStop -= StopTimer;
+        EventManager.TimerUpdate -= UpdateDisplayTime;
     }
 
-    private void EventManagerOnTimerStart() => _isRunning = true;
+    private void StartTimer() => _isRunning = true;
 
-    private void EventManagerOnTimerStop()
+    private void StopTimer() => _isRunning = false;
+    
+    private void UpdateDisplayTime(float value) => timeToDisplay += value;
+
+    public void SyncTime(float serverTime)
     {
-        _isRunning = false;
+        timeToDisplay = serverTime;
+        UpdateDisplayTime(serverTime);
     }
-
-    private void EventManagerOnTimerUpdate(float value) => timeToDisplay += value;
+    public string GetCurrentTime() => timerText.text;
     
     private void Update()
     {
@@ -52,6 +55,5 @@ public class Timer : MonoBehaviour
 
         TimeSpan timeSpan = TimeSpan.FromSeconds(timeToDisplay);
         timerText.text = timeSpan.ToString(@"mm\:ss\:ff");
-        GameDataStatsReceiver.Instance.ReceiveTimeData(timerText.text);
     }
 }

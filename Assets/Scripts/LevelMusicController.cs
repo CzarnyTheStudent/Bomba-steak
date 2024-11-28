@@ -27,14 +27,12 @@ namespace GameTools
         private void OnEnable()
         {
             EventManager.OnLevelStart += PlayCalmMusic;
-            EventManager.OnPinPulled += PlayActionMusic;
             EventManager.OnLevelEnd += PlayTransitionMusic;
         }
 
         private void OnDestroy()
         {
             EventManager.OnLevelStart -= PlayCalmMusic;
-            EventManager.OnPinPulled -= PlayActionMusic;
             EventManager.OnLevelEnd -= PlayTransitionMusic;
         }
 

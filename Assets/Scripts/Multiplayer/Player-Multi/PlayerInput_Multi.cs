@@ -6,8 +6,8 @@ namespace Multiplayer.Player_Multi
 {
     public class PlayerInputMulti : NetworkBehaviour
     {
-       private Vector3 _dragStartPos;
-        private bool _isDragging = false;
+        private Vector3 _dragStartPos;
+        private bool _isDragging;
         private PlayerMovementMulti _playerMovement;
         private PlayerLineRenderer _lineRenderer;
         private PlayerStats _playerStats;
@@ -68,11 +68,13 @@ namespace Multiplayer.Player_Multi
             _lineRenderer.ClearLine();
             _audioObserver.PlayDragReleaseSound();
             _audioObserver.StopDraggingSound();
-            
+
+            // Oblicz dystans i ogranicz do maxDrag
             Vector3 dragVector = _dragStartPos - touchPos;
             float dragDistance = Mathf.Clamp(dragVector.magnitude, 0f, _playerMovement.maxDrag);
             Vector3 clampedDragVector = dragVector.normalized * dragDistance;
-            
+
+            // Wywołanie RPC z ograniczonym wektorem
             RpcApplyForce(_dragStartPos, _dragStartPos - clampedDragVector);
             StartCoroutine(_shootCooldown.WaitForShoot());
         }
