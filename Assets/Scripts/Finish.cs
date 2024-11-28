@@ -8,7 +8,8 @@ public class Finish : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            GameEndNotifier.Instance.NotifyGameEnd(true);
+            other.GetComponent<PlayerStats>().SetPlayerWon(true);
+            GameEndNotifier.Instance.NotifyGameEnd();
         }
     }
 }

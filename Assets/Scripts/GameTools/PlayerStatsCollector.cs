@@ -1,42 +1,32 @@
-using System;
 using UnityEngine;
 
 [System.Serializable]
 public class PlayerStatsCollector
 {
-    private string totalTime;
-    private int dragCount = 0;
-    private bool playerWon = false;
+    private static string _totalTime;
+    private static int _dragCount = 0;
+    private static bool _playerWon = false;
 
-    public void UpdateTotalTime(string additionalTime)
+    public void UpdateTotalTime(string time)
     {
-        if (string.IsNullOrEmpty(totalTime))
-        {
-            totalTime = additionalTime;
-            Debug.Log($"Total time initialized to: {totalTime}");
-            return;
-        }
-
-        if (!TimeSpan.TryParseExact(additionalTime, @"mm\:ss\:ff", null, out TimeSpan additionalTimeSpan) ||
-            !TimeSpan.TryParseExact(totalTime, @"mm\:ss\:ff", null, out TimeSpan totalTimeSpan)) return;
-
-        if (additionalTimeSpan > totalTimeSpan)
-        {
-            totalTime = additionalTime;
-            Debug.Log($"Total time updated to: {totalTime}");
-        }
+        _totalTime = time;
+        Debug.Log($"Total Time Updated: {_totalTime}");
     }
 
-    public void UpdateDragCount(int newDragCount)
+    public void UpdateDragCount(int count)
     {
-        if (dragCount != 0 && newDragCount > dragCount) return;
-        dragCount = newDragCount;
+        _dragCount = count;
+        Debug.Log($"Drag Count Updated: {_dragCount}");
     }
 
     public void UpdateLevelComplete(bool won)
     {
-        if (!won) return;
-        playerWon = won;
-        Debug.Log($"Player won status updated to: {playerWon}");
+        _playerWon = won;
+        Debug.Log($"Player Won Updated: {_playerWon}");
     }
+
+    // Getters
+    public static string GetTotalTime() => _totalTime;
+    public static int GetDragCount() => _dragCount;
+    public static bool HasPlayerWon() => _playerWon;
 }

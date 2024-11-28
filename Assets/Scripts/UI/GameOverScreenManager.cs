@@ -52,14 +52,14 @@ namespace UI
         {
             gameOverScreen.SetActive(true);
             timerGameOverTime.text = timer.timerText.text;
-            dragCount.text = GameDataStatsReceiver.Instance.GetDragEndCount().ToString();
+            dragCount.text = PlayerStatsCollector.GetDragCount().ToString();
             GameSetup gameSetup = SetUpCoordinator.GetGameSetup();
             StartCoroutine(GetStats(gameSetup));
         } 
 
         IEnumerator GetStats(GameSetup gameSetup)
         {
-            bool win = GameDataStatsReceiver.Instance.GetPlayerWon();
+            bool win = PlayerStatsCollector.HasPlayerWon();
             yield return new WaitForSeconds(1f);
             if (win)
             {

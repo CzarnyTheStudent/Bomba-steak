@@ -771,15 +771,10 @@ PrefabInstance:
       propertyPath: SortKey
       value: 3017452655
       objectReference: {fileID: 0}
-    - target: {fileID: 1681147945611417418, guid: fe980b9d9faafbc4387c48b3b005c528,
-        type: 3}
-      propertyPath: NetworkedBehaviours.Array.size
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 2182460210953733595, guid: fe980b9d9faafbc4387c48b3b005c528,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.27
+      value: 2.35
       objectReference: {fileID: 0}
     - target: {fileID: 2182460210953733595, guid: fe980b9d9faafbc4387c48b3b005c528,
         type: 3}
@@ -12301,17 +12296,22 @@ PrefabInstance:
     - target: {fileID: 1089915913163173739, guid: 75ec084c3d9039d47bba1f09e483cfbf,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 30
+      value: 6.125625
+      objectReference: {fileID: 0}
+    - target: {fileID: 1089915913163173739, guid: 75ec084c3d9039d47bba1f09e483cfbf,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 8.45
       objectReference: {fileID: 0}
     - target: {fileID: 1089915913163173739, guid: 75ec084c3d9039d47bba1f09e483cfbf,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -16.2
+      value: 37.08
       objectReference: {fileID: 0}
     - target: {fileID: 1089915913163173739, guid: 75ec084c3d9039d47bba1f09e483cfbf,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 9.4
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 1089915913163173739, guid: 75ec084c3d9039d47bba1f09e483cfbf,
         type: 3}

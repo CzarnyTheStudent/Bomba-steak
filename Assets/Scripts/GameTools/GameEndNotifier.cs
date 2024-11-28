@@ -7,9 +7,8 @@ namespace GameTools
         private static GameEndNotifier _instance;
         public static GameEndNotifier Instance => _instance ??= new GameEndNotifier();
 
-        public void NotifyGameEnd(bool playerWin)
+        public void NotifyGameEnd()
         {
-            GameDataStatsReceiver.Instance.ReceivePlayerWon(playerWin);
             EventManager.OnGameOver();
             EventManager.OnTimerStop();
         }

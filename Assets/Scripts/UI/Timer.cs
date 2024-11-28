@@ -47,7 +47,7 @@ public class Timer : MonoBehaviour
         if (!_isRunning) return;
         if (timerType == TimerType.Countdown && timeToDisplay < 0.0f)
         {
-            GameEndNotifier.Instance.NotifyGameEnd(false);
+            GameEndNotifier.Instance.NotifyGameEnd();
             return;
         }
         
