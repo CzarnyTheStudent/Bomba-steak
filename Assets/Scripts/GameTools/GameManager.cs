@@ -1,16 +1,37 @@
 using System.Collections;
 using Static;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace GameTools
 {
     public class GameManager : MonoBehaviour
     {
+        public static GameManager Instance { get; private set; }
         [SerializeField] private GameObject starGameCanvas;
         [SerializeField] private GameSetup currentGameSetup;
         private bool pinPulled;
         public bool GameReady { get; private set; }
+        
+        public GameMode CurrentGameMode { get; private set; }
+        public enum GameMode
+        {
+            SinglePlayer,
+            Multiplayer
+        }
+        
+        private void Awake()
+        {
+            if (Instance == null)
+            {
+                Instance = this;
+                DontDestroyOnLoad(gameObject); 
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
+
 
         private void Start()
         {
@@ -42,10 +63,14 @@ namespace GameTools
             EventManager.OnGameStart();
         }
 
-        public void PinPulled()
+        public void PinPulled() => pinPulled = true;
+
+        public void SetGameMode(GameMode mode)
         {
-            pinPulled = true;
+            CurrentGameMode = mode;
+            Debug.Log($"Game mode set to: {mode}");
         }
+
 
         private void OnEnable()
         {

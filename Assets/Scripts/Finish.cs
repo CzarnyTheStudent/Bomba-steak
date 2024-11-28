@@ -1,6 +1,7 @@
 using GameTools;
+using Fusion;
+using Player;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class Finish : MonoBehaviour
 {
@@ -8,7 +9,15 @@ public class Finish : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            GameEndNotifier.Instance.NotifyGameEnd(true);
+            if (GameManager.Instance.CurrentGameMode == GameManager.GameMode.SinglePlayer)
+            {
+                GameEndNotifier.Instance.NotifyGameEnd();
+                other.GetComponent<PlayerStats>().SetToWin();
+            }
+            else
+            {
+                //GameManager.Instance.NotifyPlayerFinish(NetworkRunner.GetPlayer(other.gameObject));
+            }
         }
     }
 }

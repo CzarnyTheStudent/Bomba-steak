@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d310b157aa155ef4a848994e9836b101, type: 3}
-  m_Name: Lvl_1 Challenges
+  m_Script: {fileID: 11500000, guid: 4fd081fda4ee95d4f88dced07678f242, type: 3}
+  m_Name: Lvl1-Setup
   m_EditorClassIdentifier: 
-  timeForStar: 00:20:00
-  dragsForStar: 10
+  setTimeOnLevel: 90
+  setChallenges: {fileID: 11400000, guid: ea12f3ff2c3bfc64a9419b98fd13c7a6, type: 2}

@@ -54,7 +54,6 @@ public class PinHandler : MonoBehaviour, ICustomDrag
 
     private void PinFullyPulled()
     {
-        EventManager.TriggerPinPulled();
         rectTransform.anchoredPosition = startPosition;
         Handle.SetActive(false);
         HandleStatic.SetActive(true);

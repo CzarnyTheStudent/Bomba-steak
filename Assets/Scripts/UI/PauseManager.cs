@@ -1,39 +1,41 @@
+using GameTools;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class PauseManager : MonoBehaviour
 {
     public GameObject pausePanel;
-    private bool isPaused = false; 
-    void Start()
-    {
-        pausePanel.SetActive(false);
-    }
+    private bool isPaused = false;
 
-   
     public void TogglePause()
     {
-        if (isPaused)
+        if (GameManager.Instance.CurrentGameMode == GameManager.GameMode.SinglePlayer)
         {
-            ResumeGame();
+            if (isPaused)
+                ResumeGame();
+            else
+                PauseGame();
         }
         else
         {
-            PauseGame();
+            ShowPausePanel();
         }
     }
-    
-    void PauseGame()
+
+    private void PauseGame()
     {
         isPaused = true;
-        Time.timeScale = 0f; 
-        pausePanel.SetActive(true); 
+        Time.timeScale = 0f;
+        ShowPausePanel();
     }
-    
-    void ResumeGame()
+
+    private void ResumeGame()
     {
         isPaused = false;
-        Time.timeScale = 1f; 
-        pausePanel.SetActive(false); 
+        Time.timeScale = 1f;
+        HidePausePanel();
     }
+
+    private void ShowPausePanel() => pausePanel.SetActive(true);
+
+    private void HidePausePanel() => pausePanel.SetActive(false);
 }

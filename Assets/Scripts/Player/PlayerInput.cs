@@ -6,7 +6,7 @@ namespace Player
     public class PlayerInput : NetworkBehaviour
     {
         private Vector3 _dragStartPos;
-        private bool _isDragging = false;
+        private bool _isDragging;
         private PlayerMovement _playerMovement;
         private PlayerLineRenderer _lineRenderer;
         private PlayerStats _playerStats;
@@ -63,7 +63,7 @@ namespace Player
         private void DragRelease(Vector3 touchPos)
         {
             _isDragging = false;
-            _playerStats.IncrementDragEndCount();
+            _playerStats.IncrementDragCount();
             _lineRenderer.ClearLine();
             _audioObserver.PlayDragReleaseSound();
             _audioObserver.StopDraggingSound();

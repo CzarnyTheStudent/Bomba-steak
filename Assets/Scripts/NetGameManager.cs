@@ -54,8 +54,7 @@ public class NetGameManager : MonoBehaviour, INetworkRunnerCallbacks
         if (runner.IsServer)
         {
             NetworkObject assignedObject;
-
-            // Znajdź obiekt gracza na scenie
+            
             if (_assignedPlayers.Count == 0)
             {
                 assignedObject = _playerOneObject;
@@ -69,8 +68,7 @@ public class NetGameManager : MonoBehaviour, INetworkRunnerCallbacks
                 Debug.LogWarning("Only two players are supported.");
                 return;
             }
-
-            // Przypisz InputAuthority
+            
             runner.SetPlayerObject(player, assignedObject);
             assignedObject.AssignInputAuthority(player);
 
