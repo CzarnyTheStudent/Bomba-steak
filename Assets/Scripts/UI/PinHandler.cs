@@ -9,6 +9,7 @@ public class PinHandler : MonoBehaviour, ICustomDrag
     [SerializeField] private AudioClip pullSound;
     [SerializeField] private GameObject Handle;
     [SerializeField] private GameObject HandleStatic;
+    [SerializeField] private GameManager manager;
     private RectTransform rectTransform;
     private Vector2 startPosition;
     private Vector2 previousTouchPosition;
@@ -57,6 +58,6 @@ public class PinHandler : MonoBehaviour, ICustomDrag
         rectTransform.anchoredPosition = startPosition;
         Handle.SetActive(false);
         HandleStatic.SetActive(true);
-        GameManager.Instance.PinPulled();
+        manager.PinPulled();
     }
 }

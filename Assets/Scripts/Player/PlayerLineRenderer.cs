@@ -11,7 +11,7 @@ namespace Player
         private void Update()
         {
             if (!drag) return;
-                lr.SetPosition(0, transform.position);
+            lr.SetPosition(0, transform.position);
         }
             
         public void StartLine(Vector3 touchPos)
@@ -23,9 +23,14 @@ namespace Player
 
         public void UpdateLine(Vector3 currentPos)
         {
+            Vector3 dragVector = currentPos - lr.GetPosition(0);
+            float dragDistance = Mathf.Clamp(dragVector.magnitude, 0f, 5f); 
+            Vector3 clampedEndPos = lr.GetPosition(0) + dragVector.normalized * dragDistance;
+
             lr.positionCount = 2;
-            lr.SetPosition(1, currentPos);
+            lr.SetPosition(1, clampedEndPos);
         }
+
 
         public void ClearLine()
         {

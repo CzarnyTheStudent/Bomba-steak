@@ -109,6 +109,7 @@ MonoBehaviour:
   pullSound: {fileID: 8300000, guid: c3f35074504c0c845b81be004663c657, type: 3}
   Handle: {fileID: 6225908759105705589}
   HandleStatic: {fileID: 6934102243528154012}
+  manager: {fileID: 0}
 --- !u!82 &1521022383990278458
 AudioSource:
   m_ObjectHideFlags: 0
@@ -518,9 +519,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3817629223836804723}
-  - component: {fileID: 1225356784415761202}
   - component: {fileID: 3540557597469949129}
-  - component: {fileID: 5415398363579324603}
   - component: {fileID: 528199894246004950}
   m_Layer: 0
   m_Name: GameManager - Multi
@@ -545,20 +544,6 @@ Transform:
   - {fileID: 3347448309512049584}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1225356784415761202
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4915652167339826113}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4fd081fda4ee95d4f88dced07678f242, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  setTimeOnLevel: 90
-  setChallenges: {fileID: 11400000, guid: ea12f3ff2c3bfc64a9419b98fd13c7a6, type: 2}
 --- !u!114 &3540557597469949129
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -572,19 +557,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   starGameCanvas: {fileID: 3159548062529685689}
-  pinHandler: {fileID: 2757731448983207283}
---- !u!114 &5415398363579324603
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4915652167339826113}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b08496238ff18645bc0fe3c792d5eeb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  currentGameSetup: {fileID: 0}
 --- !u!114 &528199894246004950
 MonoBehaviour:
   m_ObjectHideFlags: 0

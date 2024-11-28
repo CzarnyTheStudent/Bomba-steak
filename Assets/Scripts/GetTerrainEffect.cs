@@ -40,7 +40,7 @@ public class GetTerrainEffect : MonoBehaviour
                 currentTerrain = terrain;
             }
 
-            if (!hasPlayedSound && playerState.IsPlayerMoving() && GameManager.Instance.GameReady)
+            if (!hasPlayedSound && playerState.IsPlayerMoving())
             {
                 PlaySound(terrain.terrainSound);
                 hasPlayedSound = true;
