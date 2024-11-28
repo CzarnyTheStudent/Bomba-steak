@@ -30,11 +30,13 @@ namespace Multiplayer.Player_Multi
 
         public void ApplyForce(Vector3 startPos, Vector3 endPos)
         {
-            Vector3 force = startPos - endPos;
-            float forceStrength = Mathf.Clamp(force.magnitude, 0f, maxDrag); // Ogranicz długość siły
-            Vector3 clampedForce = force.normalized * forceStrength * power;
+            Vector3 force = startPos - endPos; // Oblicz siłę jako różnicę pozycji
+            float forceStrength = Mathf.Clamp(force.magnitude, 0f, maxDrag); // Ogranicz siłę
+            Vector3 clampedForce = force.normalized * forceStrength * power; // Skaluj siłę
 
-            rb.AddForce(clampedForce, ForceMode2D.Impulse);
+            rb.AddForce(clampedForce, ForceMode2D.Impulse); // Zastosuj siłę
+
+            Debug.DrawRay(startPos, clampedForce, Color.green, 2f); // Debugowanie siły
 
             if (Object.HasStateAuthority)
             {
@@ -43,7 +45,8 @@ namespace Multiplayer.Player_Multi
         }
 
 
-        private void FixedUpdate()
+
+        public override void FixedUpdateNetwork()
         {
             if (!PlayerMulti.isReady) return;
             if (Object.HasStateAuthority)

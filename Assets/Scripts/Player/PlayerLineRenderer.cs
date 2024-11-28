@@ -1,3 +1,4 @@
+using Multiplayer.Player_Multi;
 using UnityEngine;
 
 namespace Player
@@ -5,8 +6,13 @@ namespace Player
     public class PlayerLineRenderer : MonoBehaviour
     {
         public LineRenderer lr;
+        private PlayerMovementMulti _playerMovement;
         private bool drag;
 
+        private void Start()
+        {
+            _playerMovement = GetComponent<PlayerMovementMulti>();
+        }
         
         private void Update()
         {
@@ -24,7 +30,7 @@ namespace Player
         public void UpdateLine(Vector3 currentPos)
         {
             Vector3 dragVector = currentPos - lr.GetPosition(0);
-            float dragDistance = Mathf.Clamp(dragVector.magnitude, 0f, 5f); 
+            float dragDistance = Mathf.Clamp(dragVector.magnitude, 0f, _playerMovement.maxDrag); 
             Vector3 clampedEndPos = lr.GetPosition(0) + dragVector.normalized * dragDistance;
 
             lr.positionCount = 2;
