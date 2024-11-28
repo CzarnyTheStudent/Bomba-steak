@@ -1,11 +1,14 @@
-using GameTools;
-using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using Fusion;
+using Multiplayer.Player_Multi;
 using Player;
+using UnityEngine;
 
-public class GetTerrainEffect : MonoBehaviour, ITerrainEffectHandler
+public class GetTerrainEffectMulti : NetworkBehaviour, ITerrainEffectHandler
 {
     [SerializeField]private AudioSource audioSource;
-    private PlayerMovement _playerMovement;
+    private PlayerMovementMulti _playerMovement;
     private PlayerState playerState;
     private TerrainEffectData currentTerrain;
     private bool hasPlayedSound = false;
@@ -13,7 +16,7 @@ public class GetTerrainEffect : MonoBehaviour, ITerrainEffectHandler
 
     private void Start()
     {
-        _playerMovement = GetComponent<PlayerMovement>();
+        _playerMovement = GetComponent<PlayerMovementMulti>();
         playerState = GetComponent<PlayerState>();
         defaultAngularDrag = _playerMovement.rb.angularDrag;
     }

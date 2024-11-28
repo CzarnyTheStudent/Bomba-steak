@@ -1,5 +1,14 @@
 using UnityEngine;
 
+
+public interface ITerrainEffectHandler
+{
+    void ApplyTerrainEffect(TerrainEffectData terrain);
+    void ResetAngularDrag();
+}
+
+
+
 public class TerrainEffect : MonoBehaviour
 {
     public TerrainEffectData terrainData;
@@ -8,10 +17,10 @@ public class TerrainEffect : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            GetTerrainEffect getEffect = collision.gameObject.GetComponent<GetTerrainEffect>();
-            if (getEffect != null && terrainData != null)
+            ITerrainEffectHandler effectHandler = collision.gameObject.GetComponent<ITerrainEffectHandler>();
+            if (effectHandler != null && terrainData != null)
             {
-                getEffect.ApplyTerrainEffect(terrainData);
+                effectHandler.ApplyTerrainEffect(terrainData);
             }
         }
     }
@@ -20,10 +29,10 @@ public class TerrainEffect : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            GetTerrainEffect getEffect = collision.gameObject.GetComponent<GetTerrainEffect>();
-            if (getEffect != null)
+            ITerrainEffectHandler effectHandler = collision.gameObject.GetComponent<ITerrainEffectHandler>();
+            if (effectHandler != null)
             {
-                getEffect.ResetAngularDrag();
+                effectHandler.ResetAngularDrag();
             }
         }
     }
