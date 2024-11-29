@@ -20,18 +20,16 @@ namespace Multiplayer.Player_Multi
         {
             return _playerId;
         }
-        public void SetReady(bool set) => isReady = set;
+        public void SetReady(bool set)
+        {
+            isReady = set;
+            Debug.Log("SEEEEEEEEEEEEX" + set);
+        }
+
         private void Start()
         {
             _playerInput = GetComponent<PlayerInputMulti>();
             DisableControls();
-        }
-        
-        public void UpdateStats(bool won)
-        {
-            PlayerStatsCollectorMulti.instance.IncrementDragEndCount(_playerId);
-            PlayerStatsCollectorMulti.instance.UpdateCurrentTime(_playerId);
-            PlayerStatsCollectorMulti.instance.SetPlayerWon(_playerId, won); 
         }
 
         private void OnEnable()

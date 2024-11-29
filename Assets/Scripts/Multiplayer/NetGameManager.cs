@@ -13,27 +13,51 @@ public class NetGameManager : MonoBehaviour, INetworkRunnerCallbacks
     [SerializeField] private NetworkObject _playerTwoObject;
     private Dictionary<PlayerRef, NetworkObject> _assignedPlayers = new Dictionary<PlayerRef, NetworkObject>();
 
-    async void StartGame(GameMode mode)
+    
+    public void InitializeMultiplayer(GameMode mode)
+    {
+        StartGame(mode);
+    }
+    
+    
+    private void SyncUIScene()
+    {
+        if (_runner.IsServer)
+        {
+            var uiScene = SceneManager.GetSceneByName("UI");
+            if (!uiScene.isLoaded)
+            {
+                SceneManager.LoadScene("UI", LoadSceneMode.Additive);
+            }
+        }
+    }
+    
+    private async void StartGame(GameMode mode)
     {
         _runner = gameObject.AddComponent<NetworkRunner>();
         _runner.ProvideInput = true;
 
-        var scene = SceneRef.FromIndex(SceneManager.GetActiveScene().buildIndex);
-        var sceneInfo = new NetworkSceneInfo();
-        if (scene.IsValid)
-        {
-            sceneInfo.AddSceneRef(scene, LoadSceneMode.Additive);
-        }
-
-        await _runner.StartGame(new StartGameArgs()
+        var startGameArgs = new StartGameArgs
         {
             GameMode = mode,
             SessionName = "TestRoom",
-            Scene = scene,
+            Scene = null, 
             SceneManager = gameObject.AddComponent<NetworkSceneManagerDefault>()
-        });
-    }
+        };
 
+        Debug.Log("Starting game...");
+        var result = await _runner.StartGame(startGameArgs);
+        if (result.Ok)
+        {
+            SyncUIScene(); 
+            Debug.Log("Game started successfully.");
+        }
+        else
+        {
+            Debug.LogError($"Failed to start game: {result.ShutdownReason}");
+        }
+    }
+    
     private void OnGUI()
     {
         if (_runner == null)
@@ -48,38 +72,33 @@ public class NetGameManager : MonoBehaviour, INetworkRunnerCallbacks
             }
         }
     }
-
+    
     public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
     {
         if (runner.IsServer)
         {
-            NetworkObject assignedObject;
-            if (_assignedPlayers.Count == 0)
+            int playerId = player.PlayerId;
+            NetworkObject playerObject = playerId == 1 ? _playerOneObject : _playerTwoObject;
+
+            if (playerObject == null || !playerObject.IsValid)
             {
-                assignedObject = _playerOneObject;
+                Debug.LogError($"PlayerObject for PlayerId {playerId} is invalid.");
+                return;
             }
-            else if (_assignedPlayers.Count == 1)
+
+            _assignedPlayers[player] = playerObject;
+            runner.SetPlayerObject(player, playerObject);
+            playerObject.AssignInputAuthority(player);
+
+            var playerMulti = playerObject.GetComponent<PlayerMulti>();
+            if (playerMulti != null)
             {
-                assignedObject = _playerTwoObject;
+                playerMulti.SetPlayerId(playerId);
+                playerMulti.SetReady(true);
             }
             else
             {
-                Debug.LogWarning("Only two players are supported.");
-                return;
-            }
-            
-            runner.SetPlayerObject(player, assignedObject);
-            assignedObject.AssignInputAuthority(player);
-
-            _assignedPlayers[player] = assignedObject;
-
-            var playerMain = assignedObject.GetComponent<PlayerMulti>();
-            if (playerMain != null)
-            {
-                int playerId = _assignedPlayers.Count; 
-                playerMain.SetPlayerId(playerId); 
-
-                playerMain.SetReady(true);
+                Debug.LogError($"PlayerObject does not contain a PlayerMulti component for PlayerId {playerId}.");
             }
         }
     }

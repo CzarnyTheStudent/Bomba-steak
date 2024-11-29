@@ -8,7 +8,8 @@ public class Timer : MonoBehaviour
 {
     public static Timer instance;
     [SerializeField] private TMP_Text timerText;
-    enum TimerType {Countdown, Stopwatch}
+
+    public enum TimerType {Countdown, Stopwatch}
     [SerializeField] private TimerType timerType;
     private float timeToDisplay = 0.0f;
     [SerializeField] private bool _isRunning;
@@ -34,6 +35,7 @@ public class Timer : MonoBehaviour
     private void StopTimer() => _isRunning = false;
     
     private void UpdateDisplayTime(float value) => timeToDisplay += value;
+    public TimerType SetToStopwatch() => timerType = TimerType.Stopwatch;
 
     public void SyncTime(float serverTime)
     {

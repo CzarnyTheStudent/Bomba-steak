@@ -26,7 +26,14 @@ namespace UI
         {
             if (playerId >= 0 && playerId < playerTimes.Count)
             {
-                playerTimes[playerId].text = time;
+                if (!won)
+                {
+                    playerTimes[playerId].text = "Not completed";
+                }
+                else
+                {
+                    playerTimes[playerId].text = time;
+                }
                 playerDrags[playerId].text = drags.ToString();
                 playerResults[playerId].text = won ? "Won" : "Lost";
             }

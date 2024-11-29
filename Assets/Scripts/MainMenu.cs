@@ -1,34 +1,19 @@
 using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 
 public class MainMenu : MonoBehaviour
 {
-    [SerializeField] private GameObject nextButtons;
+   [SerializeField] private GameObject gameMode;
 
     private void Start()
     {
         Invoke(nameof(OnPlay), 1f);
     }
 
-    private void OnPlay()
-    {
-        nextButtons.SetActive(true);
-    }
+    private void OnPlay() => gameMode.SetActive(true);
 
-    public void LoadFirstLevel()
-    {
-        SceneManager.LoadScene("LVL 1");
-    }
-    
-    public void LoadSecoundLevel()
-    {
-        SceneManager.LoadScene("LVL 2");
-    }
-
-    public void OnQuit()
-    {
-        Application.Quit();
-    }
+    public void OnQuit() => Application.Quit();
 }

@@ -8,6 +8,7 @@ namespace Multiplayer.Player_Multi
     {
         private Vector3 _dragStartPos;
         private bool _isDragging;
+        private PlayerMulti _playerMulti;
         private PlayerMovementMulti _playerMovement;
         private PlayerLineRenderer _lineRenderer;
         private PlayerStats _playerStats;
@@ -16,6 +17,7 @@ namespace Multiplayer.Player_Multi
 
         private void Start()
         {
+            _playerMulti = GetComponent<PlayerMulti>();
             _playerMovement = GetComponent<PlayerMovementMulti>();
             _lineRenderer = GetComponent<PlayerLineRenderer>();
             _playerStats = GetComponent<PlayerStats>();
@@ -49,7 +51,7 @@ private void DragStart(Vector3 touchPos)
 {
     if (!_shootCooldown.shootReady) return;
     _isDragging = true;
-    _dragStartPos = transform.position; // Pozycja obiektu jako punkt startowy
+    _dragStartPos = transform.position; 
     _lineRenderer.StartLine(_dragStartPos);
     _audioObserver.PlayDragStartSound();
 }
@@ -59,7 +61,7 @@ private void Dragging(Vector3 touchPos)
     _lineRenderer.UpdateLine(touchPos);
     _audioObserver.PlayDraggingSound();
 
-    Vector3 dragVector = touchPos - _dragStartPos; // Wektor przeciągnięcia
+    Vector3 dragVector = touchPos - _dragStartPos;
     float dragDistance = Mathf.Clamp(dragVector.magnitude, 0f, _playerMovement.maxDrag);
     Vector3 clampedDragVector = dragVector.normalized * dragDistance;
 
@@ -70,6 +72,7 @@ private void Dragging(Vector3 touchPos)
 private void DragRelease(Vector3 touchPos)
 {
     _isDragging = false;
+    PlayerStatsCollectorMulti.instance.IncrementDragEndCount(_playerMulti.GetPlayerId());
     _lineRenderer.ClearLine();
     _audioObserver.PlayDragReleaseSound();
     _audioObserver.StopDraggingSound();

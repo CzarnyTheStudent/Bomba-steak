@@ -40,9 +40,14 @@ namespace GameTools
 
         private void InitializeGame()
         {
-            if (currentGameSetup != null)
+            if (currentGameSetup != null &&  GameModeManager.CurrentGameMode == GameModeManager.GameMode.SinglePlayer)
             {
                 EventManager.OnTimerUpdate(currentGameSetup.setTimeOnLevel);
+                EventManager.OnTimerStart();
+            }
+            else
+            {
+                Timer.instance.SetToStopwatch();
                 EventManager.OnTimerStart();
             }
 
@@ -53,17 +58,5 @@ namespace GameTools
         }
 
         public void PinPulled() => pinPulled = true;
-
-        private void OnEnable()
-        {
-            EventManager.NextLvl += () => SceneLoader.Instance.LoadNextLevel();
-            EventManager.Restart += () => SceneLoader.Instance.RestartLevel();
-        }
-
-        private void OnDisable()
-        {
-            EventManager.NextLvl -= () => SceneLoader.Instance.LoadNextLevel();
-            EventManager.Restart -= () => SceneLoader.Instance.RestartLevel();
-        }
     }
 }
