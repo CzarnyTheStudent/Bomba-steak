@@ -67,19 +67,23 @@ public class NetGameManager : MonoBehaviour, INetworkRunnerCallbacks
                 Debug.LogWarning("Only two players are supported.");
                 return;
             }
-
-            // Przypisz InputAuthority
+            
             runner.SetPlayerObject(player, assignedObject);
             assignedObject.AssignInputAuthority(player);
 
             _assignedPlayers[player] = assignedObject;
+
             var playerMain = assignedObject.GetComponent<PlayerMulti>();
             if (playerMain != null)
             {
+                int playerId = _assignedPlayers.Count; 
+                playerMain.SetPlayerId(playerId); 
+
                 playerMain.SetReady(true);
             }
         }
     }
+
 
 
 

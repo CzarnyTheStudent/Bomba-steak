@@ -1,9 +1,14 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerStatsMulti : MonoBehaviour
+public class PlayerStatsCollectorMulti : MonoBehaviour
 {
     private Dictionary<int, PlayerStatsCollector> _playerStats = new Dictionary<int, PlayerStatsCollector>();
+    public static PlayerStatsCollectorMulti instance;
+
+    private void Awake() => instance = this;
+ 
 
     public void IncrementDragEndCount(int playerId)
     {
@@ -39,4 +44,9 @@ public class PlayerStatsMulti : MonoBehaviour
     public int GetDragEndCount(int playerId) => _playerStats.ContainsKey(playerId) ? PlayerStatsCollector.GetDragCount() : 0;
     public string GetCurrentTime(int playerId) => _playerStats.ContainsKey(playerId) ? PlayerStatsCollector.GetTotalTime() : "00:00:00";
     public bool HasPlayerWon(int playerId) => _playerStats.ContainsKey(playerId) && PlayerStatsCollector.HasPlayerWon();
+    
+    public List<int> GetAllPlayerIds()
+    {
+        return new List<int>(_playerStats.Keys);
+    }
 }

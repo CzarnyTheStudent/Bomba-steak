@@ -7,7 +7,7 @@ using TMPro;
 public class Timer : MonoBehaviour
 {
     public static Timer instance;
-    public TMP_Text timerText;
+    [SerializeField] private TMP_Text timerText;
     enum TimerType {Countdown, Stopwatch}
     [SerializeField] private TimerType timerType;
     private float timeToDisplay = 0.0f;

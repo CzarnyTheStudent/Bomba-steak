@@ -109,7 +109,7 @@ MonoBehaviour:
   pullSound: {fileID: 8300000, guid: c3f35074504c0c845b81be004663c657, type: 3}
   Handle: {fileID: 6225908759105705589}
   HandleStatic: {fileID: 6934102243528154012}
-  manager: {fileID: 0}
+  manager: {fileID: 3540557597469949129}
 --- !u!82 &1521022383990278458
 AudioSource:
   m_ObjectHideFlags: 0
@@ -520,7 +520,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3817629223836804723}
   - component: {fileID: 3540557597469949129}
-  - component: {fileID: 528199894246004950}
+  - component: {fileID: 1375968472176830302}
+  - component: {fileID: 583656473405689443}
   m_Layer: 0
   m_Name: GameManager - Multi
   m_TagString: Untagged
@@ -558,7 +559,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   starGameCanvas: {fileID: 3159548062529685689}
   currentGameSetup: {fileID: 0}
---- !u!114 &528199894246004950
+--- !u!114 &1375968472176830302
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -567,10 +568,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 4915652167339826113}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acecb0da92f8bfd439d4386cbf91796f, type: 3}
+  m_Script: {fileID: 11500000, guid: f8a6cb596247949468cf63fa98163dab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetFrameRate: 60
+  _playerOneObject: {fileID: 0}
+  _playerTwoObject: {fileID: 0}
+--- !u!114 &583656473405689443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4915652167339826113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db966864942b7bb4987f5d3f08e0bdc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6225908759105705589
 GameObject:
   m_ObjectHideFlags: 0
