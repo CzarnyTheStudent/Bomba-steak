@@ -5,29 +5,23 @@ using System.Collections.Generic;
 using Multiplayer.Player_Multi;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class NetGameManager : MonoBehaviour, INetworkRunnerCallbacks
 {
     private NetworkRunner _runner;
-    [SerializeField] private NetworkObject _playerOneObject;
-    [SerializeField] private NetworkObject _playerTwoObject;
-    private Dictionary<PlayerRef, NetworkObject> _assignedPlayers = new Dictionary<PlayerRef, NetworkObject>();
-
+    [SerializeField] private NetworkPrefabRef playerPref;
+    [Networked, Capacity(2)]private NetworkDictionary<PlayerRef, NetworkObject> _assignedPlayers =>  new NetworkDictionary<PlayerRef, NetworkObject>();
     
-    public void InitializeMultiplayer(GameMode mode)
-    {
-        StartGame(mode);
-    }
-    
+    public void InitializeMultiplayer(GameMode mode) => StartGame(mode);
     
     private void SyncUIScene()
     {
         if (_runner.IsServer)
         {
-            var uiScene = SceneManager.GetSceneByName("UI");
-            if (!uiScene.isLoaded)
+            if (!SceneManager.GetSceneByName("UI").isLoaded)
             {
-                SceneManager.LoadScene("UI", LoadSceneMode.Additive);
+                SceneManager.LoadSceneAsync("UI", LoadSceneMode.Additive);
             }
         }
     }
@@ -37,25 +31,19 @@ public class NetGameManager : MonoBehaviour, INetworkRunnerCallbacks
         _runner = gameObject.AddComponent<NetworkRunner>();
         _runner.ProvideInput = true;
 
-        var startGameArgs = new StartGameArgs
+        var scene = SceneRef.FromIndex(SceneManager.GetActiveScene().buildIndex);
+        var sceneInfo = new NetworkSceneInfo();
+        if (scene.IsValid) {
+            sceneInfo.AddSceneRef(scene, LoadSceneMode.Additive);
+        }
+
+        await _runner.StartGame(new StartGameArgs()
         {
             GameMode = mode,
             SessionName = "TestRoom",
-            Scene = null, 
+            Scene = scene, 
             SceneManager = gameObject.AddComponent<NetworkSceneManagerDefault>()
-        };
-
-        Debug.Log("Starting game...");
-        var result = await _runner.StartGame(startGameArgs);
-        if (result.Ok)
-        {
-            SyncUIScene(); 
-            Debug.Log("Game started successfully.");
-        }
-        else
-        {
-            Debug.LogError($"Failed to start game: {result.ShutdownReason}");
-        }
+        });
     }
     
     private void OnGUI()
@@ -73,61 +61,74 @@ public class NetGameManager : MonoBehaviour, INetworkRunnerCallbacks
         }
     }
     
+    
     public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
     {
+        Debug.Log($"Player joined: {player.PlayerId}");
+
         if (runner.IsServer)
         {
-            int playerId = player.PlayerId;
-            NetworkObject playerObject = playerId == 1 ? _playerOneObject : _playerTwoObject;
+            Debug.Log("Server is spawning the player object.");
 
-            if (playerObject == null || !playerObject.IsValid)
+            if (playerPref == null)
             {
-                Debug.LogError($"PlayerObject for PlayerId {playerId} is invalid.");
+                Debug.LogError("Player prefab reference is null! Make sure it is assigned in the inspector.");
                 return;
             }
 
-            _assignedPlayers[player] = playerObject;
-            runner.SetPlayerObject(player, playerObject);
-            playerObject.AssignInputAuthority(player);
-
-            var playerMulti = playerObject.GetComponent<PlayerMulti>();
-            if (playerMulti != null)
+            Vector3 spawnPosition = new Vector3((player.RawEncoded % runner.Config.Simulation.PlayerCount) * 3, 1, 0);
+            try
             {
-                playerMulti.SetPlayerId(playerId);
-                playerMulti.SetReady(true);
+                NetworkObject networkPlayerObject = runner.Spawn(playerPref, spawnPosition, Quaternion.identity, player);
+                Debug.Log("Player object spawned successfully.");
+                _assignedPlayers.Add(player, networkPlayerObject);
+                networkPlayerObject.GetComponent<PlayerMulti>().SetPlayerId(player.PlayerId);
+                networkPlayerObject.GetComponent<PlayerMulti>().SetReady(true);
             }
-            else
+            catch (Exception ex)
             {
-                Debug.LogError($"PlayerObject does not contain a PlayerMulti component for PlayerId {playerId}.");
+                Debug.LogError($"Failed to spawn player object: {ex.Message}");
             }
         }
     }
-
-
 
 
     public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
     {
-        if (_assignedPlayers.TryGetValue(player, out NetworkObject assignedObject))
+        if (runner.IsServer)
         {
-            //assignedObject.ClearInputAuthority();
-            _assignedPlayers.Remove(player);
+            if (_assignedPlayers.TryGet(player, out NetworkObject networkObject))
+            {
+                _assignedPlayers.Remove(player);
+                runner.Despawn(networkObject);
+            }
         }
     }
-
+    
 
     public void OnInput(NetworkRunner runner, NetworkInput input) { }
     public void OnInputMissing(NetworkRunner runner, PlayerRef player, NetworkInput input) { }
     public void OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason) { }
-    public void OnConnectedToServer(NetworkRunner runner) { }
-    public void OnDisconnectedFromServer(NetworkRunner runner, NetDisconnectReason reason) { }
+
+    public void OnConnectedToServer(NetworkRunner runner)
+    {
+        Debug.Log("Client connected to server.");
+    }
+
+    public void OnDisconnectedFromServer(NetworkRunner runner, NetDisconnectReason reason)
+    {
+        Debug.LogError($"Client disconnected: {reason}");
+    }
     public void OnConnectRequest(NetworkRunner runner, NetworkRunnerCallbackArgs.ConnectRequest request, byte[] token) { }
     public void OnConnectFailed(NetworkRunner runner, NetAddress remoteAddress, NetConnectFailedReason reason) { }
     public void OnUserSimulationMessage(NetworkRunner runner, SimulationMessagePtr message) { }
     public void OnSessionListUpdated(NetworkRunner runner, List<SessionInfo> sessionList) { }
     public void OnCustomAuthenticationResponse(NetworkRunner runner, Dictionary<string, object> data) { }
     public void OnHostMigration(NetworkRunner runner, HostMigrationToken hostMigrationToken) { }
-    public void OnSceneLoadDone(NetworkRunner runner) { }
+
+    public void OnSceneLoadDone(NetworkRunner runner)
+    {
+    }
     public void OnSceneLoadStart(NetworkRunner runner) { }
     public void OnObjectExitAOI(NetworkRunner runner, NetworkObject obj, PlayerRef player) { }
     public void OnObjectEnterAOI(NetworkRunner runner, NetworkObject obj, PlayerRef player) { }

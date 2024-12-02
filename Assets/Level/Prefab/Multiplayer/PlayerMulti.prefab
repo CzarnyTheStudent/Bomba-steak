@@ -60,7 +60,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e303c4340da87b64dbaec25960010c6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statsCollector: {fileID: 0}
 --- !u!114 &1072523912041312673
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224,6 +223,7 @@ MonoBehaviour:
   Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
+  - {fileID: 2937267516190482536}
   - {fileID: 1072523912041312673}
   - {fileID: 8398640322244155577}
   - {fileID: 8600492034829492877}

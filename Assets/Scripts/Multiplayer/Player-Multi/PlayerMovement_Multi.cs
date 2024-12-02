@@ -48,15 +48,13 @@ namespace Multiplayer.Player_Multi
 
         public override void FixedUpdateNetwork()
         {
-            if (!PlayerMulti.isReady) return;
-            if (Object.HasStateAuthority)
+            if (!PlayerMulti.isReady || !Runner.TryGetInputForPlayer<NetworkInputData>(Object.InputAuthority, out var inputData)) return;
+
+            if (inputData.IsDragging)
             {
-                NetworkedPosition = rb.position;
-            }
-            else
-            {
-                transform.position = Vector3.Lerp(transform.position, NetworkedPosition, 0.1f);
+                ApplyForce(inputData.DragStart, inputData.DragEnd);
             }
         }
+
     }
 }

@@ -25,74 +25,69 @@ namespace Multiplayer.Player_Multi
             _shootCooldown = GetComponent<PlayerCooldownShoot>();
         }
 
-        private void Update()
-{
-    if (!PlayerMulti.isReady) return;
-    if (!Object.HasInputAuthority || Input.touchCount <= 0) return;
+        public override void FixedUpdateNetwork()
+        {
+            if (!PlayerMulti.isReady || !GetInput(out NetworkInputData inputData)) return;
 
-    Touch touch = Input.GetTouch(0);
-    Vector3 touchPos = Camera.main.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, Mathf.Abs(Camera.main.transform.position.z - transform.position.z)));
+            if (inputData.IsDragging)
+            {
+                Dragging(inputData.DragEnd);
+            }
+            else if (!_isDragging && inputData.DragStart != Vector3.zero)
+            {
+                DragStart(inputData.DragStart);
+            }
+            else if (_isDragging && !inputData.IsDragging)
+            {
+                DragRelease(inputData.DragEnd);
+            }
+        }
 
-    if (touch.phase == TouchPhase.Began)
-    {
-        DragStart(touchPos);
-    }
-    if (_isDragging && touch.phase == TouchPhase.Moved)
-    {
-        Dragging(touchPos);
-    }
-    if (_isDragging && touch.phase == TouchPhase.Ended)
-    {
-        DragRelease(touchPos);
-    }
-}
+        private void DragStart(Vector3 touchPos)
+        {
+            if (!_shootCooldown.shootReady) return;
+            _isDragging = true;
+            _dragStartPos = transform.position;
+            _lineRenderer.StartLine(_dragStartPos);
+            _audioObserver.PlayDragStartSound();
+        }
 
-private void DragStart(Vector3 touchPos)
-{
-    if (!_shootCooldown.shootReady) return;
-    _isDragging = true;
-    _dragStartPos = transform.position; 
-    _lineRenderer.StartLine(_dragStartPos);
-    _audioObserver.PlayDragStartSound();
-}
+        private void Dragging(Vector3 touchPos)
+        {
+            _lineRenderer.UpdateLine(touchPos);
+            _audioObserver.PlayDraggingSound();
 
-private void Dragging(Vector3 touchPos)
-{
-    _lineRenderer.UpdateLine(touchPos);
-    _audioObserver.PlayDraggingSound();
+            Vector3 dragVector = touchPos - _dragStartPos;
+            float dragDistance = Mathf.Clamp(dragVector.magnitude, 0f, _playerMovement.maxDrag);
+            Vector3 clampedDragVector = dragVector.normalized * dragDistance;
 
-    Vector3 dragVector = touchPos - _dragStartPos;
-    float dragDistance = Mathf.Clamp(dragVector.magnitude, 0f, _playerMovement.maxDrag);
-    Vector3 clampedDragVector = dragVector.normalized * dragDistance;
+            Vector3 correctedEndPos = _dragStartPos + clampedDragVector;
+            Debug.DrawRay(_dragStartPos, clampedDragVector, Color.yellow);
+        }
 
-    Vector3 correctedEndPos = _dragStartPos + clampedDragVector;
-    Debug.DrawRay(_dragStartPos, clampedDragVector, Color.yellow);
-}
+        private void DragRelease(Vector3 touchPos)
+        {
+            _isDragging = false;
+            PlayerStatsCollectorMulti.instance.IncrementDragEndCount(_playerMulti.GetPlayerId());
+            _lineRenderer.ClearLine();
+            _audioObserver.PlayDragReleaseSound();
+            _audioObserver.StopDraggingSound();
 
-private void DragRelease(Vector3 touchPos)
-{
-    _isDragging = false;
-    PlayerStatsCollectorMulti.instance.IncrementDragEndCount(_playerMulti.GetPlayerId());
-    _lineRenderer.ClearLine();
-    _audioObserver.PlayDragReleaseSound();
-    _audioObserver.StopDraggingSound();
+            Vector3 dragVector = touchPos - _dragStartPos;
+            float dragDistance = Mathf.Clamp(dragVector.magnitude, 0f, _playerMovement.maxDrag);
+            Vector3 clampedDragVector = dragVector.normalized * dragDistance;
 
-    Vector3 dragVector = touchPos - _dragStartPos; // Oblicz kierunek od startu do końca
-    float dragDistance = Mathf.Clamp(dragVector.magnitude, 0f, _playerMovement.maxDrag);
-    Vector3 clampedDragVector = dragVector.normalized * dragDistance;
+            Vector3 correctedEndPos = _dragStartPos + clampedDragVector;
+            Debug.DrawRay(_dragStartPos, clampedDragVector, Color.red);
 
-    Vector3 correctedEndPos = _dragStartPos + clampedDragVector;
-    Debug.DrawRay(_dragStartPos, clampedDragVector, Color.red);
+            RpcApplyForce(_dragStartPos, correctedEndPos);
+            StartCoroutine(_shootCooldown.WaitForShoot());
+        }
 
-    RpcApplyForce(_dragStartPos, correctedEndPos);
-    StartCoroutine(_shootCooldown.WaitForShoot());
-}
-
-[Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]
-private void RpcApplyForce(Vector3 startPos, Vector3 endPos)
-{
-    _playerMovement.ApplyForce(startPos, endPos);
-}
-
+        [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]
+        private void RpcApplyForce(Vector3 startPos, Vector3 endPos)
+        {
+            _playerMovement.ApplyForce(startPos, endPos);
+        }
     }
 }

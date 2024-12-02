@@ -1,10 +1,10 @@
-using Player;
+using Fusion;
 using Static;
 using UnityEngine;
 
 namespace Multiplayer.Player_Multi
 {
-    public class PlayerMulti : MonoBehaviour
+    public class PlayerMulti : NetworkBehaviour
     {
         private int _playerId;
         private PlayerInputMulti _playerInput;
@@ -16,15 +16,8 @@ namespace Multiplayer.Player_Multi
             Debug.Log($"Player ID set to: {_playerId}");
         }
 
-        public int GetPlayerId()
-        {
-            return _playerId;
-        }
-        public void SetReady(bool set)
-        {
-            isReady = set;
-            Debug.Log("SEEEEEEEEEEEEX" + set);
-        }
+        public int GetPlayerId() => _playerId;
+        public void SetReady(bool set) => isReady = set;
 
         private void Start()
         {

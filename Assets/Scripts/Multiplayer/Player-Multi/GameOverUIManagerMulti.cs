@@ -24,18 +24,18 @@ namespace UI
 
         public void SetToShowPlayerStats(int playerId, string time, int drags, bool won)
         {
-            if (playerId >= 0 && playerId < playerTimes.Count)
+            if (playerId >= 1 && playerId < playerTimes.Count)
             {
                 if (!won)
                 {
-                    playerTimes[playerId].text = "Not completed";
+                    playerTimes[playerId - 1].text = "Not completed";
                 }
                 else
                 {
-                    playerTimes[playerId].text = time;
+                    playerTimes[playerId - 1].text = time;
                 }
-                playerDrags[playerId].text = drags.ToString();
-                playerResults[playerId].text = won ? "Won" : "Lost";
+                playerDrags[playerId - 1].text = drags.ToString();
+                playerResults[playerId - 1].text = won ? "Won" : "Lost";
             }
         }
     }
