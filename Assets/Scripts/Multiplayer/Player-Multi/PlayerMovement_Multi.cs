@@ -8,52 +8,30 @@ namespace Multiplayer.Player_Multi
         public float power = 10f;
         public float maxDrag = 5f;
         public Rigidbody2D rb;
-        public Vector3 startPos;
 
         [Networked] private Vector3 NetworkedPosition { get; set; }
 
-        public override void Spawned()
+        public override void FixedUpdateNetwork()
         {
             if (Object.HasStateAuthority)
             {
-                startPos = transform.position;
+                NetworkedPosition = rb.position;
             }
-        }
-
-        public void ResetPos()
-        {
-            if (Object.HasStateAuthority)
+            else
             {
-                transform.position = startPos;
+                rb.position = Vector3.Lerp(rb.position, NetworkedPosition, 0.1f);
             }
         }
 
         public void ApplyForce(Vector3 startPos, Vector3 endPos)
         {
-            Vector3 force = startPos - endPos; // Oblicz siłę jako różnicę pozycji
-            float forceStrength = Mathf.Clamp(force.magnitude, 0f, maxDrag); // Ogranicz siłę
-            Vector3 clampedForce = force.normalized * forceStrength * power; // Skaluj siłę
+            Vector3 force = startPos - endPos;
+            float forceStrength = Mathf.Clamp(force.magnitude, 0f, maxDrag);
+            Vector3 clampedForce = force.normalized * forceStrength * power;
 
-            rb.AddForce(clampedForce, ForceMode2D.Impulse); // Zastosuj siłę
+            Debug.Log($"Applying force: {clampedForce}");
 
-            Debug.DrawRay(startPos, clampedForce, Color.green, 2f); // Debugowanie siły
-
-            if (Object.HasStateAuthority)
-            {
-                NetworkedPosition = rb.position;
-            }
-        }
-
-
-
-        public override void FixedUpdateNetwork()
-        {
-            if (!Runner.TryGetInputForPlayer<NetworkInputData>(Object.InputAuthority, out var inputData)) return;
-
-            if (inputData.IsDragging)
-            {
-                ApplyForce(inputData.DragStart, inputData.DragEnd);
-            }
+            rb.AddForce(clampedForce, ForceMode2D.Impulse);
         }
 
     }

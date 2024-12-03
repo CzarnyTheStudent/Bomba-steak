@@ -4,38 +4,100 @@ using Fusion;
 using Fusion.Sockets;
 using UnityEngine;
 
-public class NetworkInputHandler : MonoBehaviour, INetworkRunnerCallbacks
+public class NetworkInputHandler : SimulationBehaviour, IBeforeUpdate, INetworkRunnerCallbacks
 {
-    public void OnInput(NetworkRunner runner, NetworkInput input)
+    private Touch _currentTouch;
+    private Vector3 _touchPosition;
+    private NetworkInputData.TouchState _touchState;
+    private bool _isDragging;
+    
+    
+    public void OnObjectExitAOI(NetworkRunner runner, NetworkObject obj, PlayerRef player)
     {
-        var data = new NetworkInputData();
+        throw new NotImplementedException();
+    }
 
+    public void OnObjectEnterAOI(NetworkRunner runner, NetworkObject obj, PlayerRef player)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
+    {
+      
+    }
+
+    public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
+    {
+        throw new NotImplementedException();
+    }
+
+    void IBeforeUpdate.BeforeUpdate()
+    {
         if (Input.touchCount > 0)
         {
-            Touch touch = Input.GetTouch(0);
-            Vector3 touchPos = Camera.main.ScreenToWorldPoint(
-                new Vector3(touch.position.x, touch.position.y, Mathf.Abs(Camera.main.transform.position.z))
-            );
+            _currentTouch = Input.GetTouch(0);
+            _touchPosition = Camera.main.ScreenToWorldPoint(new Vector3(
+                _currentTouch.position.x,
+                _currentTouch.position.y,
+                Mathf.Abs(Camera.main.transform.position.z - transform.position.z)
+            ));
 
-            if (touch.phase == TouchPhase.Began)
+            switch (_currentTouch.phase)
             {
-                data.DragStart = touchPos;
-                data.IsDragging = true;
-            }
-            else if (touch.phase == TouchPhase.Moved)
-            {
-                data.DragEnd = touchPos;
-            }
-            else if (touch.phase == TouchPhase.Ended)
-            {
-                data.DragEnd = touchPos;
-                data.IsDragging = false;
+                case TouchPhase.Began:
+                    _touchState = NetworkInputData.TouchState.Began;
+                    _isDragging = true;
+                    break;
+
+                case TouchPhase.Moved:
+                    if (_isDragging)
+                        _touchState = NetworkInputData.TouchState.Moved;
+                    break;
+
+                case TouchPhase.Ended:
+                    _touchState = NetworkInputData.TouchState.Ended;
+                    _isDragging = false;
+                    break;
+
+                default:
+                    break;
             }
         }
+        else
+        {
+            _isDragging = false;
+        }
+    }
+
+    public void OnInput(NetworkRunner runner, NetworkInput input)
+    {
+        var data = new NetworkInputData
+        {
+            touchPos = _touchPosition,
+            touchState = _touchState,
+            IsDragging = _isDragging
+        };
 
         input.Set(data);
     }
-    public void OnConnectedToServer(NetworkRunner runner) { }
+
+
+    public void OnInputMissing(NetworkRunner runner, PlayerRef player, NetworkInput input)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void OnConnectedToServer(NetworkRunner runner)
+    {
+        throw new NotImplementedException();
+    }
+
     public void OnDisconnectedFromServer(NetworkRunner runner, NetDisconnectReason reason)
     {
         throw new NotImplementedException();
@@ -43,13 +105,8 @@ public class NetworkInputHandler : MonoBehaviour, INetworkRunnerCallbacks
 
     public void OnConnectRequest(NetworkRunner runner, NetworkRunnerCallbackArgs.ConnectRequest request, byte[] token)
     {
-        Debug.Log($"Connection request received from {request.RemoteAddress}");
-    
-        // Akceptowanie połączenia
-        request.Accept();
+        throw new NotImplementedException();
     }
-
-
 
     public void OnConnectFailed(NetworkRunner runner, NetAddress remoteAddress, NetConnectFailedReason reason)
     {
@@ -71,26 +128,11 @@ public class NetworkInputHandler : MonoBehaviour, INetworkRunnerCallbacks
         throw new NotImplementedException();
     }
 
-    public void OnDisconnectedFromServer(NetworkRunner runner) { }
-    public void OnObjectExitAOI(NetworkRunner runner, NetworkObject obj, PlayerRef player)
+    public void OnHostMigration(NetworkRunner runner, HostMigrationToken hostMigrationToken)
     {
         throw new NotImplementedException();
     }
 
-    public void OnObjectEnterAOI(NetworkRunner runner, NetworkObject obj, PlayerRef player)
-    {
-        Debug.Log($"Object {obj.name} entered AOI for player {player.PlayerId}");
-    
-        // Dalsza logika zależy od tego, co chcesz osiągnąć
-        // Możesz np. zaktualizować UI gracza, włączyć widoczność obiektu itp.
-    }
-
-
-    public void OnPlayerJoined(NetworkRunner runner, PlayerRef player) { }
-    public void OnPlayerLeft(NetworkRunner runner, PlayerRef player) { }
-    public void OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason) { }
-    public void OnInputMissing(NetworkRunner runner, PlayerRef player, NetworkInput input) { }
-    public void OnHostMigration(NetworkRunner runner, HostMigrationToken hostMigrationToken) { }
     public void OnReliableDataReceived(NetworkRunner runner, PlayerRef player, ReliableKey key, ArraySegment<byte> data)
     {
         throw new NotImplementedException();
@@ -101,7 +143,13 @@ public class NetworkInputHandler : MonoBehaviour, INetworkRunnerCallbacks
         throw new NotImplementedException();
     }
 
-    public void OnSceneLoadStart(NetworkRunner runner) { }
-    public void OnSceneLoadDone(NetworkRunner runner) { }
-    public void OnReliableDataReceived(NetworkRunner runner, PlayerRef player, System.ArraySegment<byte> data) { }
+    public void OnSceneLoadDone(NetworkRunner runner)
+    {
+        
+    }
+
+    public void OnSceneLoadStart(NetworkRunner runner)
+    {
+        
+    }
 }

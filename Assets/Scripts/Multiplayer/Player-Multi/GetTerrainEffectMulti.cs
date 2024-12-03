@@ -36,7 +36,7 @@ public class GetTerrainEffectMulti : NetworkBehaviour, ITerrainEffectHandler
         {
             if (terrain.canKill)
             {
-                _playerMovement.ResetPos();
+                //_playerMovement.ResetPos();
             } else
             {
                 ModifyAngularDrag(terrain.angularDrag);

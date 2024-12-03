@@ -3,7 +3,13 @@ using UnityEngine;
 
 public struct NetworkInputData : INetworkInput
 {
-    public Vector3 DragStart;
-    public Vector3 DragEnd;
+    public Vector3 touchPos;
+    public TouchState touchState;
+    public enum TouchState
+    {
+        Began,
+        Moved,
+        Ended
+    }
     public bool IsDragging;
 }
