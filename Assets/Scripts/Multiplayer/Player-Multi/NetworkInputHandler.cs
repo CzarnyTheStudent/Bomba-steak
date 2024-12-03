@@ -43,8 +43,13 @@ public class NetworkInputHandler : MonoBehaviour, INetworkRunnerCallbacks
 
     public void OnConnectRequest(NetworkRunner runner, NetworkRunnerCallbackArgs.ConnectRequest request, byte[] token)
     {
-        throw new NotImplementedException();
+        Debug.Log($"Connection request received from {request.RemoteAddress}");
+    
+        // Akceptowanie połączenia
+        request.Accept();
     }
+
+
 
     public void OnConnectFailed(NetworkRunner runner, NetAddress remoteAddress, NetConnectFailedReason reason)
     {
@@ -74,8 +79,12 @@ public class NetworkInputHandler : MonoBehaviour, INetworkRunnerCallbacks
 
     public void OnObjectEnterAOI(NetworkRunner runner, NetworkObject obj, PlayerRef player)
     {
-        throw new NotImplementedException();
+        Debug.Log($"Object {obj.name} entered AOI for player {player.PlayerId}");
+    
+        // Dalsza logika zależy od tego, co chcesz osiągnąć
+        // Możesz np. zaktualizować UI gracza, włączyć widoczność obiektu itp.
     }
+
 
     public void OnPlayerJoined(NetworkRunner runner, PlayerRef player) { }
     public void OnPlayerLeft(NetworkRunner runner, PlayerRef player) { }

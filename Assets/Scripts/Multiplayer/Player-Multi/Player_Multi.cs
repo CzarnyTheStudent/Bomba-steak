@@ -8,7 +8,6 @@ namespace Multiplayer.Player_Multi
     {
         private int _playerId;
         private PlayerInputMulti _playerInput;
-        public static bool isReady;
         
         public void SetPlayerId(int playerId)
         {
@@ -17,12 +16,18 @@ namespace Multiplayer.Player_Multi
         }
 
         public int GetPlayerId() => _playerId;
-        public void SetReady(bool set) => isReady = set;
 
+        public override void Spawned()
+        {
+            if (HasInputAuthority)
+            {
+                TargetFinder.Singleton.SetTarget(transform);
+            }
+        }
+        
         private void Start()
         {
             _playerInput = GetComponent<PlayerInputMulti>();
-            DisableControls();
         }
 
         private void OnEnable()
@@ -37,13 +42,11 @@ namespace Multiplayer.Player_Multi
 
         private void DisableControls()
         {
-            if (!isReady) return;
             _playerInput.enabled = false;
         }
 
         private void EnableControls()
         {
-            if (!isReady) return;
             _playerInput.enabled = true;
         }
     }

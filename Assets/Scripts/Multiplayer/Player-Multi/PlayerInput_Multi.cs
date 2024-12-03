@@ -27,7 +27,7 @@ namespace Multiplayer.Player_Multi
 
         public override void FixedUpdateNetwork()
         {
-            if (!PlayerMulti.isReady || !GetInput(out NetworkInputData inputData)) return;
+            if (!GetInput(out NetworkInputData inputData)) return;
 
             if (inputData.IsDragging)
             {

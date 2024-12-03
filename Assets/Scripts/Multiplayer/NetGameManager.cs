@@ -83,7 +83,7 @@ public class NetGameManager : MonoBehaviour, INetworkRunnerCallbacks
                 Debug.Log("Player object spawned successfully.");
                 _assignedPlayers.Add(player, networkPlayerObject);
                 networkPlayerObject.GetComponent<PlayerMulti>().SetPlayerId(player.PlayerId);
-                networkPlayerObject.GetComponent<PlayerMulti>().SetReady(true);
+                //networkPlayerObject.GetComponent<PlayerMulti>().SetReady(true);
             }
             catch (Exception ex)
             {

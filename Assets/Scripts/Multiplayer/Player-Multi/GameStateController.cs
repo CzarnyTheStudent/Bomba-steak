@@ -17,12 +17,12 @@ using UnityEngine;
 
         [SerializeField] private float _startDelay = 4.0f;
         [SerializeField] private float _endDelay = 4.0f;
-        [SerializeField] private float _gameSessionLength = 180.0f;
+        //[SerializeField] private float _gameSessionLength = 180.0f;
 
         [SerializeField] private TextMeshProUGUI _startEndDisplay = null;
-        [SerializeField] private TextMeshProUGUI _ingameTimerDisplay = null;
+        //[SerializeField] private TextMeshProUGUI _ingameTimerDisplay = null;
 
-        [Networked] private TickTimer _timer { get; set; }
+        //[Networked] private TickTimer _timer { get; set; }
         [Networked] private GameState _gameState { get; set; }
 
         [Networked] private NetworkBehaviourId _winner { get; set; }
@@ -35,7 +35,7 @@ using UnityEngine;
             // --- when a CLIENT joins a game
 
             _startEndDisplay.gameObject.SetActive(true);
-            _ingameTimerDisplay.gameObject.SetActive(false);
+            //_ingameTimerDisplay.gameObject.SetActive(false);
 
             // If the game has already started, find all currently active players' PlayerDataNetworked component Ids
             if (_gameState != GameState.Starting)
@@ -55,7 +55,7 @@ using UnityEngine;
 
             // Initialize the game state on the host
             _gameState = GameState.Starting;
-            _timer = TickTimer.CreateFromSeconds(Runner, _startDelay);
+            //_timer = TickTimer.CreateFromSeconds(Runner, _startDelay);
         }
 
         public override void FixedUpdateNetwork()
@@ -69,10 +69,10 @@ using UnityEngine;
                 case GameState.Running:
                     UpdateRunningDisplay();
                     // Ends the game if the game session length has been exceeded
-                    if (_timer.ExpiredOrNotRunning(Runner))
-                    {
-                        GameHasEnded();
-                    }
+                    // if (_timer.ExpiredOrNotRunning(Runner))
+                    // {
+                    //     GameHasEnded();
+                    // }
 
                     break;
                 case GameState.Ending:
@@ -88,17 +88,17 @@ using UnityEngine;
             // --- Host & Client
             // Display the remaining time until the game starts in seconds (rounded down to the closest full second)
 
-            _startEndDisplay.text = $"Game Starts In {Mathf.RoundToInt(_timer.RemainingTime(Runner) ?? 0)}";
+            //_startEndDisplay.text = $"Game Starts In {Mathf.RoundToInt(_timer.RemainingTime(Runner) ?? 0)}";
 
             // --- Host
             if (Object.HasStateAuthority == false) return;
-            if (_timer.ExpiredOrNotRunning(Runner) == false) return;
+            //if (_timer.ExpiredOrNotRunning(Runner) == false) return;
             
             FindObjectOfType<PlayerSpawner>().StartPlayerSpawner(this);
 
             // Switches to the Running GameState and sets the time to the length of a game session
             _gameState = GameState.Running;
-            _timer = TickTimer.CreateFromSeconds(Runner, _gameSessionLength);
+            //_timer = TickTimer.CreateFromSeconds(Runner, _gameSessionLength);
         }
 
         private void UpdateRunningDisplay()
@@ -106,9 +106,9 @@ using UnityEngine;
             // --- Host & Client
             // Display the remaining time until the game ends in seconds (rounded down to the closest full second)
             _startEndDisplay.gameObject.SetActive(false);
-            _ingameTimerDisplay.gameObject.SetActive(true);
-            _ingameTimerDisplay.text =
-                $"{Mathf.RoundToInt(_timer.RemainingTime(Runner) ?? 0).ToString("000")} seconds left";
+            //_ingameTimerDisplay.gameObject.SetActive(true);
+            // _ingameTimerDisplay.text =
+            //     $"{Mathf.RoundToInt(_timer.RemainingTime(Runner) ?? 0).ToString("000")} seconds left";
         }
 
         private void UpdateEndingDisplay()
@@ -120,14 +120,14 @@ using UnityEngine;
             if (Runner.TryFindBehaviour(_winner, out PlayerMulti playerData) == false) return;
 
             _startEndDisplay.gameObject.SetActive(true);
-            _ingameTimerDisplay.gameObject.SetActive(false);
-            _startEndDisplay.text =
-                $"{playerData.name} won with points. Disconnecting in {Mathf.RoundToInt(_timer.RemainingTime(Runner) ?? 0)}";
+            //_ingameTimerDisplay.gameObject.SetActive(false);
+            // _startEndDisplay.text =
+            //     $"{playerData.name} won with points. Disconnecting in {Mathf.RoundToInt(_timer.RemainingTime(Runner) ?? 0)}";
 
             // --- Host
             // Shutdowns the current game session.
             // The disconnection behaviour is found in the OnServerDisconnect.cs script
-            if (_timer.ExpiredOrNotRunning(Runner) == false) return;
+            //if (_timer.ExpiredOrNotRunning(Runner) == false) return;
 
             Runner.Shutdown();
         }
@@ -149,7 +149,7 @@ using UnityEngine;
                     continue;
                 }
 
-               // if (playerDataNetworkedComponent.Lives > 0) playersAlive++;
+                // if (playerDataNetworkedComponent.Lives > 0) playersAlive++;
             }
 
             // If more than 1 player is left alive, the game continues.
@@ -177,7 +177,7 @@ using UnityEngine;
 
         private void GameHasEnded()
         {
-            _timer = TickTimer.CreateFromSeconds(Runner, _endDelay);
+            //_timer = TickTimer.CreateFromSeconds(Runner, _endDelay);
             _gameState = GameState.Ending;
         }
 
