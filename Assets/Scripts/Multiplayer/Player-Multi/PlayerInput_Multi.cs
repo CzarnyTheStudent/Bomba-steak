@@ -9,6 +9,7 @@ namespace Multiplayer.Player_Multi
         private Vector3 _dragStartPos;
         private PlayerMovementMulti _playerMovement;
         private PlayerLineRenderer _lineRenderer;
+        private bool _stopTheDrag;
 
         private void Start()
         {
@@ -33,7 +34,7 @@ namespace Multiplayer.Player_Multi
             {
                 Dragging(inputData.touchPos);
             }
-            if (!inputData.IsDragging && inputData.touchState == NetworkInputData.TouchState.Ended)
+            if (!inputData.IsDragging && _stopTheDrag && inputData.touchState == NetworkInputData.TouchState.Ended)
             {
                 DragRelease(inputData.touchPos);
             }
@@ -43,6 +44,7 @@ namespace Multiplayer.Player_Multi
         {
             _dragStartPos = transform.position;
             _lineRenderer.StartLine(_dragStartPos);
+            _stopTheDrag = true;
         }
 
         private void Dragging(Vector3 touchPos)
@@ -52,6 +54,7 @@ namespace Multiplayer.Player_Multi
 
         private void DragRelease(Vector3 touchPos)
         {
+            _stopTheDrag = false;
             _lineRenderer.ClearLine();
             Vector3 dragVector = touchPos - _dragStartPos;
             Vector3 clampedDrag = Vector3.ClampMagnitude(dragVector, _playerMovement.maxDrag);

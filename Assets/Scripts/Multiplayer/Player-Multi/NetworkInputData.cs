@@ -9,7 +9,8 @@ public struct NetworkInputData : INetworkInput
     {
         Began,
         Moved,
-        Ended
+        Ended,
+        None
     }
     public bool IsDragging;
 }

@@ -8,9 +8,28 @@ namespace Multiplayer.Player_Multi
         public float power = 10f;
         public float maxDrag = 5f;
         public Rigidbody2D rb;
+        public Vector3 startPos;
 
         [Networked] private Vector3 NetworkedPosition { get; set; }
+        
+        public override void Spawned()
+        {
+            if (Object.HasStateAuthority)
+            {
+                startPos = transform.position;
+            }
+        }
 
+
+        public void ResetPos()
+        {
+            if (Object.HasStateAuthority)
+            {
+                transform.position = startPos;
+            }
+        }
+
+        
         public override void FixedUpdateNetwork()
         {
             if (Object.HasStateAuthority)
@@ -32,6 +51,7 @@ namespace Multiplayer.Player_Multi
             Debug.Log($"Applying force: {clampedForce}");
 
             rb.AddForce(clampedForce, ForceMode2D.Impulse);
+            NetworkedPosition = rb.position;
         }
 
     }

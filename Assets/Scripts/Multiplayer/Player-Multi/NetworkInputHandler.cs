@@ -51,22 +51,14 @@ public class NetworkInputHandler : SimulationBehaviour, IBeforeUpdate, INetworkR
                     break;
 
                 case TouchPhase.Moved:
-                    if (_isDragging)
-                        _touchState = NetworkInputData.TouchState.Moved;
+                    _touchState = NetworkInputData.TouchState.Moved;
                     break;
 
                 case TouchPhase.Ended:
                     _touchState = NetworkInputData.TouchState.Ended;
                     _isDragging = false;
                     break;
-
-                default:
-                    break;
             }
-        }
-        else
-        {
-            _isDragging = false;
         }
     }
 
