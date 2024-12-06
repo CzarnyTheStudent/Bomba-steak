@@ -12,5 +12,4 @@ public struct NetworkInputData : INetworkInput
         Ended,
         None
     }
-    public bool IsDragging;
 }

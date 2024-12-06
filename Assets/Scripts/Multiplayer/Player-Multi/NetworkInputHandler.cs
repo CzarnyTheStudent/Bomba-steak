@@ -9,7 +9,7 @@ public class NetworkInputHandler : SimulationBehaviour, IBeforeUpdate, INetworkR
     private Touch _currentTouch;
     private Vector3 _touchPosition;
     private NetworkInputData.TouchState _touchState;
-    private bool _isDragging;
+
     
     
     public void OnObjectExitAOI(NetworkRunner runner, NetworkObject obj, PlayerRef player)
@@ -47,7 +47,6 @@ public class NetworkInputHandler : SimulationBehaviour, IBeforeUpdate, INetworkR
             {
                 case TouchPhase.Began:
                     _touchState = NetworkInputData.TouchState.Began;
-                    _isDragging = true;
                     break;
 
                 case TouchPhase.Moved:
@@ -56,7 +55,6 @@ public class NetworkInputHandler : SimulationBehaviour, IBeforeUpdate, INetworkR
 
                 case TouchPhase.Ended:
                     _touchState = NetworkInputData.TouchState.Ended;
-                    _isDragging = false;
                     break;
             }
         }
@@ -68,7 +66,6 @@ public class NetworkInputHandler : SimulationBehaviour, IBeforeUpdate, INetworkR
         {
             touchPos = _touchPosition,
             touchState = _touchState,
-            IsDragging = _isDragging
         };
 
         input.Set(data);
