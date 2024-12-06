@@ -48,8 +48,6 @@ namespace Multiplayer.Player_Multi
             float forceStrength = Mathf.Clamp(force.magnitude, 0f, maxDrag);
             Vector3 clampedForce = force.normalized * forceStrength * power;
 
-            Debug.Log($"Applying force: {clampedForce}");
-
             rb.AddForce(clampedForce, ForceMode2D.Impulse);
             NetworkedPosition = rb.position;
         }

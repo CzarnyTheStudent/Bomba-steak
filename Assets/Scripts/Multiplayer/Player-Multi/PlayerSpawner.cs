@@ -42,7 +42,7 @@ public class PlayerSpawner : NetworkBehaviour, IPlayerJoined, IPlayerLeft
             int index = player.PlayerId % _spawnPoints.Length;
             var spawnPosition = _spawnPoints[index].transform.position;
 
-            var playerObject = Runner.Spawn(_granadeNetworkPrefab, spawnPosition, Quaternion.identity, player);
+            NetworkObject playerObject = Runner.Spawn(_granadeNetworkPrefab, spawnPosition, Quaternion.identity, player);
             Runner.SetPlayerObject(player, playerObject);
             _gameStateController.TrackNewPlayer(playerObject.GetComponent<PlayerMulti>().Id);
         }

@@ -56,6 +56,10 @@ public class NetworkInputHandler : SimulationBehaviour, IBeforeUpdate, INetworkR
                 case TouchPhase.Ended:
                     _touchState = NetworkInputData.TouchState.Ended;
                     break;
+                
+                default:
+                    _touchState = NetworkInputData.TouchState.None;
+                    break;
             }
         }
     }

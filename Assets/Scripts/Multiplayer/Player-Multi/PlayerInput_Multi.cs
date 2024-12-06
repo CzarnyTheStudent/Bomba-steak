@@ -10,16 +10,20 @@ namespace Multiplayer.Player_Multi
         private PlayerMovementMulti _playerMovement;
         private PlayerLineRenderer _lineRenderer;
         private bool _isDragging;
+        private bool isReady = false;
 
         private void Start()
         {
-            Debug.Log($"HasInputAuthority: {HasInputAuthority}");
+            if (!Object.HasInputAuthority) return;
             _playerMovement = GetComponent<PlayerMovementMulti>();
             _lineRenderer = GetComponent<PlayerLineRenderer>();
+            isReady = true;
         }
 
         public override void FixedUpdateNetwork()
         {
+            if (!Object.HasInputAuthority) return;
+            if (!isReady) return;
             if (!GetInput(out NetworkInputData inputData))
             {
                 Debug.LogError("No input data received.");
@@ -65,7 +69,6 @@ namespace Multiplayer.Player_Multi
         [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]
         private void RpcApplyForce(Vector3 startPos, Vector3 endPos)
         {
-            Debug.Log($"Applying force from {startPos} to {endPos}");
             _playerMovement.ApplyForce(startPos, endPos);
         }
     }
