@@ -75,17 +75,12 @@ public class NetworkInputHandler : SimulationBehaviour, IBeforeUpdate, INetworkR
 
     public void OnInput(NetworkRunner runner, NetworkInput input)
     {
-        // Zapisz dane wejściowe tylko dla odpowiedniego gracza
-        if (!_playerInputs.ContainsKey(runner.LocalPlayer))
-        {
-            _playerInputs[runner.LocalPlayer] = new NetworkInputData();
-        }
+        NetworkInputData localInput = new NetworkInputData();
+        
 
-        var inputData = _playerInputs[runner.LocalPlayer];
-
-        inputData.touchPos = _touchPosition;
-        inputData.touchState = _touchState;
-        input.Set(inputData);
+        localInput.touchPos = _touchPosition;
+        localInput.touchState = _touchState;
+        input.Set(localInput);
     }
 
 
