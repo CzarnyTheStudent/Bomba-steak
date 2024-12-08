@@ -9,6 +9,11 @@ namespace Multiplayer.Player_Multi
         private int _playerId;
         private PlayerInputMulti _playerInput;
         
+        // Game Session SPECIFIC Settings
+        public bool AcceptInput => _isReady && Object.IsValid;
+        
+        [Networked] private NetworkBool _isReady { get; set; }
+        
         public void SetPlayerId(int playerId)
         {
             _playerId = playerId;
@@ -27,7 +32,14 @@ namespace Multiplayer.Player_Multi
         
         private void Start()
         {
+            // --- Host & Client
+            // Set the local runtime references.
             _playerInput = GetComponent<PlayerInputMulti>();
+            
+            // --- Host
+            // The Game Session SPECIFIC settings are initialized
+            if (Object.HasStateAuthority == false) return;
+            _isReady = true;
         }
 
         private void OnEnable()

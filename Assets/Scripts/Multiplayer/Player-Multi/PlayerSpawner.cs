@@ -5,7 +5,7 @@ using UnityEngine.Serialization;
 
 public class PlayerSpawner : NetworkBehaviour, IPlayerJoined, IPlayerLeft
 {
-        [FormerlySerializedAs("_spaceshipNetworkPrefab")] [SerializeField] private NetworkPrefabRef _granadeNetworkPrefab = NetworkPrefabRef.Empty;
+       [SerializeField] private NetworkPrefabRef _granadeNetworkPrefab = NetworkPrefabRef.Empty;
         [SerializeField] private GameObject[] _spawnPoints = null;
 
         private bool _gameIsReady = false;

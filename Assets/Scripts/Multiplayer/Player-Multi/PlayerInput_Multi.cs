@@ -7,38 +7,44 @@ namespace Multiplayer.Player_Multi
     public class PlayerInputMulti : NetworkBehaviour
     {
         private Vector3 _dragStartPos;
+        private PlayerMulti _playerMulti;
         private PlayerMovementMulti _playerMovement;
         private PlayerLineRenderer _lineRenderer;
         private bool _isDragging;
-        private bool isReady = false;
 
-        private void Start()
+        public override void Spawned()
         {
-            if (!Object.HasInputAuthority) return;
+            // --- Host & Client
+            // Set the local runtime references.
+            _playerMulti = GetComponent<PlayerMulti>();
             _playerMovement = GetComponent<PlayerMovementMulti>();
             _lineRenderer = GetComponent<PlayerLineRenderer>();
-            isReady = true;
+            
+            // --- Host
+            // The Game Session SPECIFIC settings are initialized
+            if (Object.HasStateAuthority == false) return;
         }
 
         public override void FixedUpdateNetwork()
         {
-            if (!Object.HasInputAuthority) return;
-            if (!isReady) return;
-            if (!GetInput(out NetworkInputData inputData))
+            if (!_playerMulti.AcceptInput) return;
+            if (Runner.TryGetInputForPlayer<NetworkInputData>(Object.InputAuthority, out var input))
             {
-                Debug.LogError("No input data received.");
-                return;
+                ProcessTouchInput(input);
             }
-
+        }
+        
+        private void ProcessTouchInput(NetworkInputData inputData)
+        {
             if (inputData.touchState == NetworkInputData.TouchState.Began)
             {
                 DragStart(inputData.touchPos);
             }
-            if (_isDragging && inputData.touchState == NetworkInputData.TouchState.Moved)
+            else if (_isDragging && inputData.touchState == NetworkInputData.TouchState.Moved)
             {
                 Dragging(inputData.touchPos);
             }
-            if (_isDragging && inputData.touchState == NetworkInputData.TouchState.Ended)
+            else if (_isDragging && inputData.touchState == NetworkInputData.TouchState.Ended)
             {
                 DragRelease(inputData.touchPos);
             }
