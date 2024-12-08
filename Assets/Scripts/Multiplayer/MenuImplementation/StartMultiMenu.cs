@@ -1,10 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 using Fusion;
 using TMPro;
-using UnityEngine.SceneManagement;
 
     public class StartMenu : MonoBehaviour
     {
@@ -17,7 +13,7 @@ using UnityEngine.SceneManagement;
         [SerializeField] private TMP_InputField _roomName = null;
         [SerializeField] private string _gameSceneName = null;
 
-        private NetworkRunner _runnerInstance = null;
+        private NetworkRunner _runnerInstance;
 
         // Attempts to start a new game session 
         public void StartHost()
@@ -65,7 +61,7 @@ using UnityEngine.SceneManagement;
             {
                 GameMode = mode,
                 SessionName = roomName,
-                //ObjectProvider = _runnerInstance.GetComponent<NetworkObjectPoolDefault>(),
+                ObjectProvider = _runnerInstance.GetComponent<NetworkObjectPoolDefault>(),
             };
 
             // GameMode.Host = Start a session with a specific name
@@ -74,7 +70,7 @@ using UnityEngine.SceneManagement;
 
             if (_runnerInstance.IsServer)
             {
-                _runnerInstance.LoadScene(sceneName);
+               await _runnerInstance.LoadScene(sceneName);
             }
         }
     }
