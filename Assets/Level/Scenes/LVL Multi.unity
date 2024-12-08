@@ -13809,8 +13809,8 @@ GameObject:
   - component: {fileID: 3311153967878137255}
   - component: {fileID: 5330536543796429858}
   - component: {fileID: 6158001426731712063}
-  - component: {fileID: 308412974}
   - component: {fileID: 7528402380864907778}
+  - component: {fileID: 308412974}
   m_Layer: 0
   m_Name: Main Camera - Multi
   m_TagString: MainCamera
@@ -13928,7 +13928,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 442c2ff72a2480d49a35dcae37c9ae37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 6158001426731712063}
 --- !u!1 &7540845751610396129
 GameObject:
   m_ObjectHideFlags: 0

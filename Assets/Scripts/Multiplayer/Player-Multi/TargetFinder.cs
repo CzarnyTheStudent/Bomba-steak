@@ -1,12 +1,8 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class TargetFinder : MonoBehaviour
 {
-    [SerializeField] private CameraMovement cam;
+    private CameraMovement cam;
     private static TargetFinder _singleton;
 
     public static TargetFinder Singleton
@@ -31,6 +27,7 @@ public class TargetFinder : MonoBehaviour
 
     private void Awake()
     {
+        cam = GetComponent<CameraMovement>();
         Singleton = this;
     }
 
@@ -41,10 +38,6 @@ public class TargetFinder : MonoBehaviour
             Singleton = null;
         }
     }
-
-
-    public void SetTarget(Transform newTarget)
-    {
-        cam.target = newTarget;
-    }
+    
+    public void SetTarget(Transform newTarget) => cam.target = newTarget;
 }

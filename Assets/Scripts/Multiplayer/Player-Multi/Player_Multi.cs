@@ -21,20 +21,13 @@ namespace Multiplayer.Player_Multi
         }
 
         public int GetPlayerId() => _playerId;
-
-        public override void Spawned()
-        {
-            if (HasInputAuthority)
-            {
-                TargetFinder.Singleton.SetTarget(transform);
-            }
-        }
         
         private void Start()
         {
             // --- Host & Client
             // Set the local runtime references.
             _playerInput = GetComponent<PlayerInputMulti>();
+            TargetFinder.Singleton.SetTarget(transform);
             
             // --- Host
             // The Game Session SPECIFIC settings are initialized
