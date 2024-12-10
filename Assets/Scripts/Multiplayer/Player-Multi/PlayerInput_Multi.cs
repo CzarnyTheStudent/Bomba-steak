@@ -72,7 +72,7 @@ namespace Multiplayer.Player_Multi
             RpcApplyForce(_dragStartPos, _dragStartPos + clampedDrag);
         }
 
-        [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]
+        [Rpc(RpcSources.All, RpcTargets.All)]
         private void RpcApplyForce(Vector3 startPos, Vector3 endPos)
         {
             _playerMovement.ApplyForce(startPos, endPos);

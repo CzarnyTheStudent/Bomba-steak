@@ -2,6 +2,7 @@ using Fusion;
 using Multiplayer.Player_Multi;
 using UnityEngine;
 using UnityEngine.Serialization;
+using static Unity.Collections.Unicode;
 
 public class PlayerSpawner : NetworkBehaviour, IPlayerJoined, IPlayerLeft
 {
@@ -33,7 +34,7 @@ public class PlayerSpawner : NetworkBehaviour, IPlayerJoined, IPlayerLeft
         {
             if (_gameIsReady == false) return;
             SpawnPlayer(player);
-        }
+    }
 
         // Spawns a granade for a player.
         // The spawn point is chosen in the _spawnPoints array using the implicit playerRef to int conversion 
@@ -45,10 +46,12 @@ public class PlayerSpawner : NetworkBehaviour, IPlayerJoined, IPlayerLeft
             NetworkObject playerObject = Runner.Spawn(_granadeNetworkPrefab, spawnPosition, Quaternion.identity, player);
             Runner.SetPlayerObject(player, playerObject);
             _gameStateController.TrackNewPlayer(playerObject.GetComponent<PlayerMulti>().Id);
-        }
 
-        // Despawns the spaceship associated with a player when their client leaves the game session.
-        public void PlayerLeft(PlayerRef player)
+
+    }
+
+    // Despawns the spaceship associated with a player when their client leaves the game session.
+    public void PlayerLeft(PlayerRef player)
         {
             DespawnSpaceship(player);
         }

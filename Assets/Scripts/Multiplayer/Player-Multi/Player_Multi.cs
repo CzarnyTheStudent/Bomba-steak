@@ -1,4 +1,5 @@
 using Fusion;
+using Player;
 using Static;
 using UnityEngine;
 
@@ -27,23 +28,16 @@ namespace Multiplayer.Player_Multi
             // --- Host & Client
             // Set the local runtime references.
             _playerInput = GetComponent<PlayerInputMulti>();
-            TargetFinder.Singleton.SetTarget(transform);
-            
+            NetworkObject playergigachad = Runner.GetPlayerObject(Runner.LocalPlayer);
+            TargetFinder.Singleton.SetTarget(playergigachad.transform);
+
             // --- Host
             // The Game Session SPECIFIC settings are initialized
             if (Object.HasStateAuthority == false) return;
             _isReady = true;
         }
 
-        private void OnEnable()
-        {
-            EventManager.GameStart += EnableControls;
-        }
-
-        private void OnDisable()
-        {
-            EventManager.GameStart -= EnableControls;
-        }
+     
 
         private void DisableControls()
         {

@@ -88,16 +88,16 @@ public class NetworkInputHandler : SimulationBehaviour, IBeforeUpdate, INetworkR
     {
         Debug.LogWarning($"Brak danych wejściowych od gracza {player}. Ustawiam domyślne wartości.");
     
-        if (!_playerInputs.ContainsKey(player))
-        {
-            _playerInputs[player] = new NetworkInputData
-            {
-                touchPos = Vector3.zero,
-                touchState = NetworkInputData.TouchState.None
-            };
-        }
+        //if (!_playerInputs.ContainsKey(player))
+        //{
+        //    _playerInputs[player] = new NetworkInputData
+        //    {
+        //        touchPos = Vector3.zero,
+        //        touchState = NetworkInputData.TouchState.None
+        //    };
+        //}
 
-        input.Set(_playerInputs[player]);
+        //input.Set(_playerInputs[player]);
     }
 
 

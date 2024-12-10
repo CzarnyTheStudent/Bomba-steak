@@ -2,11 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Fusion;
+using GameTools;
 using Multiplayer.Player_Multi;
+using Player;
+using Static;
 using TMPro;
 using UnityEngine;
 
-    public class GameStateController : NetworkBehaviour
+    public class GameStateController : NetworkBehaviour, IPlayerJoined, IPlayerLeft
     {
         enum GameState
         {
@@ -25,6 +28,8 @@ using UnityEngine;
         [Networked] private NetworkBehaviourId _winner { get; set; }
 
         private List<NetworkBehaviourId> _playerDataNetworkedIds = new List<NetworkBehaviourId>();
+
+        private int playerCount;
 
         public override void Spawned()
         {
@@ -46,6 +51,7 @@ using UnityEngine;
 
             // Set is Simulated so that FixedUpdateNetwork runs on every client instead of just the Host
             Runner.SetIsSimulated(Object, true);
+            GameModeManager.CurrentGameMode = GameModeManager.GameMode.Multiplayer;
 
             // --- This section is for all networked information that has to be initialized by the HOST
             if (!Object.HasStateAuthority) return;
@@ -53,7 +59,7 @@ using UnityEngine;
             // Initialize the game state on the host
             _gameState = GameState.Starting;
             _timer = TickTimer.CreateFromSeconds(Runner, _startDelay);
-        }
+    }
 
         public override void FixedUpdateNetwork()
         {
@@ -86,8 +92,9 @@ using UnityEngine;
             
             FindObjectOfType<PlayerSpawner>().StartPlayerSpawner(this);
 
-            // Switches to the Running GameState and sets the time to the length of a game session
-            _gameState = GameState.Running;
+        // Switches to the Running GameState and sets the time to the length of a game session
+        _gameState = GameState.Running;
+            InitializeGame();
         }
 
         private void UpdateRunningDisplay()
@@ -95,7 +102,7 @@ using UnityEngine;
             // --- Host & Client
             // Display the remaining time until the game ends in seconds (rounded down to the closest full second)
             _startEndDisplay.gameObject.SetActive(false);
-        }
+    }
 
         private void UpdateEndingDisplay()
         {
@@ -116,7 +123,16 @@ using UnityEngine;
             GameHasEnded();
         }
 
-        private void GameHasEnded()
+    private void InitializeGame()
+    {
+        Timer.instance.SetToStopwatch();
+        EventManager.OnTimerStart();
+        
+        //SetUpCoordinator.RegisterGameSetup(currentGameSetup);
+        EventManager.OnGameStart();
+    }
+
+    private void GameHasEnded()
         {
             _gameState = GameState.Ending;
         }
@@ -125,4 +141,14 @@ using UnityEngine;
         {
             _playerDataNetworkedIds.Add(playerDataNetworkedId);
         }
+
+    public void PlayerJoined(PlayerRef player)
+    {
+        playerCount++;
     }
+
+    public void PlayerLeft(PlayerRef player)
+    {
+        playerCount--;
+    }
+}
