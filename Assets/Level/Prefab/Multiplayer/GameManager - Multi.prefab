@@ -109,7 +109,7 @@ MonoBehaviour:
   pullSound: {fileID: 8300000, guid: c3f35074504c0c845b81be004663c657, type: 3}
   Handle: {fileID: 6225908759105705589}
   HandleStatic: {fileID: 6934102243528154012}
-  manager: {fileID: 3540557597469949129}
+  manager: {fileID: 0}
 --- !u!82 &1521022383990278458
 AudioSource:
   m_ObjectHideFlags: 0
@@ -519,8 +519,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3817629223836804723}
-  - component: {fileID: 3540557597469949129}
-  - component: {fileID: 1375968472176830302}
   - component: {fileID: 583656473405689443}
   m_Layer: 0
   m_Name: GameManager - Multi
@@ -545,34 +543,6 @@ Transform:
   - {fileID: 3347448309512049584}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3540557597469949129
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4915652167339826113}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4ec1877d121b0a4fa3178869ae15b65, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  starGameCanvas: {fileID: 3159548062529685689}
-  currentGameSetup: {fileID: 0}
---- !u!114 &1375968472176830302
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4915652167339826113}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8a6cb596247949468cf63fa98163dab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _playerOneObject: {fileID: 0}
-  _playerTwoObject: {fileID: 0}
 --- !u!114 &583656473405689443
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerCooldownShoot : MonoBehaviour
 {
-    [SerializeField] private float cooldownTime = 4;
+    [SerializeField] private float cooldownTime = 1.5f;
     public bool shootReady = true;
 
     public IEnumerator WaitForShoot()
@@ -13,13 +13,5 @@ public class PlayerCooldownShoot : MonoBehaviour
         shootReady = false;
         yield return new WaitForSeconds(cooldownTime);
         shootReady = true;
-    }
-
-    private void OnCollisionEnter2D(Collision2D other)
-    {
-        if (other.gameObject.CompareTag("Terrain") )
-        {
-            shootReady = true;
-        }
     }
 }

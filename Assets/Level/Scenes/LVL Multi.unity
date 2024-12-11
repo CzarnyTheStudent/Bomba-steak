@@ -3449,7 +3449,7 @@ PrefabInstance:
     - target: {fileID: 8092070749081271379, guid: f36838810084b254d80aedc4915998eb,
         type: 3}
       propertyPath: m_Name
-      value: GameOverviewCanvas
+      value: GameStarterCanvas
       objectReference: {fileID: 0}
     - target: {fileID: 8092070749081271383, guid: f36838810084b254d80aedc4915998eb,
         type: 3}
@@ -13820,6 +13820,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1739106091}
   - component: {fileID: 1739106090}
+  - component: {fileID: 1739106092}
   m_Layer: 0
   m_Name: Settings
   m_TagString: Untagged
@@ -13855,6 +13856,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1739106092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1739106089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55e5371242a0d134ba1868e88bf198c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1748908378
 GameObject:
   m_ObjectHideFlags: 0
@@ -14892,9 +14905,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 700813974}
-        m_TargetAssemblyTypeName: UI.GameOverScreenManager, Assembly-CSharp
-        m_MethodName: Restart
+      - m_Target: {fileID: 1739106092}
+        m_TargetAssemblyTypeName: DisconnectManager, Assembly-CSharp
+        m_MethodName: LeaveGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -16850,41 +16863,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1375968472176830302, guid: 7441bd6bf817f2b4e8b22c53fc80f15d,
+    - target: {fileID: 2757731448983207283, guid: 7441bd6bf817f2b4e8b22c53fc80f15d,
         type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1375968472176830302, guid: 7441bd6bf817f2b4e8b22c53fc80f15d,
-        type: 3}
-      propertyPath: _playerPrefab
+      propertyPath: manager
       value: 
-      objectReference: {fileID: 1681147945611417418, guid: fe980b9d9faafbc4387c48b3b005c528,
-        type: 3}
-    - target: {fileID: 1375968472176830302, guid: 7441bd6bf817f2b4e8b22c53fc80f15d,
-        type: 3}
-      propertyPath: _playerOneObject
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1375968472176830302, guid: 7441bd6bf817f2b4e8b22c53fc80f15d,
-        type: 3}
-      propertyPath: _playerTwoObject
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1375968472176830302, guid: 7441bd6bf817f2b4e8b22c53fc80f15d,
-        type: 3}
-      propertyPath: playerPref.RawGuidValue.Array.data[0]
-      value: -4252617820609996546
-      objectReference: {fileID: 0}
-    - target: {fileID: 1375968472176830302, guid: 7441bd6bf817f2b4e8b22c53fc80f15d,
-        type: 3}
-      propertyPath: playerPref.RawGuidValue.Array.data[1]
-      value: 2937760588409371704
-      objectReference: {fileID: 0}
-    - target: {fileID: 3540557597469949129, guid: 7441bd6bf817f2b4e8b22c53fc80f15d,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3817629223836804723, guid: 7441bd6bf817f2b4e8b22c53fc80f15d,
         type: 3}
@@ -16939,7 +16921,7 @@ PrefabInstance:
     - target: {fileID: 4915652167339826113, guid: 7441bd6bf817f2b4e8b22c53fc80f15d,
         type: 3}
       propertyPath: m_Name
-      value: GameManager - Multi
+      value: PlayerStatsCollectorMulti
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

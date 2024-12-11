@@ -22,7 +22,6 @@ namespace Multiplayer.Player_Multi
             
             // --- Host
             // The Game Session SPECIFIC settings are initialized
-            if (Object.HasStateAuthority == false) return;
         }
 
         public override void FixedUpdateNetwork()
@@ -69,10 +68,11 @@ namespace Multiplayer.Player_Multi
             Vector3 dragVector = touchPos - _dragStartPos;
             Vector3 clampedDrag = Vector3.ClampMagnitude(dragVector, _playerMovement.maxDrag);
 
+            if (!Object.HasInputAuthority) return;
             RpcApplyForce(_dragStartPos, _dragStartPos + clampedDrag);
         }
 
-        [Rpc(RpcSources.All, RpcTargets.All)]
+        [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]
         private void RpcApplyForce(Vector3 startPos, Vector3 endPos)
         {
             _playerMovement.ApplyForce(startPos, endPos);

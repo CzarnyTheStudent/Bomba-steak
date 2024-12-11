@@ -6,15 +6,11 @@ namespace Multiplayer.Player_Multi
 {
     public class PlayerMovementMulti : NetworkBehaviour
     {
-        public float power = 10f;
+        public float power = 3;
         public float maxDrag = 5f;
         public Rigidbody2D rb;
         public Vector3 startPos;
-        private Rigidbody2D
-            _rigidbody =
-                null;
-
-        [Networked] private Vector3 NetworkedPosition { get; set; }
+        private Rigidbody2D _rigidbody ;
         
         public override void Spawned()
         {
@@ -32,12 +28,6 @@ namespace Multiplayer.Player_Multi
             {
                 transform.position = startPos;
             }
-        }
-
-        
-        public override void FixedUpdateNetwork()
-        {
-       
         }
 
         public void ApplyForce(Vector3 startPos, Vector3 endPos)

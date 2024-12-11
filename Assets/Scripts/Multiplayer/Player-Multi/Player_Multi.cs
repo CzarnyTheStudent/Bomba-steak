@@ -33,7 +33,7 @@ namespace Multiplayer.Player_Multi
 
             // --- Host
             // The Game Session SPECIFIC settings are initialized
-            if (Object.HasStateAuthority == false) return;
+            //if (Object.HasStateAuthority) return;
             _isReady = true;
         }
 

@@ -5,6 +5,7 @@ public class PauseManager : MonoBehaviour
 {
     public GameObject pausePanel;
     private bool isPaused = false;
+    private bool isOn = false;
 
     public void TogglePause()
     {
@@ -17,7 +18,10 @@ public class PauseManager : MonoBehaviour
         }
         else
         {
-            ShowPausePanel();
+            if (isOn)
+                HidePausePanel();
+            else
+                ShowPausePanel();
         }
     }
 
