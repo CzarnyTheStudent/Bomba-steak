@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 5709602011238597265}
   - component: {fileID: 5954969694102068871}
   - component: {fileID: 348866350728297435}
+  - component: {fileID: -5963556015491995163}
+  - component: {fileID: 4223222212745502301}
   m_Layer: 0
   m_Name: NetworkRunner
   m_TagString: Untagged
@@ -87,3 +89,32 @@ MonoBehaviour:
   BVHDepth: 0
   BVHNodes: 0
   TotalHitboxes: 0
+--- !u!114 &-5963556015491995163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4348269882062334025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8edbe7108d8a43ab838cf8b8d9453df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4223222212745502301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4348269882062334025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9fd79d79a0fb459ababab9a78f00caa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _physicsAuthority: 2
+  _physicsTiming: 3
+  ForwardOnly: 0
+  DeltaTimeMultiplier: 1
+  SetUnityFixedTimestep: 0

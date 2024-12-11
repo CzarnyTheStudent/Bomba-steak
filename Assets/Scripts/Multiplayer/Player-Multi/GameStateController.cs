@@ -86,6 +86,7 @@ using UnityEngine;
             // --- Host
             if (Object.HasStateAuthority == false) return;
             if (_timer.ExpiredOrNotRunning(Runner) == false) return;
+            _startEndDisplay.text = $"Waiting for other player...";
             while (playerCount != 2) return;
             
             FindObjectOfType<PlayerSpawner>().StartPlayerSpawner(this);

@@ -12,7 +12,7 @@ namespace UI
     {
         [Header("Reference")]
         [SerializeField] private GameOverUIManager gameOverUiSingle;
-        [SerializeField] private GameOverUIManagerMulti gameOverUiMulti;
+        public GameOverUIManagerMulti gameOverUiMulti;
 
         [Header("Timer")]
         [SerializeField] private TMP_Text timerGameOverTime;
@@ -51,7 +51,6 @@ namespace UI
             else
             {
                 gameOverUiMulti.DisplayGameOverScreen();
-                StartCoroutine(GetStatsMulti());
             }
         }
 
@@ -79,21 +78,6 @@ namespace UI
             if (dragForStar <= gameSetup.setChallenges.dragsForStar)
             {
                 gameOverUiSingle.SetStarActive(2);
-            }
-        }
-
-        private IEnumerator GetStatsMulti()
-        {
-            yield return new WaitForSeconds(1f);
-            PlayerStatsCollectorMulti statsCollector = FindObjectOfType<PlayerStatsCollectorMulti>();
-
-            foreach (var playerId in statsCollector.GetAllPlayerIds())
-            {
-                var time = statsCollector.GetCurrentTime(playerId);
-                var drags = statsCollector.GetDragEndCount(playerId);
-                var won = statsCollector.HasPlayerWon(playerId);
-
-                gameOverUiMulti.SetToShowPlayerStats(playerId, time, drags, won);
             }
         }
     }

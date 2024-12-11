@@ -1,13 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using Fusion;
+using UI;
+using UnityEngine;
 
 public class PlayerDataNetworked : NetworkBehaviour
     {
         // Local Runtime references
-        private PlayerOverviewPanel _overviewPanel = null;
+        private GameOverUIManagerMulti _overviewPanel;
         private ChangeDetector _changeDetector;
+        public static PlayerDataNetworked instance;
+
+        private void Awake() => instance = this;
+        
 
         // Game Session SPECIFIC Settings are used in the UI.
         // The method passed to the OnChanged attribute is called everytime the [Networked] parameter is changed.
@@ -15,10 +18,13 @@ public class PlayerDataNetworked : NetworkBehaviour
         public NetworkString<_16> NickName { get; private set; }
         
         [Networked]
-        public int Lives { get; private set; }
+        public string Time { get; private set; }
         
         [Networked]
-        public int Score { get; private set; }
+        public int DragCount { get; private set; }
+        
+        [Networked]
+        public bool PlayerWon { get; private set; }
 
         public override void Spawned()
         {
@@ -34,26 +40,30 @@ public class PlayerDataNetworked : NetworkBehaviour
             // Initialized game specific settings
             if (Object.HasStateAuthority)
             {
-                Lives = 0;
-                Score = 0;
+                Time = "00:00:00";
+                DragCount = 0;
+                PlayerWon = false;
             }
 
             // --- Host & Client
             // Set the local runtime references.
-            _overviewPanel = FindObjectOfType<PlayerOverviewPanel>();
+            _overviewPanel = FindObjectOfType<GameOverManager>().gameOverUiMulti;
             // Add an entry to the local Overview panel with the information of this spaceship
+            if (!_overviewPanel) return;
             _overviewPanel.AddEntry(Object.InputAuthority, this);
             
             // Refresh panel visuals in Spawned to set to initial values.
             _overviewPanel.UpdateNickName(Object.InputAuthority, NickName.ToString());
-            _overviewPanel.UpdateLives(Object.InputAuthority, Lives);
-            _overviewPanel.UpdateScore(Object.InputAuthority, Score);
+            _overviewPanel.UpdateTime(Object.InputAuthority, Time);
+            _overviewPanel.UpdateDragCount(Object.InputAuthority, DragCount);
+            _overviewPanel.UpdateWon(Object.InputAuthority, PlayerWon);
             
             _changeDetector = GetChangeDetector(ChangeDetector.Source.SimulationState);
         }
         
         public override void Render()
         {
+            if (_changeDetector == null) return;
             foreach (var change in _changeDetector.DetectChanges(this, out var previousBuffer, out var currentBuffer))
             {
                 switch (change)
@@ -61,11 +71,14 @@ public class PlayerDataNetworked : NetworkBehaviour
                     case nameof(NickName):
                         _overviewPanel.UpdateNickName(Object.InputAuthority, NickName.ToString());
                         break;
-                    case nameof(Score):
-                        _overviewPanel.UpdateScore(Object.InputAuthority, Score);
+                    case nameof(DragCount):
+                        _overviewPanel.UpdateDragCount(Object.InputAuthority, DragCount);
                         break;
-                    case nameof(Lives):
-                        _overviewPanel.UpdateLives(Object.InputAuthority, Lives);
+                    case nameof(Time):
+                        _overviewPanel.UpdateTime(Object.InputAuthority, Time);
+                        break;
+                    case nameof(PlayerWon):
+                        _overviewPanel.UpdateWon(Object.InputAuthority, PlayerWon);
                         break;
                 }
             }
@@ -77,16 +90,20 @@ public class PlayerDataNetworked : NetworkBehaviour
             _overviewPanel.RemoveEntry(Object.InputAuthority);
         }
 
-        // Increase the score by X amount of points
-        public void AddToScore(int points)
+        public void SetPlayerWon()
         {
-            Score += points;
+            PlayerWon = true;
         }
-
-        // Decrease the current Lives by 1
-        public void SubtractLife()
+        
+        // Increase the score by X amount of points
+        public void AddDragToCount()
         {
-            Lives--;
+            DragCount++;
+        }
+        
+        public void SetTime()
+        {
+            Time = Timer.instance.GetCurrentTime();
         }
 
         // RPC used to send player information to the Host

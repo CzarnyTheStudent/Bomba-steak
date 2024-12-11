@@ -19,8 +19,8 @@ public class Finish : MonoBehaviour
         {
             if (other.gameObject.CompareTag("Player"))
             {
-                PlayerStatsCollectorMulti.instance.UpdateCurrentTime(other.GetComponent<PlayerMulti>().GetPlayerId());
-                PlayerStatsCollectorMulti.instance.SetPlayerWon(other.GetComponent<PlayerMulti>().GetPlayerId(), true);
+                other.GetComponent<PlayerDataNetworked>().SetPlayerWon();
+                other.GetComponent<PlayerDataNetworked>().SetTime();
                 GameEndNotifier.Instance.NotifyGameEnd();
             }
         }

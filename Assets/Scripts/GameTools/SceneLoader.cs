@@ -82,12 +82,6 @@ namespace GameTools
             while (!asyncLoad.isDone) yield return null;
             Debug.Log($"Multiplayer Scene '{sceneName}' loaded.");
             
-            var netGameManager = FindObjectOfType<NetGameManager>();
-            if (netGameManager != null)
-            {
-                netGameManager.InitializeMultiplayer(mode);
-            }
-
             if (loadingCanvas != null)
             {
                 loadingCanvas.SetActive(false);
@@ -101,17 +95,9 @@ namespace GameTools
                 loadingCanvas.SetActive(true);
             }
 
-            // Znalezienie istniejącego NetworkRunner
-            var netGameManager = FindObjectOfType<NetGameManager>();
-            if (netGameManager == null)
-            {
-                Debug.LogError("NetGameManager not found!");
-                yield break;
-            }
+      
 
-            // Klient dołącza do istniejącej sesji zarządzanej przez NetworkRunner
-            netGameManager.InitializeMultiplayer(GameMode.Client);
-
+       
             // Oczekujemy na synchronizację sceny
             while (SceneManager.GetActiveScene().name != sceneName)
             {

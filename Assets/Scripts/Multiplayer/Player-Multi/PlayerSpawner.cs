@@ -53,7 +53,6 @@ public class PlayerSpawner : NetworkBehaviour, IPlayerJoined, IPlayerLeft
             usedSpawnPoints.Add(index);
             
             Vector3 spawnPosition = _spawnPoints[index].transform.position;
-            Debug.LogWarning($"Spawning player {player.PlayerId} at spawn point {index}, position: {spawnPosition}");
 
             NetworkObject playerObject = Runner.Spawn(_granadeNetworkPrefab, spawnPosition, Quaternion.identity, player);
             Runner.SetPlayerObject(player, playerObject);

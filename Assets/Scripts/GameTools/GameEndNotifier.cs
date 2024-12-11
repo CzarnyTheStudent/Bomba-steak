@@ -1,16 +1,14 @@
 using Static;
+using UnityEngine;
 
-namespace GameTools
+public class GameEndNotifier
 {
-    public class GameEndNotifier
+    private static GameEndNotifier _instance;
+    public static GameEndNotifier Instance => _instance ??= new GameEndNotifier();
+    
+    public void NotifyGameEnd()
     {
-        private static GameEndNotifier _instance;
-        public static GameEndNotifier Instance => _instance ??= new GameEndNotifier();
-
-        public void NotifyGameEnd()
-        {
-            EventManager.OnGameOver();
-            EventManager.OnTimerStop();
-        }
+        EventManager.OnGameOver();
+        EventManager.OnTimerStop();
     }
 }

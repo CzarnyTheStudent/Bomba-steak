@@ -10,6 +10,7 @@ namespace Multiplayer.Player_Multi
         private PlayerMulti _playerMulti;
         private PlayerMovementMulti _playerMovement;
         private PlayerLineRenderer _lineRenderer;
+        private PlayerDataNetworked _netData;
         private bool _isDragging;
 
         public override void Spawned()
@@ -19,7 +20,8 @@ namespace Multiplayer.Player_Multi
             _playerMulti = GetComponent<PlayerMulti>();
             _playerMovement = GetComponent<PlayerMovementMulti>();
             _lineRenderer = GetComponent<PlayerLineRenderer>();
-            
+            _netData = GetComponent<PlayerDataNetworked>();
+
             // --- Host
             // The Game Session SPECIFIC settings are initialized
         }
@@ -46,6 +48,7 @@ namespace Multiplayer.Player_Multi
             else if (_isDragging && inputData.touchState == NetworkInputData.TouchState.Ended)
             {
                 DragRelease(inputData.touchPos);
+                _netData.AddDragToCount();
             }
         }
 
