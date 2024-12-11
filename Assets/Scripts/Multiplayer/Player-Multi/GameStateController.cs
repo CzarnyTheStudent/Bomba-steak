@@ -19,7 +19,6 @@ using UnityEngine;
         }
 
         [SerializeField] private float _startDelay = 4.0f;
-
         [SerializeField] private TextMeshProUGUI _startEndDisplay = null;
 
         [Networked] private TickTimer _timer { get; set; }
@@ -37,7 +36,6 @@ using UnityEngine;
             // --- when a CLIENT joins a game
 
             _startEndDisplay.gameObject.SetActive(true);
-            //_ingameTimerDisplay.gameObject.SetActive(false);
 
             // If the game has already started, find all currently active players' PlayerDataNetworked component Ids
             if (_gameState != GameState.Starting)
@@ -63,7 +61,6 @@ using UnityEngine;
 
         public override void FixedUpdateNetwork()
         {
-            // Update the game display with the information relevant to the current game state
             switch (_gameState)
             {
                 case GameState.Starting:
@@ -89,12 +86,13 @@ using UnityEngine;
             // --- Host
             if (Object.HasStateAuthority == false) return;
             if (_timer.ExpiredOrNotRunning(Runner) == false) return;
+            while (playerCount != 2) return;
             
             FindObjectOfType<PlayerSpawner>().StartPlayerSpawner(this);
-
-        // Switches to the Running GameState and sets the time to the length of a game session
-        _gameState = GameState.Running;
             InitializeGame();
+
+            // Switches to the Running GameState and sets the time to the length of a game session
+            _gameState = GameState.Running;
         }
 
         private void UpdateRunningDisplay()
@@ -128,7 +126,6 @@ using UnityEngine;
         Timer.instance.SetToStopwatch();
         EventManager.OnTimerStart();
         
-        //SetUpCoordinator.RegisterGameSetup(currentGameSetup);
         EventManager.OnGameStart();
     }
 

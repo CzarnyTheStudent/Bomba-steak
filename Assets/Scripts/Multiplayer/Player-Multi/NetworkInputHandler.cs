@@ -86,18 +86,7 @@ public class NetworkInputHandler : SimulationBehaviour, IBeforeUpdate, INetworkR
 
     public void OnInputMissing(NetworkRunner runner, PlayerRef player, NetworkInput input)
     {
-        Debug.LogWarning($"Brak danych wejściowych od gracza {player}. Ustawiam domyślne wartości.");
-    
-        //if (!_playerInputs.ContainsKey(player))
-        //{
-        //    _playerInputs[player] = new NetworkInputData
-        //    {
-        //        touchPos = Vector3.zero,
-        //        touchState = NetworkInputData.TouchState.None
-        //    };
-        //}
-
-        //input.Set(_playerInputs[player]);
+     
     }
 
 

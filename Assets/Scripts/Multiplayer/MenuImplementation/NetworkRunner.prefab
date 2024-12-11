@@ -71,7 +71,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51687c55ce2d7ba439e1e43dd970728f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _menuSceneName: 
+  _menuSceneName: MultiMenu
 --- !u!114 &348866350728297435
 MonoBehaviour:
   m_ObjectHideFlags: 0

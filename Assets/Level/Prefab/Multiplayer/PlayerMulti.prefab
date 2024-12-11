@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 1681147945611417418}
   - component: {fileID: 7397570255120172743}
   - component: {fileID: 8627839622001016108}
+  - component: {fileID: 7435109506889216518}
   m_Layer: 0
   m_Name: PlayerMulti
   m_TagString: Player
@@ -247,6 +248,7 @@ MonoBehaviour:
   - {fileID: 1072523912041312673}
   - {fileID: 8398640322244155577}
   - {fileID: 8600492034829492877}
+  - {fileID: 7435109506889216518}
 --- !u!50 &7397570255120172743
 Rigidbody2D:
   serializedVersion: 4
@@ -309,6 +311,28 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.49999997
+--- !u!114 &7435109506889216518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 382568404756573171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5e690b5fb1084f5ab1c86457af401d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SyncScale: 0
+  SyncParent: 1
+  _interpolationTarget: {fileID: 0}
+  UsePreciseRotation: 0
+  UseRenderSleepThresholds: 1
+  RenderThresholds:
+    UseEnergy: 1
+    Position: 0.01
+    Rotation: 0.01
+    Scale: 0.01
 --- !u!1 &1748781077284847847
 GameObject:
   m_ObjectHideFlags: 0

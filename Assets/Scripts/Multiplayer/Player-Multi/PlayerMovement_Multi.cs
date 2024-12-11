@@ -1,4 +1,5 @@
 using Fusion;
+using Player;
 using UnityEngine;
 
 namespace Multiplayer.Player_Multi
@@ -9,12 +10,16 @@ namespace Multiplayer.Player_Multi
         public float maxDrag = 5f;
         public Rigidbody2D rb;
         public Vector3 startPos;
+        private Rigidbody2D
+            _rigidbody =
+                null;
 
         [Networked] private Vector3 NetworkedPosition { get; set; }
         
         public override void Spawned()
         {
-            if (Object.HasStateAuthority)
+            _rigidbody = GetComponent<Rigidbody2D>();
+            if (Object.HasInputAuthority)
             {
                 startPos = transform.position;
             }
@@ -23,7 +28,7 @@ namespace Multiplayer.Player_Multi
 
         public void ResetPos()
         {
-            if (Object.HasStateAuthority)
+            if (Object.HasInputAuthority)
             {
                 transform.position = startPos;
             }
@@ -32,14 +37,7 @@ namespace Multiplayer.Player_Multi
         
         public override void FixedUpdateNetwork()
         {
-            if (Object.HasStateAuthority)
-            {
-                NetworkedPosition = rb.position;
-            }
-            else
-            {
-                rb.position = Vector3.Lerp(rb.position, NetworkedPosition, 0.1f);
-            }
+       
         }
 
         public void ApplyForce(Vector3 startPos, Vector3 endPos)
@@ -48,8 +46,7 @@ namespace Multiplayer.Player_Multi
             float forceStrength = Mathf.Clamp(force.magnitude, 0f, maxDrag);
             Vector3 clampedForce = force.normalized * forceStrength * power;
 
-            rb.AddForce(clampedForce, ForceMode2D.Impulse);
-            NetworkedPosition = rb.position;
+            _rigidbody.AddForce(clampedForce, ForceMode2D.Impulse);
         }
 
     }
