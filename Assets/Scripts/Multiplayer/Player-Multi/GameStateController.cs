@@ -90,7 +90,6 @@ using UnityEngine;
             while (playerCount != 2) return;
             
             FindObjectOfType<PlayerSpawner>().StartPlayerSpawner(this);
-            InitializeGame();
 
             // Switches to the Running GameState and sets the time to the length of a game session
             _gameState = GameState.Running;
@@ -101,37 +100,39 @@ using UnityEngine;
             // --- Host & Client
             // Display the remaining time until the game ends in seconds (rounded down to the closest full second)
             _startEndDisplay.gameObject.SetActive(false);
-    }
+            InitializeGame();
+        }
 
         private void UpdateEndingDisplay()
         {
-            // --- Host & Client
-            // Display the results and
-            // the remaining time until the current game session is shutdown
-            if (Runner.TryFindBehaviour(_winner, out PlayerMulti playerData) == false) return;
-          
-
-            // --- Host
-            // Shutdowns the current game session.
-            // The disconnection behaviour is found in the OnServerDisconnect.cs script
+            foreach (var player in Runner.ActivePlayers)
+            {
+                if (Runner.TryGetPlayerObject(player, out var spaceshipNetworkObject))
+                {
+                    Runner.Despawn(spaceshipNetworkObject);
+                }
+                Runner.SetPlayerObject(player, null);
+            }
             Runner.Shutdown();
         }
         
-        public void CheckIfGameHasEnded()
+      
+        private void InitializeGame()
         {
-            GameHasEnded();
+            Timer.instance.SetToStopwatch();
+            EventManager.OnTimerStart();
+            EventManager.OnGameStart();
         }
 
-    private void InitializeGame()
-    {
-        Timer.instance.SetToStopwatch();
-        EventManager.OnTimerStart();
-        
-        EventManager.OnGameStart();
-    }
-
-    private void GameHasEnded()
+        public void GameHasEnded()
         {
+          
+            for (int i = 0; i < _playerDataNetworkedIds.Count; i++)
+            {
+                _playerDataNetworkedIds.RemoveAt(i);
+                i--;
+            }
+         
             _gameState = GameState.Ending;
         }
 
@@ -148,5 +149,14 @@ using UnityEngine;
     public void PlayerLeft(PlayerRef player)
     {
         playerCount--;
+        if (Object.HasStateAuthority == false) return;
+        for (int i = 0; i < _playerDataNetworkedIds.Count; i++)
+        {
+            if (Runner.TryFindBehaviour(_playerDataNetworkedIds[i],
+                    out PlayerDataNetworked playerDataNetworkedComponent) != false) continue;
+            _playerDataNetworkedIds.RemoveAt(i);
+            i--;
+        }
+        
     }
 }

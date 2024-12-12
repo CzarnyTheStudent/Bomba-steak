@@ -7,7 +7,6 @@ using Fusion;
 public class GameOverUIManagerMulti : MonoBehaviour
 {
     [Header("UI")]
-    [SerializeField] private GameObject gameOverScreen;
     [SerializeField] private TabStatsData _playerOverviewEntryPrefab;
     private Dictionary<PlayerRef, TabStatsData> _playerListEntries = new Dictionary<PlayerRef, TabStatsData>();
     
@@ -15,16 +14,6 @@ public class GameOverUIManagerMulti : MonoBehaviour
     private Dictionary<PlayerRef, string> _playerTimes = new Dictionary<PlayerRef, string>();
     private Dictionary<PlayerRef, int> _playerDragCounts = new Dictionary<PlayerRef, int>();
     private Dictionary<PlayerRef, bool> _playerWon = new Dictionary<PlayerRef, bool>();
-    
-    private void Start()
-    {
-        gameOverScreen.SetActive(false);
-    }
-
-    public void DisplayGameOverScreen()
-    {
-        gameOverScreen.SetActive(true);
-    }
     
     public void AddEntry(PlayerRef playerRef, PlayerDataNetworked playerDataNetworked)
     {

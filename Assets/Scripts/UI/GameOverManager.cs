@@ -10,7 +10,8 @@ namespace UI
 {
     public class GameOverManager : MonoBehaviour
     {
-        [Header("Reference")]
+        [Header("Reference")] 
+        [SerializeField] private GameObject gameOverScreenMulti;
         [SerializeField] private GameOverUIManager gameOverUiSingle;
         public GameOverUIManagerMulti gameOverUiMulti;
 
@@ -35,6 +36,11 @@ namespace UI
             EventManager.GameOver -= OnGameOver;
         }
 
+        private void Start()
+        {
+            gameOverScreenMulti.SetActive(false);
+        }
+
         private void OnTimeForStar(string data) => timeForStar += data;
 
         private void OnDragForStar(int value) => dragForStar += value;
@@ -50,7 +56,8 @@ namespace UI
             }
             else
             {
-                gameOverUiMulti.DisplayGameOverScreen();
+                gameOverScreenMulti.SetActive(true);
+                Debug.LogWarning("fuck u ");
             }
         }
 

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Fusion;
+using Fusion.Addons.Physics;
 using Multiplayer.Player_Multi;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -45,7 +46,6 @@ public class PlayerSpawner : NetworkBehaviour, IPlayerJoined, IPlayerLeft
                 
                 if (index >= _spawnPoints.Length)
                 {
-                    Debug.LogError($"Spawn point for index {index} does not exist.");
                     return;
                 }
             }
@@ -57,6 +57,7 @@ public class PlayerSpawner : NetworkBehaviour, IPlayerJoined, IPlayerLeft
             NetworkObject playerObject = Runner.Spawn(_granadeNetworkPrefab, spawnPosition, Quaternion.identity, player);
             Runner.SetPlayerObject(player, playerObject);
             PlayerMulti playerMulti = playerObject.GetComponent<PlayerMulti>();
+          
             if (playerMulti != null)
             {
                 _gameStateController.TrackNewPlayer(playerMulti.Id);
@@ -77,4 +78,5 @@ public class PlayerSpawner : NetworkBehaviour, IPlayerJoined, IPlayerLeft
             }
             Runner.SetPlayerObject(player, null);
         }
+    
 }

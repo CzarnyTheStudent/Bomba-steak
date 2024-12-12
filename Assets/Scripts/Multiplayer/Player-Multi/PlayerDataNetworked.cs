@@ -7,11 +7,7 @@ public class PlayerDataNetworked : NetworkBehaviour
         // Local Runtime references
         private GameOverUIManagerMulti _overviewPanel;
         private ChangeDetector _changeDetector;
-        public static PlayerDataNetworked instance;
-
-        private void Awake() => instance = this;
         
-
         // Game Session SPECIFIC Settings are used in the UI.
         // The method passed to the OnChanged attribute is called everytime the [Networked] parameter is changed.
         [Networked]

@@ -23,6 +23,16 @@ namespace Multiplayer.Player_Multi
 
         public int GetPlayerId() => _playerId;
         
+        private void OnEnable()
+        {
+            EventManager.GameOver += OnGameOver;
+        }
+
+        private void OnDisable()
+        {
+            EventManager.GameOver -= OnGameOver;
+        }
+        
         private void Start()
         {
             // --- Host & Client
@@ -37,16 +47,9 @@ namespace Multiplayer.Player_Multi
             _isReady = true;
         }
 
-     
-
-        private void DisableControls()
+        private void OnGameOver()
         {
             _playerInput.enabled = false;
-        }
-
-        private void EnableControls()
-        {
-            _playerInput.enabled = true;
         }
     }
 }
