@@ -1,5 +1,6 @@
 using Fusion;
 using Player;
+using System.Collections;
 using UnityEngine;
 
 namespace Multiplayer.Player_Multi
@@ -11,6 +12,7 @@ namespace Multiplayer.Player_Multi
         private PlayerMovementMulti _playerMovement;
         private PlayerLineRenderer _lineRenderer;
         private PlayerDataNetworked _netData;
+      
         private bool _isDragging;
 
         public override void Spawned()
@@ -21,6 +23,7 @@ namespace Multiplayer.Player_Multi
             _playerMovement = GetComponent<PlayerMovementMulti>();
             _lineRenderer = GetComponent<PlayerLineRenderer>();
             _netData = GetComponent<PlayerDataNetworked>();
+         
 
             // --- Host
             // The Game Session SPECIFIC settings are initialized
@@ -29,6 +32,7 @@ namespace Multiplayer.Player_Multi
         public override void FixedUpdateNetwork()
         {
             if (!_playerMulti.AcceptInput) return;
+            if (!Object.HasInputAuthority) return;
             if (Runner.TryGetInputForPlayer<NetworkInputData>(Object.InputAuthority, out var input))
             {
                 ProcessTouchInput(input);
@@ -39,6 +43,7 @@ namespace Multiplayer.Player_Multi
         {
             if (inputData.touchState == NetworkInputData.TouchState.Began)
             {
+               
                 DragStart(inputData.touchPos);
             }
             else if (_isDragging && inputData.touchState == NetworkInputData.TouchState.Moved)
@@ -54,6 +59,7 @@ namespace Multiplayer.Player_Multi
 
         private void DragStart(Vector3 touchPos)
         {
+            if (!shootReady) return;
             _dragStartPos = transform.position;
             _lineRenderer.StartLine(_dragStartPos);
             _isDragging = true;
@@ -71,11 +77,21 @@ namespace Multiplayer.Player_Multi
             Vector3 dragVector = touchPos - _dragStartPos;
             Vector3 clampedDrag = Vector3.ClampMagnitude(dragVector, _playerMovement.maxDrag);
 
-            if (!Object.HasInputAuthority) return;
+           
             RpcApplyForce(_dragStartPos, _dragStartPos + clampedDrag);
+          
         }
 
-        [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]
+        [SerializeField] private float cooldownTime = 1.5f;
+        public bool shootReady = true;
+        public IEnumerator WaitForShoot()
+        {
+            shootReady = false;
+            yield return new WaitForSeconds(cooldownTime);
+            shootReady = true;
+        }
+
+        [Rpc(RpcSources.All, RpcTargets.All)]
         private void RpcApplyForce(Vector3 startPos, Vector3 endPos)
         {
             _playerMovement.ApplyForce(startPos, endPos);
