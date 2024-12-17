@@ -93,6 +93,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69dad0f3caedbe045a1210a2d07e5ff5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cooldownTime: 1
+  shootReady: 1
 --- !u!114 &2209386818770840944
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -105,8 +107,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dd529f7937da3e49bdbb84549229b59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldownTime: 1.5
-  shootReady: 1
 --- !u!114 &8398640322244155577
 MonoBehaviour:
   m_ObjectHideFlags: 0
