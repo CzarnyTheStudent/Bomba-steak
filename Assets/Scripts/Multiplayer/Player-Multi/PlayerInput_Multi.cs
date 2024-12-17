@@ -32,7 +32,7 @@ namespace Multiplayer.Player_Multi
         public override void FixedUpdateNetwork()
         {
             if (!_playerMulti.AcceptInput) return;
-            if (!Object.HasInputAuthority) return;
+            // if (!Object.HasInputAuthority) return;
             if (Runner.TryGetInputForPlayer<NetworkInputData>(Object.InputAuthority, out var input))
             {
                 ProcessTouchInput(input);
@@ -91,7 +91,7 @@ namespace Multiplayer.Player_Multi
             shootReady = true;
         }
 
-        [Rpc(RpcSources.All, RpcTargets.All)]
+        [Rpc(sources: RpcSources.InputAuthority, targets: RpcTargets.StateAuthority, HostMode = RpcHostMode.SourceIsHostPlayer)]
         private void RpcApplyForce(Vector3 startPos, Vector3 endPos)
         {
             _playerMovement.ApplyForce(startPos, endPos);
