@@ -140,8 +140,7 @@ PlayerSettings:
   visionOSBundleVersion: 1.0
   tvOSBundleVersion: 1.0
   bundleVersion: 0.1.0
-  preloadedAssets:
-  - {fileID: 8527401611220020581, guid: f1a450e8d3cacd844943d287e5e7c299, type: 2}
+  preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -286,7 +285,14 @@ PlayerSettings:
   AndroidMinifyDebug: 0
   AndroidValidateAppBundleSize: 1
   AndroidAppBundleSizeToValidate: 150
-  m_BuildTargetIcons: []
+  m_BuildTargetIcons:
+  - m_BuildTarget: 
+    m_Icons:
+    - serializedVersion: 2
+      m_Icon: {fileID: 2800000, guid: bcb5820f544aa3147b1102dcc9e2b78d, type: 3}
+      m_Width: 128
+      m_Height: 128
+      m_Kind: 0
   m_BuildTargetPlatformIcons:
   - m_BuildTarget: iPhone
     m_Icons:
@@ -448,8 +454,8 @@ PlayerSettings:
       m_Kind: 0
       m_SubKind: 
     - m_Textures:
-      - {fileID: 2800000, guid: 91295909a72df1144be60cee9f0388a1, type: 3}
-      - {fileID: 2800000, guid: 91295909a72df1144be60cee9f0388a1, type: 3}
+      - {fileID: 2800000, guid: bcb5820f544aa3147b1102dcc9e2b78d, type: 3}
+      - {fileID: 2800000, guid: bcb5820f544aa3147b1102dcc9e2b78d, type: 3}
       m_Width: 432
       m_Height: 432
       m_Kind: 2
@@ -460,21 +466,21 @@ PlayerSettings:
       m_Kind: 2
       m_SubKind: 
     - m_Textures:
-      - {fileID: 2800000, guid: 91295909a72df1144be60cee9f0388a1, type: 3}
+      - {fileID: 2800000, guid: bcb5820f544aa3147b1102dcc9e2b78d, type: 3}
       - {fileID: 0}
       m_Width: 216
       m_Height: 216
       m_Kind: 2
       m_SubKind: 
     - m_Textures:
-      - {fileID: 2800000, guid: 91295909a72df1144be60cee9f0388a1, type: 3}
+      - {fileID: 2800000, guid: bcb5820f544aa3147b1102dcc9e2b78d, type: 3}
       - {fileID: 0}
       m_Width: 162
       m_Height: 162
       m_Kind: 2
       m_SubKind: 
     - m_Textures:
-      - {fileID: 2800000, guid: 91295909a72df1144be60cee9f0388a1, type: 3}
+      - {fileID: 2800000, guid: bcb5820f544aa3147b1102dcc9e2b78d, type: 3}
       - {fileID: 0}
       m_Width: 108
       m_Height: 108
